@@ -1,11 +1,11 @@
 package Logico;
 
 public class Consulta {
-	
+
 	private Paciente paciente;
 	private Arraylist<Enfermedad> enfermedad;
 	private HistoriaClinica histoClinica;
-	
+
 	public Consulta(Paciente paciente, Arraylist<Enfermedad> enfermedad, HistoriaClinica histoClinica) {
 		super();
 		this.paciente = paciente;
@@ -36,6 +36,5 @@ public class Consulta {
 	public void setHistoClinica(HistoriaClinica histoClinica) {
 		this.histoClinica = histoClinica;
 	}
-	
 
 }
