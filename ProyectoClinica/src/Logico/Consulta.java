@@ -4,13 +4,13 @@ public class Consulta {
 	
 	private Paciente paciente;
 	private Arraylist<Enfermedad> enfermedad;
-	private HistoriaClinica histoClinica;
+	private HistorialClinico histoClinico;
 	private Date fecha;
-	public Consulta(Paciente paciente, Arraylist<Enfermedad> enfermedad, HistoriaClinica histoClinica, Date fecha) {
+	public Consulta(Paciente paciente, Arraylist<Enfermedad> enfermedad, HistorialClinico histoClinico, Date fecha) {
 		super();
 		this.paciente = paciente;
 		this.enfermedad = enfermedad;
-		this.histoClinica = histoClinica;
+		this.histoClinico = histoClinico;
 		this.fecha = fecha;
 	}
 	
@@ -27,11 +27,11 @@ public class Consulta {
 	public void setEnfermedad(Arraylist<Enfermedad> enfermedad) {
 		this.enfermedad = enfermedad;
 	}
-	public HistoriaClinica getHistoClinica() {
-		return histoClinica;
+	public HistorialClinico getHistoClinico() {
+		return histoClinico;
 	}
-	public void setHistoClinica(HistoriaClinica histoClinica) {
-		this.histoClinica = histoClinica;
+	public void setHistoClinico(HistorialClinico histoClinico) {
+		this.histoClinico = histoClinico;
 	}
 	public Date getFecha() {
 		return fecha;
