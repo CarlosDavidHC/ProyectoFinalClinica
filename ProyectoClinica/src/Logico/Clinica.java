@@ -9,7 +9,7 @@ public class Clinica {
 	private ArrayList<Cita> misCitas;
 	private ArrayList<Enfermedad> misEnfermedades;
 	private ArrayList<Vacuna> misVacunas;
-
+ 
 	public Clinica() {
 		super();
 		this.misViviendas = new ArrayList<>();
