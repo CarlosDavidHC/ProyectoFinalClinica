@@ -22,6 +22,8 @@ public class RegiPerso extends JDialog {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private JTextField Area1;
+	private JTextField especialidad1;
 
 	/**
 	 * Launch the application.
@@ -134,12 +136,37 @@ public class RegiPerso extends JDialog {
 		textField_2.setBounds(305, 21, 86, 20);
 		panel_2.add(textField_2);
 		textField_2.setColumns(10);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(null, "Doctor", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBounds(10, 188, 414, 95);
+		contentPanel.add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel lblNewLabel_7 = new JLabel("Area :");
+		lblNewLabel_7.setBounds(10, 24, 78, 14);
+		panel_3.add(lblNewLabel_7);
+		
+		Area1 = new JTextField();
+		Area1.setText("");
+		Area1.setBounds(82, 21, 86, 20);
+		panel_3.add(Area1);
+		Area1.setColumns(10);
+		
+		JLabel lblNewLabel_8 = new JLabel("Especialidad :");
+		lblNewLabel_8.setBounds(243, 24, 65, 14);
+		panel_3.add(lblNewLabel_8);
+		
+		especialidad1 = new JTextField();
+		especialidad1.setBounds(305, 21, 86, 20);
+		panel_3.add(especialidad1);
+		especialidad1.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("registrar");
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
