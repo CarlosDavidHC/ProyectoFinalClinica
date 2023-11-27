@@ -4,50 +4,26 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Consulta {
-<<<<<<< HEAD
 
-=======
-	
-	private String NombreDoc;
->>>>>>> branch 'master' of https://github.com/CarlosDavidHC/ProyectoFinalClinica.git
 	private Paciente paciente;
-<<<<<<< HEAD
+	private Arraylist<Enfermedad> enfermedad;
+	private HistoriaClinica histoClinica;
 	private ArrayList<Enfermedad> enfermedad;
 	private ArrayList<HistorialClinico> histoClinica;
-=======
-	private Arraylist<Enfermedad> enfermedad;
-	private HistorialClinico histoClinico;
->>>>>>> branch 'master' of https://github.com/CarlosDavidHC/ProyectoFinalClinica.git
 	private Date fecha;
-<<<<<<< HEAD
+
+	public Consulta(Paciente paciente, Arraylist<Enfermedad> enfermedad, HistoriaClinica histoClinica, Date fecha) {
+		super();
 
 	public Consulta(Paciente paciente, ArrayList<Enfermedad> enfermedad, ArrayList<HistorialClinico> histoClinica,
 			Date fecha) {
-=======
-	public Consulta(String nombreDoc, Paciente paciente, Arraylist<Enfermedad> enfermedad,
-			HistorialClinico histoClinico, Date fecha) {
-		super();
-		NombreDoc = nombreDoc;
->>>>>>> branch 'master' of https://github.com/CarlosDavidHC/ProyectoFinalClinica.git
 		this.paciente = paciente;
 		this.enfermedad = enfermedad;
-<<<<<<< HEAD
+		this.histoClinica = histoClinica;
 		this.histoClinica = new ArrayList<>();
-=======
-		this.histoClinico = histoClinico;
->>>>>>> branch 'master' of https://github.com/CarlosDavidHC/ProyectoFinalClinica.git
 		this.fecha = fecha;
 	}
-<<<<<<< HEAD
 
-=======
-	public String getNombreDoc() {
-		return NombreDoc;
-	}
-	public void setNombreDoc(String nombreDoc) {
-		NombreDoc = nombreDoc;
-	}
->>>>>>> branch 'master' of https://github.com/CarlosDavidHC/ProyectoFinalClinica.git
 	public Paciente getPaciente() {
 		return paciente;
 	}
@@ -56,30 +32,28 @@ public class Consulta {
 		this.paciente = paciente;
 	}
 
+	public Arraylist<Enfermedad> getEnfermedad() {
+
 	public ArrayList<Enfermedad> getEnfermedad() {
 		return enfermedad;
 	}
 
+	public void setEnfermedad(Arraylist<Enfermedad> enfermedad) {
+
 	public void setEnfermedad(ArrayList<Enfermedad> enfermedad) {
 		this.enfermedad = enfermedad;
 	}
-<<<<<<< HEAD
+
+	public HistoriaClinica getHistoClinica() {
 
 	public ArrayList<HistorialClinico> getHistoClinica() {
 		return histoClinica;
-=======
-	public HistorialClinico getHistoClinico() {
-		return histoClinico;
->>>>>>> branch 'master' of https://github.com/CarlosDavidHC/ProyectoFinalClinica.git
 	}
-<<<<<<< HEAD
+
+	public void setHistoClinica(HistoriaClinica histoClinica) {
 
 	public void setHistoClinica(ArrayList<HistorialClinico> histoClinica) {
 		this.histoClinica = histoClinica;
-=======
-	public void setHistoClinico(HistorialClinico histoClinico) {
-		this.histoClinico = histoClinico;
->>>>>>> branch 'master' of https://github.com/CarlosDavidHC/ProyectoFinalClinica.git
 	}
 
 	public Date getFecha() {
@@ -89,11 +63,5 @@ public class Consulta {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-<<<<<<< HEAD
 
-=======
-	
-	
-	
->>>>>>> branch 'master' of https://github.com/CarlosDavidHC/ProyectoFinalClinica.git
 }
