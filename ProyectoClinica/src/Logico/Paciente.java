@@ -2,39 +2,21 @@ package Logico;
 
 public class Paciente extends Persona {
 
-	private String enfermedad;
-	private String tratamiento;
-	private String habitacion;
+	private HistorialClinico historial;
+	
 
-	public Paciente(String nombre, String cedula, String telefono, String direccion, String enfermedad,
-			String tratamiento, String habitacion) {
+	public Paciente(String nombre, String cedula, String telefono, String direccion, HistorialClinico historial) {
 		super(nombre, cedula, telefono, direccion);
-		this.enfermedad = enfermedad;
-		this.tratamiento = tratamiento;
-		this.habitacion = habitacion;
+		this.historial = historial;
 	}
 
-	public String getEnfermedad() {
-		return enfermedad;
+	public HistorialClinico getHistorial() {
+		return historial;
 	}
 
-	public void setEnfermedad(String enfermedad) {
-		this.enfermedad = enfermedad;
+	public void setHistorial(HistorialClinico historial) {
+		this.historial = historial;
 	}
 
-	public String getTratamiento() {
-		return tratamiento;
-	}
-
-	public void setTratamiento(String tratamiento) {
-		this.tratamiento = tratamiento;
-	}
-
-	public String getHabitacion() {
-		return habitacion;
-	}
-
-	public void setHabitacion(String habitacion) {
-		this.habitacion = habitacion;
-	}
+	
 }
