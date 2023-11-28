@@ -95,14 +95,14 @@ public class RegiPerso extends JDialog {
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("paciente");
-		rdbtnNewRadioButton.setSelected(true);
-		rdbtnNewRadioButton.setBounds(16, 7, 109, 23);
-		panel_1.add(rdbtnNewRadioButton);
+		JRadioButton rdbPaciente = new JRadioButton("paciente");
+		rdbPaciente.setSelected(true);
+		rdbPaciente.setBounds(16, 7, 109, 23);
+		panel_1.add(rdbPaciente);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("doctor");
-		rdbtnNewRadioButton_1.setBounds(233, 7, 109, 23);
-		panel_1.add(rdbtnNewRadioButton_1);
+		JRadioButton rdbDoctor = new JRadioButton("doctor");
+		rdbDoctor.setBounds(233, 7, 109, 23);
+		panel_1.add(rdbDoctor);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Paciente", TitledBorder.LEADING, TitledBorder.TOP, null, null));

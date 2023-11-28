@@ -11,7 +11,7 @@ public class Enfermedad {
 		Nombre = nombre;
 		Descripcion = descripcion;
 	}
-s
+	
 	public String getNombre() {
 		return Nombre;
 	}
