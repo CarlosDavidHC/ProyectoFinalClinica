@@ -80,6 +80,21 @@ public class Principal extends JFrame {
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Listado Consultas");
 		mnConsulta.add(mntmNewMenuItem);
+		
+		JMenu mnLaboratorio = new JMenu("Laboratorio");
+		menuBar.add(mnLaboratorio);
+		
+		JMenuItem mntmEnfermedades = new JMenuItem("Registrar Enfermedad");
+		mnLaboratorio.add(mntmEnfermedades);
+		
+		JMenuItem mntmVacunas = new JMenuItem("Registrar Vacuna");
+		mnLaboratorio.add(mntmVacunas);
+		
+		JMenuItem mntmListEnfermedades = new JMenuItem("Listado Enfermedades");
+		mnLaboratorio.add(mntmListEnfermedades);
+		
+		JMenuItem mntmListVacunas = new JMenuItem("Listado Vacunas");
+		mnLaboratorio.add(mntmListVacunas);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
