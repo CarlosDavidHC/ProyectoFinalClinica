@@ -6,12 +6,15 @@ public class Enfermedad {
 	private String Nombre;
 	private String Descripcion;
 
-	public Enfermedad(String nombre, String descripcion) {
+	
+	
+	public Enfermedad(String codigoEnfermedad, String nombre, String descripcion) {
 		super();
+		CodigoEnfermedad = codigoEnfermedad;
 		Nombre = nombre;
 		Descripcion = descripcion;
 	}
-	
+
 	public String getNombre() {
 		return Nombre;
 	}
@@ -26,5 +29,13 @@ public class Enfermedad {
 
 	public void setDescripcion(String descripcion) {
 		Descripcion = descripcion;
+	}
+
+	public String getCodigoEnfermedad() {
+		return CodigoEnfermedad;
+	}
+
+	public void setCodigoEnfermedad(String codigoEnfermedad) {
+		CodigoEnfermedad = codigoEnfermedad;
 	}
 }

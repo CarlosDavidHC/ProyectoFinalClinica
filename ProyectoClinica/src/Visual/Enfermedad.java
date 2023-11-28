@@ -15,6 +15,7 @@ public class Enfermedad extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textField_2;
 
 	/**
 	 * Launch the application.
@@ -40,12 +41,12 @@ public class Enfermedad extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JLabel lblNewLabel = new JLabel("Nombre:");
-			lblNewLabel.setBounds(10, 11, 46, 14);
+			lblNewLabel.setBounds(199, 11, 55, 14);
 			contentPanel.add(lblNewLabel);
 		}
 		{
 			textField = new JTextField();
-			textField.setBounds(57, 8, 86, 20);
+			textField.setBounds(254, 8, 86, 20);
 			contentPanel.add(textField);
 			textField.setColumns(10);
 		}
@@ -60,6 +61,15 @@ public class Enfermedad extends JDialog {
 			contentPanel.add(textField_1);
 			textField_1.setColumns(10);
 		}
+		
+		JLabel lblNewLabel_2 = new JLabel("Codigo:");
+		lblNewLabel_2.setBounds(10, 11, 46, 14);
+		contentPanel.add(lblNewLabel_2);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(53, 8, 86, 20);
+		contentPanel.add(textField_2);
+		textField_2.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -77,5 +87,4 @@ public class Enfermedad extends JDialog {
 			}
 		}
 	}
-
 }
