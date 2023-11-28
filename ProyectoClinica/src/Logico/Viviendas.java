@@ -9,6 +9,14 @@ public class Viviendas {
 	private String numHabitacion;
 	private ArrayList<Persona> personaHospedada;
 
+	public Viviendas(String id, String piso, String numHabitacion, ArrayList<Persona> personaHospedada) {
+		super();
+		this.id = id;
+		this.piso = piso;
+		this.numHabitacion = numHabitacion;
+		this.personaHospedada = personaHospedada;
+	}
+
 	public String getId() {
 		return id;
 	}

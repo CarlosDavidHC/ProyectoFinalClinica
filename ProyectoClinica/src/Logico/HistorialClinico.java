@@ -5,8 +5,22 @@ import java.util.ArrayList;
 public class HistorialClinico {
 
 	private String id;
-	private ArrayList<Persona> laPersona;
-	private String condicion;
+	private Paciente miPaciente;
+	private ArrayList<Cita> misCitas;
+	private ArrayList<Consulta> misConsultas;
+	private ArrayList<Enfermedad> misEnfermedades;
+	private ArrayList<Vacuna> misVacunas;
+
+	public HistorialClinico(String id, Paciente miPaciente, ArrayList<Cita> misCitas, ArrayList<Consulta> misConsultas,
+			ArrayList<Enfermedad> misEnfermedades, ArrayList<Vacuna> misVacunas) {
+		super();
+		this.id = id;
+		this.miPaciente = miPaciente;
+		this.misCitas = misCitas;
+		this.misConsultas = misConsultas;
+		this.misEnfermedades = misEnfermedades;
+		this.misVacunas = misVacunas;
+	}
 
 	public String getId() {
 		return id;
@@ -16,20 +30,44 @@ public class HistorialClinico {
 		this.id = id;
 	}
 
-	public ArrayList<Persona> getLaPersona() {
-		return laPersona;
+	public Paciente getMiPaciente() {
+		return miPaciente;
 	}
 
-	public void setLaPersona(ArrayList<Persona> laPersona) {
-		this.laPersona = laPersona;
+	public void setMiPaciente(Paciente miPaciente) {
+		this.miPaciente = miPaciente;
 	}
 
-	public String getCondicion() {
-		return condicion;
+	public ArrayList<Cita> getMisCitas() {
+		return misCitas;
 	}
 
-	public void setCondicion(String condicion) {
-		this.condicion = condicion;
+	public void setMisCitas(ArrayList<Cita> misCitas) {
+		this.misCitas = misCitas;
+	}
+
+	public ArrayList<Consulta> getMisConsultas() {
+		return misConsultas;
+	}
+
+	public void setMisConsultas(ArrayList<Consulta> misConsultas) {
+		this.misConsultas = misConsultas;
+	}
+
+	public ArrayList<Enfermedad> getMisEnfermedades() {
+		return misEnfermedades;
+	}
+
+	public void setMisEnfermedades(ArrayList<Enfermedad> misEnfermedades) {
+		this.misEnfermedades = misEnfermedades;
+	}
+
+	public ArrayList<Vacuna> getMisVacunas() {
+		return misVacunas;
+	}
+
+	public void setMisVacunas(ArrayList<Vacuna> misVacunas) {
+		this.misVacunas = misVacunas;
 	}
 
 }
