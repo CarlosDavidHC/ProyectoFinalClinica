@@ -5,15 +5,13 @@ import java.util.ArrayList;
 public class Viviendas {
 
 	private String id;
-	private String piso;
-	private String numHabitacion;
+	private String direccion;
 	private ArrayList<Persona> personaHospedada;
 
-	public Viviendas(String id, String piso, String numHabitacion, ArrayList<Persona> personaHospedada) {
+	public Viviendas(String id, String direccion, ArrayList<Persona> personaHospedada) {
 		super();
 		this.id = id;
-		this.piso = piso;
-		this.numHabitacion = numHabitacion;
+		this.direccion = direccion;
 		this.personaHospedada = personaHospedada;
 	}
 
@@ -25,20 +23,12 @@ public class Viviendas {
 		this.id = id;
 	}
 
-	public String getPiso() {
-		return piso;
+	public String getDireccion() {
+		return direccion;
 	}
 
-	public void setPiso(String piso) {
-		this.piso = piso;
-	}
-
-	public String getNumHabitacion() {
-		return numHabitacion;
-	}
-
-	public void setNumHabitacion(String numHabitacion) {
-		this.numHabitacion = numHabitacion;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	public ArrayList<Persona> getPersonaHospedada() {

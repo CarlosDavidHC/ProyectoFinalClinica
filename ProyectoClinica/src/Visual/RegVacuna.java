@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class Enfermedad extends JDialog {
+public class RegVacuna extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
@@ -22,7 +22,7 @@ public class Enfermedad extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			Enfermedad dialog = new Enfermedad();
+			RegVacuna dialog = new RegVacuna();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -33,7 +33,8 @@ public class Enfermedad extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public Enfermedad() {
+	public RegVacuna() {
+		setTitle("Registrar Vacuna");
 		setBounds(100, 100, 355, 303);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -41,12 +42,12 @@ public class Enfermedad extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JLabel lblNewLabel = new JLabel("Nombre:");
-			lblNewLabel.setBounds(185, 11, 55, 14);
+			lblNewLabel.setBounds(144, 11, 55, 14);
 			contentPanel.add(lblNewLabel);
 		}
 		{
 			textField = new JTextField();
-			textField.setBounds(235, 8, 86, 20);
+			textField.setBounds(211, 8, 110, 20);
 			contentPanel.add(textField);
 			textField.setColumns(10);
 		}
@@ -57,17 +58,17 @@ public class Enfermedad extends JDialog {
 		}
 		{
 			textField_1 = new JTextField();
-			textField_1.setBounds(10, 80, 302, 137);
+			textField_1.setBounds(10, 80, 311, 137);
 			contentPanel.add(textField_1);
 			textField_1.setColumns(10);
 		}
 		
 		JLabel lblNewLabel_2 = new JLabel("C\u00F3digo:");
-		lblNewLabel_2.setBounds(10, 11, 46, 14);
+		lblNewLabel_2.setBounds(10, 10, 46, 17);
 		contentPanel.add(lblNewLabel_2);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(54, 8, 86, 20);
+		textField_2.setBounds(68, 8, 64, 20);
 		contentPanel.add(textField_2);
 		textField_2.setColumns(10);
 		{

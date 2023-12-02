@@ -14,19 +14,20 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTextPane;
 
-public class Consulta extends JDialog {
+public class RegConsulta extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTable table;
+	private JTextField textField_2;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			Consulta dialog = new Consulta();
+			RegConsulta dialog = new RegConsulta();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -37,9 +38,9 @@ public class Consulta extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public Consulta() {
+	public RegConsulta() {
 		setTitle("Consulta");
-		setBounds(100, 100, 395, 342);
+		setBounds(100, 100, 524, 401);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -50,7 +51,7 @@ public class Consulta extends JDialog {
 		contentPanel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Doctor:");
-		lblNewLabel_1.setBounds(215, 70, 46, 14);
+		lblNewLabel_1.setBounds(285, 70, 46, 14);
 		contentPanel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Enfermedad:");
@@ -58,25 +59,25 @@ public class Consulta extends JDialog {
 		contentPanel.add(lblNewLabel_2);
 		
 		textField = new JTextField();
-		textField.setBounds(77, 67, 100, 20);
+		textField.setBounds(121, 70, 110, 20);
 		contentPanel.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(267, 67, 100, 20);
+		textField_1.setBounds(361, 70, 106, 20);
 		contentPanel.add(textField_1);
 		textField_1.setColumns(10);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(77, 110, 100, 20);
+		comboBox.setBounds(121, 113, 110, 20);
 		contentPanel.add(comboBox);
 		
 		JLabel lblNewLabel_4 = new JLabel("Vacuna:");
-		lblNewLabel_4.setBounds(215, 113, 46, 14);
+		lblNewLabel_4.setBounds(285, 116, 64, 14);
 		contentPanel.add(lblNewLabel_4);
 		
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(267, 110, 100, 20);
+		comboBox_1.setBounds(361, 113, 106, 20);
 		contentPanel.add(comboBox_1);
 		
 		JLabel lblNewLabel_5 = new JLabel("Historial cl\u00EDnico:");
@@ -88,12 +89,21 @@ public class Consulta extends JDialog {
 		contentPanel.add(lblNewLabel_6);
 		
 		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(70, 20, 86, 20);
+		comboBox_2.setBounds(121, 23, 110, 20);
 		contentPanel.add(comboBox_2);
 		
 		table = new JTable();
-		table.setBounds(88, 166, 279, 78);
+		table.setBounds(121, 166, 279, 140);
 		contentPanel.add(table);
+		
+		JLabel lblFecha = new JLabel("Fecha:");
+		lblFecha.setBounds(285, 23, 64, 14);
+		contentPanel.add(lblFecha);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(361, 20, 106, 20);
+		contentPanel.add(textField_2);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
