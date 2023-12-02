@@ -19,9 +19,6 @@ public class RegiPerso extends JDialog {
 	private JTextField cedula1;
 	private JTextField telefono1;
 	private JTextField dirrecion1;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
 	private JTextField Area1;
 	private JTextField especialidad1;
 
@@ -95,47 +92,9 @@ public class RegiPerso extends JDialog {
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JRadioButton rdbPaciente = new JRadioButton("paciente");
-		rdbPaciente.setSelected(true);
-		rdbPaciente.setBounds(16, 7, 109, 23);
-		panel_1.add(rdbPaciente);
-		
 		JRadioButton rdbDoctor = new JRadioButton("doctor");
-		rdbDoctor.setBounds(233, 7, 109, 23);
+		rdbDoctor.setBounds(6, 7, 109, 23);
 		panel_1.add(rdbDoctor);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(null, "Paciente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_2.setBounds(10, 188, 414, 95);
-		contentPanel.add(panel_2);
-		panel_2.setLayout(null);
-		
-		JLabel lblNewLabel_4 = new JLabel("Enfermedad :");
-		lblNewLabel_4.setBounds(10, 24, 78, 14);
-		panel_2.add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_5 = new JLabel("Tratamiento :");
-		lblNewLabel_5.setBounds(10, 70, 78, 14);
-		panel_2.add(lblNewLabel_5);
-		
-		JLabel lblNewLabel_6 = new JLabel("habitacion :");
-		lblNewLabel_6.setBounds(243, 24, 65, 14);
-		panel_2.add(lblNewLabel_6);
-		
-		textField = new JTextField();
-		textField.setBounds(82, 21, 86, 20);
-		panel_2.add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(82, 67, 86, 20);
-		panel_2.add(textField_1);
-		textField_1.setColumns(10);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(305, 21, 86, 20);
-		panel_2.add(textField_2);
-		textField_2.setColumns(10);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(null, "Doctor", TitledBorder.LEADING, TitledBorder.TOP, null, null));
