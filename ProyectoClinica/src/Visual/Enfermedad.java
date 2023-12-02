@@ -34,40 +34,40 @@ public class Enfermedad extends JDialog {
 	 * Create the dialog.
 	 */
 	public Enfermedad() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 355, 303);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JLabel lblNewLabel = new JLabel("Nombre:");
-			lblNewLabel.setBounds(199, 11, 55, 14);
+			lblNewLabel.setBounds(185, 11, 55, 14);
 			contentPanel.add(lblNewLabel);
 		}
 		{
 			textField = new JTextField();
-			textField.setBounds(254, 8, 86, 20);
+			textField.setBounds(235, 8, 86, 20);
 			contentPanel.add(textField);
 			textField.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_1 = new JLabel("Descripcion");
+			JLabel lblNewLabel_1 = new JLabel("Descripci\u00F3n");
 			lblNewLabel_1.setBounds(10, 55, 74, 14);
 			contentPanel.add(lblNewLabel_1);
 		}
 		{
 			textField_1 = new JTextField();
-			textField_1.setBounds(10, 80, 414, 137);
+			textField_1.setBounds(10, 80, 302, 137);
 			contentPanel.add(textField_1);
 			textField_1.setColumns(10);
 		}
 		
-		JLabel lblNewLabel_2 = new JLabel("Codigo:");
+		JLabel lblNewLabel_2 = new JLabel("C\u00F3digo:");
 		lblNewLabel_2.setBounds(10, 11, 46, 14);
 		contentPanel.add(lblNewLabel_2);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(53, 8, 86, 20);
+		textField_2.setBounds(54, 8, 86, 20);
 		contentPanel.add(textField_2);
 		textField_2.setColumns(10);
 		{

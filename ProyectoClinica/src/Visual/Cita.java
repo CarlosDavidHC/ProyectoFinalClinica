@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JPasswordField;
 import javax.swing.JToggleButton;
+import javax.swing.JRadioButton;
+import javax.swing.JComboBox;
 
 public class Cita extends JDialog {
 
@@ -21,7 +23,6 @@ public class Cita extends JDialog {
 	private JTextField codigo2;
 	private JTextField textField_1;
 	private JTextField nombre2;
-	private JTextField sexo2;
 	private JTextField telefono2;
 	private JTextField direccion2;
 
@@ -61,7 +62,7 @@ public class Cita extends JDialog {
 		table.setBounds(0, 0, 154, 97);
 		panel.add(table);
 		
-		JLabel lblNewLabel_1 = new JLabel("seleccionado");
+		JLabel lblNewLabel_1 = new JLabel("Seleccionado");
 		lblNewLabel_1.setBounds(291, 174, 89, 16);
 		contentPanel.add(lblNewLabel_1);
 		
@@ -87,20 +88,24 @@ public class Cita extends JDialog {
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
 		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(195, 98, 242, 40);
+		panel_2.add(comboBox);
+		
 		codigo2 = new JTextField();
-		codigo2.setBounds(88, 11, 86, 20);
+		codigo2.setBounds(54, 11, 96, 20);
 		panel_2.add(codigo2);
 		codigo2.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Codigo :");
+		JLabel lblNewLabel_2 = new JLabel("C\u00F3digo:");
 		lblNewLabel_2.setBounds(10, 14, 56, 14);
 		panel_2.add(lblNewLabel_2);
 		
-		JButton btnNewButton = new JButton("buscar");
-		btnNewButton.setBounds(184, 10, 89, 23);
+		JButton btnNewButton = new JButton("Buscar");
+		btnNewButton.setBounds(160, 10, 89, 23);
 		panel_2.add(btnNewButton);
 		
-		JLabel lblNewLabel_3 = new JLabel("fecha");
+		JLabel lblNewLabel_3 = new JLabel("Fecha:");
 		lblNewLabel_3.setBounds(305, 14, 46, 14);
 		panel_2.add(lblNewLabel_3);
 		
@@ -109,41 +114,48 @@ public class Cita extends JDialog {
 		panel_2.add(textField_1);
 		textField_1.setColumns(10);
 		
-		JLabel lblNewLabel_4 = new JLabel("Nombre :");
-		lblNewLabel_4.setBounds(10, 66, 56, 14);
+		JLabel lblNewLabel_4 = new JLabel("Nombre:");
+		lblNewLabel_4.setBounds(10, 49, 56, 14);
 		panel_2.add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_5 = new JLabel("Sexo :");
-		lblNewLabel_5.setBounds(10, 109, 56, 14);
+		JLabel lblNewLabel_5 = new JLabel("Sexo:");
+		lblNewLabel_5.setBounds(183, 44, 33, 14);
 		panel_2.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_6 = new JLabel("Telefono:");
-		lblNewLabel_6.setBounds(263, 66, 66, 14);
+		lblNewLabel_6.setBounds(10, 98, 66, 14);
 		panel_2.add(lblNewLabel_6);
 		
-		JLabel lblNewLabel_7 = new JLabel("Direccion :");
-		lblNewLabel_7.setBounds(263, 109, 66, 14);
-		panel_2.add(lblNewLabel_7);
-		
 		nombre2 = new JTextField();
-		nombre2.setBounds(88, 63, 86, 20);
+		nombre2.setBounds(64, 46, 86, 20);
 		panel_2.add(nombre2);
 		nombre2.setColumns(10);
 		
-		sexo2 = new JTextField();
-		sexo2.setBounds(88, 106, 86, 20);
-		panel_2.add(sexo2);
-		sexo2.setColumns(10);
-		
 		telefono2 = new JTextField();
-		telefono2.setBounds(351, 63, 86, 20);
+		telefono2.setBounds(64, 95, 86, 20);
 		panel_2.add(telefono2);
 		telefono2.setColumns(10);
 		
 		direccion2 = new JTextField();
-		direccion2.setBounds(351, 106, 86, 20);
+		direccion2.setBounds(195, 98, 242, 40);
 		panel_2.add(direccion2);
 		direccion2.setColumns(10);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Mujer");
+		rdbtnNewRadioButton.setBounds(222, 40, 56, 23);
+		panel_2.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Hombre");
+		rdbtnNewRadioButton_1.setBounds(280, 40, 109, 23);
+		panel_2.add(rdbtnNewRadioButton_1);
+		
+		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Nueva direcci\u00F3n");
+		rdbtnNewRadioButton_2.setBounds(195, 71, 109, 23);
+		panel_2.add(rdbtnNewRadioButton_2);
+		
+		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Direcci\u00F3n existente");
+		rdbtnNewRadioButton_3.setBounds(309, 71, 128, 23);
+		panel_2.add(rdbtnNewRadioButton_3);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
