@@ -16,14 +16,14 @@ import javax.swing.JToggleButton;
 public class Cita extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField_3;
-	private JTextField textField_2;
+	private JTable table;
+	private JTable table_1;
+	private JTextField codigo2;
+	private JTextField textField_1;
 	private JTextField nombre2;
 	private JTextField sexo2;
 	private JTextField telefono2;
-	private JTable table;
-	private JTable table_1;
-	private JTextField textField;
+	private JTextField direccion2;
 
 	/**
 	 * Launch the application.
@@ -48,26 +48,8 @@ public class Cita extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		JLabel lblNewLabel_3 = new JLabel("Fecha:");
-		lblNewLabel_3.setBounds(284, 13, 56, 16);
-		contentPanel.add(lblNewLabel_3);
-		
-		textField_3 = new JTextField();
-		textField_3.setBounds(350, 10, 95, 22);
-		contentPanel.add(textField_3);
-		textField_3.setColumns(10);
-		
-		JLabel lblNewLabel_2 = new JLabel("Codigo:");
-		lblNewLabel_2.setBounds(12, 13, 56, 16);
-		contentPanel.add(lblNewLabel_2);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(57, 13, 95, 22);
-		contentPanel.add(textField_2);
-		textField_2.setColumns(10);
-		
 		JLabel lblNewLabel = new JLabel("Doctor");
-		lblNewLabel.setBounds(284, 174, 56, 16);
+		lblNewLabel.setBounds(12, 174, 56, 16);
 		contentPanel.add(lblNewLabel);
 		
 		JPanel panel = new JPanel();
@@ -79,8 +61,8 @@ public class Cita extends JDialog {
 		table.setBounds(0, 0, 154, 97);
 		panel.add(table);
 		
-		JLabel lblNewLabel_1 = new JLabel("Paciente");
-		lblNewLabel_1.setBounds(12, 174, 56, 16);
+		JLabel lblNewLabel_1 = new JLabel("seleccionado");
+		lblNewLabel_1.setBounds(291, 174, 89, 16);
 		contentPanel.add(lblNewLabel_1);
 		
 		JPanel panel_1 = new JPanel();
@@ -92,37 +74,6 @@ public class Cita extends JDialog {
 		table_1.setBounds(0, 0, 154, 97);
 		panel_1.add(table_1);
 		
-		JLabel lblNewLabel_4 = new JLabel("nombre :");
-		lblNewLabel_4.setBounds(12, 77, 56, 14);
-		contentPanel.add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_5 = new JLabel("telefono :");
-		lblNewLabel_5.setBounds(269, 77, 66, 14);
-		contentPanel.add(lblNewLabel_5);
-		
-		JLabel lblNewLabel_6 = new JLabel("sexo :");
-		lblNewLabel_6.setBounds(22, 128, 46, 14);
-		contentPanel.add(lblNewLabel_6);
-		
-		nombre2 = new JTextField();
-		nombre2.setBounds(80, 74, 86, 20);
-		contentPanel.add(nombre2);
-		nombre2.setColumns(10);
-		
-		sexo2 = new JTextField();
-		sexo2.setBounds(80, 125, 86, 20);
-		contentPanel.add(sexo2);
-		sexo2.setColumns(10);
-		
-		telefono2 = new JTextField();
-		telefono2.setBounds(350, 74, 95, 20);
-		contentPanel.add(telefono2);
-		telefono2.setColumns(10);
-		
-		JButton btnNewButton = new JButton("buscar");
-		btnNewButton.setBounds(162, 10, 89, 23);
-		contentPanel.add(btnNewButton);
-		
 		JButton btnNewButton_1 = new JButton(">>");
 		btnNewButton_1.setBounds(176, 211, 89, 23);
 		contentPanel.add(btnNewButton_1);
@@ -131,20 +82,74 @@ public class Cita extends JDialog {
 		btnNewButton_2.setBounds(176, 261, 89, 23);
 		contentPanel.add(btnNewButton_2);
 		
-		JLabel lblNewLabel_7 = new JLabel("direccion :");
-		lblNewLabel_7.setBounds(269, 128, 66, 14);
-		contentPanel.add(lblNewLabel_7);
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(10, 11, 458, 146);
+		contentPanel.add(panel_2);
+		panel_2.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(350, 125, 95, 20);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		codigo2 = new JTextField();
+		codigo2.setBounds(88, 11, 86, 20);
+		panel_2.add(codigo2);
+		codigo2.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("Codigo :");
+		lblNewLabel_2.setBounds(10, 14, 56, 14);
+		panel_2.add(lblNewLabel_2);
+		
+		JButton btnNewButton = new JButton("buscar");
+		btnNewButton.setBounds(184, 10, 89, 23);
+		panel_2.add(btnNewButton);
+		
+		JLabel lblNewLabel_3 = new JLabel("fecha");
+		lblNewLabel_3.setBounds(305, 14, 46, 14);
+		panel_2.add(lblNewLabel_3);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(351, 11, 86, 20);
+		panel_2.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel lblNewLabel_4 = new JLabel("Nombre :");
+		lblNewLabel_4.setBounds(10, 66, 56, 14);
+		panel_2.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("Sexo :");
+		lblNewLabel_5.setBounds(10, 109, 56, 14);
+		panel_2.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("Telefono:");
+		lblNewLabel_6.setBounds(263, 66, 66, 14);
+		panel_2.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("Direccion :");
+		lblNewLabel_7.setBounds(263, 109, 66, 14);
+		panel_2.add(lblNewLabel_7);
+		
+		nombre2 = new JTextField();
+		nombre2.setBounds(88, 63, 86, 20);
+		panel_2.add(nombre2);
+		nombre2.setColumns(10);
+		
+		sexo2 = new JTextField();
+		sexo2.setBounds(88, 106, 86, 20);
+		panel_2.add(sexo2);
+		sexo2.setColumns(10);
+		
+		telefono2 = new JTextField();
+		telefono2.setBounds(351, 63, 86, 20);
+		panel_2.add(telefono2);
+		telefono2.setColumns(10);
+		
+		direccion2 = new JTextField();
+		direccion2.setBounds(351, 106, 86, 20);
+		panel_2.add(direccion2);
+		direccion2.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("registrar");
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
