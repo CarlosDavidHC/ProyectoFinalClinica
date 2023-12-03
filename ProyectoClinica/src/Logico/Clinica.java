@@ -2,6 +2,10 @@ package Logico;
 
 import java.util.ArrayList;
 
+
+
+
+
 public class Clinica {
 
 	private ArrayList<Viviendas> misViviendas;
@@ -9,6 +13,13 @@ public class Clinica {
 	private ArrayList<Cita> misCitas;
 	private ArrayList<Enfermedad> misEnfermedades;
 	private ArrayList<Vacuna> misVacunas;
+	private static Clinica clini = null;
+	
+	public static Clinica getInstance() {
+		if(clini == null)
+			clini = new Clinica();
+		return clini;
+	}
 
 	public Clinica() {
 		super();
@@ -58,5 +69,21 @@ public class Clinica {
 	public void setMisVacunas(ArrayList<Vacuna> misVacunas) {
 		this.misVacunas = misVacunas;
 	}
+	
+	public Persona buscarPersonaByCedula(String cedPersona) {
+		Persona aux = null;
+		int ind = 0;
+		boolean encontrado = false;
 
+		while(ind < misPersonas.size() && !encontrado) {
+			if( misPersonas.get(ind).getCedula().equalsIgnoreCase(cedPersona)) {
+				if(misPersonas.get(ind).getTipo()== 'p') {
+					aux =  misPersonas.get(ind);
+					encontrado = true;
+				}
+			}
+			ind++;
+		}
+		return aux;
+	}
 }
