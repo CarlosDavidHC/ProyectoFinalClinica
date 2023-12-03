@@ -13,13 +13,15 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTextPane;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JList;
 
 public class RegConsulta extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 	private JTextField textField_1;
-	private JTable table;
 	private JTextField textField_2;
 	private JTextField textField_3;
 
@@ -41,7 +43,7 @@ public class RegConsulta extends JDialog {
 	 */
 	public RegConsulta() {
 		setTitle("Consulta");
-		setBounds(100, 100, 524, 463);
+		setBounds(100, 100, 524, 641);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -82,7 +84,7 @@ public class RegConsulta extends JDialog {
 		contentPanel.add(comboBox_1);
 		
 		JLabel lblNewLabel_5 = new JLabel("Historial cl\u00EDnico:");
-		lblNewLabel_5.setBounds(12, 213, 100, 14);
+		lblNewLabel_5.setBounds(12, 376, 100, 14);
 		contentPanel.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_6 = new JLabel("Cita:");
@@ -92,10 +94,6 @@ public class RegConsulta extends JDialog {
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setBounds(123, 70, 110, 20);
 		contentPanel.add(comboBox_2);
-		
-		table = new JTable();
-		table.setBounds(123, 213, 279, 140);
-		contentPanel.add(table);
 		
 		JLabel lblFecha = new JLabel("Fecha:");
 		lblFecha.setBounds(287, 70, 64, 14);
@@ -114,6 +112,67 @@ public class RegConsulta extends JDialog {
 		textField_3.setColumns(10);
 		textField_3.setBounds(88, 23, 106, 20);
 		contentPanel.add(textField_3);
+		
+		JLabel lblAtendido = new JLabel("Diagnostico:");
+		lblAtendido.setBounds(224, 529, 76, 19);
+		contentPanel.add(lblAtendido);
+		
+		JRadioButton rdbtnCurado = new JRadioButton("Curado");
+		rdbtnCurado.setBounds(309, 527, 76, 23);
+		contentPanel.add(rdbtnCurado);
+		
+		JRadioButton rdbtnObservacin = new JRadioButton("Observaci\u00F3n");
+		rdbtnObservacin.setBounds(389, 527, 109, 23);
+		contentPanel.add(rdbtnObservacin);
+		
+		JButton btnNewButton = new JButton("Agregar");
+		btnNewButton.setBounds(136, 193, 97, 25);
+		contentPanel.add(btnNewButton);
+		
+		JLabel lblLista = new JLabel("Lista:");
+		lblLista.setBounds(12, 198, 76, 14);
+		contentPanel.add(lblLista);
+		
+		JLabel label = new JLabel("Lista:");
+		label.setBounds(287, 198, 76, 14);
+		contentPanel.add(label);
+		
+		JButton button = new JButton("Agregar");
+		button.setBounds(373, 193, 97, 25);
+		contentPanel.add(button);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(12, 231, 221, 117);
+		contentPanel.add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane, BorderLayout.CENTER);
+		
+		JList list = new JList();
+		scrollPane.setViewportView(list);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(287, 231, 207, 117);
+		contentPanel.add(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		panel_1.add(scrollPane_1, BorderLayout.CENTER);
+		
+		JList list_1 = new JList();
+		scrollPane_1.setViewportView(list_1);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(123, 376, 279, 140);
+		contentPanel.add(panel_2);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		panel_2.add(scrollPane_2, BorderLayout.CENTER);
+		
+		JList list_2 = new JList();
+		scrollPane_2.setViewportView(list_2);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

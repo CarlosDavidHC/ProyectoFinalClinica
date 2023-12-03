@@ -8,7 +8,7 @@ public class Consulta {
 	private Paciente paciente;
 	private String CodigoConsult;
 	private Doctor doctor;
-	private char atendido;
+	private char atendido; // c = curado ; o = observación
 	private ArrayList<Enfermedad> enfermedad;
 	private ArrayList<Vacuna> vacuna;
 	private HistorialClinico histoClinico;

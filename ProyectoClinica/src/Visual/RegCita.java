@@ -58,8 +58,14 @@ public class RegCita extends JDialog {
 		contentPanel.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane, BorderLayout.CENTER);
+		
+		JList list = new JList();
+		scrollPane.setViewportView(list);
+		
 		JLabel lblNewLabel_1 = new JLabel("Seleccionado");
-		lblNewLabel_1.setBounds(425, 208, 89, 16);
+		lblNewLabel_1.setBounds(374, 208, 89, 16);
 		contentPanel.add(lblNewLabel_1);
 		
 		JButton btnNewButton_1 = new JButton(">>");
@@ -148,6 +154,12 @@ public class RegCita extends JDialog {
 		panel_1.setBounds(374, 237, 236, 171);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		panel_1.add(scrollPane_1, BorderLayout.CENTER);
+		
+		JList list_1 = new JList();
+		scrollPane_1.setViewportView(list_1);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
