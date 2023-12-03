@@ -4,10 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Logico.Control;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -36,6 +45,24 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				FileOutputStream clinica2;
+				ObjectOutputStream clinicaWrite;
+				try {
+					clinica2 = new  FileOutputStream("clinica.dat");
+					clinicaWrite = new ObjectOutputStream(clinica2);
+					clinicaWrite.writeObject(Control.getInstance());
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		
 		setTitle("Clinica Cruz Roja");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,7 +71,14 @@ public class Principal extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
+		JMenu mnUsuario = new JMenu("Usuario");
+		menuBar.add(mnUsuario);
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Cerrar Sesi\u00F3n");
+		mnUsuario.add(mntmNewMenuItem_2);
+		
 		JMenu mnCitas = new JMenu("Citas");
+		mnCitas.setEnabled(false);
 		menuBar.add(mnCitas);
 		
 		JMenuItem mntmRegistrarCitas = new JMenuItem("Registrar Cita");
@@ -60,7 +94,18 @@ public class Principal extends JFrame {
 		JMenuItem mntmListadoCitas = new JMenuItem("Listado Citas");
 		mnCitas.add(mntmListadoCitas);
 		
+		JMenu mnPersonal = new JMenu("Pacientes");
+		mnPersonal.setEnabled(false);
+		menuBar.add(mnPersonal);
+		
+		JMenuItem mntmListarPacientes = new JMenuItem("Listado Pacientes");
+		mnPersonal.add(mntmListarPacientes);
+		
+		JMenuItem mntmListarViviendas = new JMenuItem("Listado Viviendas");
+		mnPersonal.add(mntmListarViviendas);
+		
 		JMenu mnConsulta = new JMenu("Consulta");
+		mnConsulta.setEnabled(false);
 		menuBar.add(mnConsulta);
 		
 		JMenuItem mntmRealizarConsulta = new JMenuItem("Realizar Consulta");
@@ -76,7 +121,25 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Listado Consultas");
 		mnConsulta.add(mntmNewMenuItem);
 		
+		JMenu mnMedicos = new JMenu("M\u00E9dicos");
+		mnMedicos.setEnabled(false);
+		menuBar.add(mnMedicos);
+		
+		JMenuItem mntmRegistrarPersonas = new JMenuItem("Registrar Doctor");
+		mntmRegistrarPersonas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegDoctor registroDoctor = new RegDoctor();
+				registroDoctor.setModal(true);
+				registroDoctor.setVisible(true);
+			}
+		});
+		mnMedicos.add(mntmRegistrarPersonas);
+		
+		JMenuItem mntmListarDoctores = new JMenuItem("Listado Doctores");
+		mnMedicos.add(mntmListarDoctores);
+		
 		JMenu mnLaboratorio = new JMenu("Laboratorio");
+		mnLaboratorio.setEnabled(false);
 		menuBar.add(mnLaboratorio);
 		
 		JMenuItem mntmEnfermedades = new JMenuItem("Registrar Enfermedad");
@@ -104,35 +167,30 @@ public class Principal extends JFrame {
 		
 		JMenuItem mntmListVacunas = new JMenuItem("Listado Vacunas");
 		mnLaboratorio.add(mntmListVacunas);
-		
-		JMenu mnPersonas = new JMenu("Personal");
-		menuBar.add(mnPersonas);
-		
-		JMenuItem mntmRegistrarPersonas = new JMenuItem("Registrar Doctor");
-		mntmRegistrarPersonas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegDoctor registroDoctor = new RegDoctor();
-				registroDoctor.setModal(true);
-				registroDoctor.setVisible(true);
-			}
-		});
-		mnPersonas.add(mntmRegistrarPersonas);
-		
-		JMenuItem mntmListarPacientes = new JMenuItem("Listado Pacientes");
-		mnPersonas.add(mntmListarPacientes);
-		
-		JMenuItem mntmListarDoctores = new JMenuItem("Listado Doctores");
-		mnPersonas.add(mntmListarDoctores);
-		
-		JMenu mnVivienda = new JMenu("Vivienda");
-		menuBar.add(mnVivienda);
-		
-		JMenuItem mntmListadoViviendas = new JMenuItem("Listado Viviendas");
-		mnVivienda.add(mntmListadoViviendas);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		if(Control.getLoginUser().getTipo().equalsIgnoreCase("Administrador")){
+			mnCitas.setEnabled(true);
+			mnConsulta.setEnabled(true);
+			mnLaboratorio.setEnabled(true);
+			mnPersonal.setEnabled(true);
+			mnMedicos.setEnabled(true);
+		} else if(Control.getLoginUser().getTipo().equalsIgnoreCase("Secretaria")){
+			mnCitas.setEnabled(true);
+			mnConsulta.setEnabled(false);
+			mnLaboratorio.setEnabled(false);
+			mnPersonal.setEnabled(true);
+			mnMedicos.setEnabled(false);
+		} else if(Control.getLoginUser().getTipo().equalsIgnoreCase("Doctor")){
+			mnCitas.setEnabled(true);
+			mnConsulta.setEnabled(true);
+			mnLaboratorio.setEnabled(false);
+			mnPersonal.setEnabled(true);
+			mnMedicos.setEnabled(false);
+		}
 	}
 
 }
