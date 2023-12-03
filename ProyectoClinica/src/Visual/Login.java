@@ -23,8 +23,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
+import javax.swing.ImageIcon;
 
 public class Login extends JFrame {
 
@@ -81,9 +84,10 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		setResizable(false);
 		setTitle("Inicio de Sesi\u00F3n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 371);
+		setBounds(100, 100, 575, 342);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -95,12 +99,12 @@ public class Login extends JFrame {
 
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblUsuario.setBounds(111, 77, 48, 14);
+		lblUsuario.setBounds(281, 104, 48, 14);
 		panel.add(lblUsuario);
 
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
 		lblContrasea.setHorizontalAlignment(SwingConstants.CENTER);
-		lblContrasea.setBounds(111, 136, 70, 14);
+		lblContrasea.setBounds(281, 163, 70, 14);
 		panel.add(lblContrasea);
 
 		txtUsuario = new JTextField();
@@ -110,23 +114,25 @@ public class Login extends JFrame {
 			}
 		});
 		txtUsuario.setHorizontalAlignment(SwingConstants.LEFT);
-		txtUsuario.setBounds(111, 102, 191, 20);
+		txtUsuario.setBounds(281, 129, 191, 20);
 		panel.add(txtUsuario);
 		txtUsuario.setColumns(10);
 
-		JButton btnLogin = new JButton("Login");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				loginUser();
-			}
-		});
-		btnLogin.setBounds(109, 213, 89, 23);
-		panel.add(btnLogin);
+        JButton btnLogin = new JButton("Acceder");
+        ImageIcon icon = new ImageIcon(Login.class.getResource("/Imagess/usuario.png"));
+        btnLogin.setIcon(new ImageIcon(icon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH)));
+        btnLogin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                loginUser();
+            }
+        });
+        btnLogin.setBounds(281, 237, 116, 47);
+        panel.add(btnLogin);
 
-		JLabel lblClinica = new JLabel("Cl\u00EDnica Cruz Roja");
+		JLabel lblClinica = new JLabel("Inicie Sesi\u00F3n");
 		lblClinica.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClinica.setFont(new Font("Times New Roman", Font.BOLD, 24));
-		lblClinica.setBounds(109, 13, 191, 20);
+		lblClinica.setBounds(279, 55, 191, 20);
 		panel.add(lblClinica);
 
 		txtPassword = new JPasswordField();
@@ -135,8 +141,15 @@ public class Login extends JFrame {
 				loginUser();
 			}
 		});
-		txtPassword.setBounds(111, 166, 191, 20);
+		txtPassword.setBounds(281, 193, 191, 20);
 		panel.add(txtPassword);
+		
+        JLabel lblNewLabel = new JLabel("");
+        ImageIcon imageIcon = new ImageIcon(Login.class.getResource("/Imagess/cruzRoja.jpg"));
+        lblNewLabel.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(575, 371, Image.SCALE_SMOOTH)));
+        lblNewLabel.setBounds(0, 0, 559, 297);
+        panel.add(lblNewLabel);
+        lblNewLabel.setLayout(new BorderLayout());
 	}
 
 	private void loginUser() {

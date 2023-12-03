@@ -2,6 +2,7 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -20,6 +21,8 @@ import Logico.Control;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 public class Principal extends JFrame {
 
@@ -121,23 +124,6 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Listado Consultas");
 		mnConsulta.add(mntmNewMenuItem);
 		
-		JMenu mnMedicos = new JMenu("M\u00E9dicos");
-		mnMedicos.setEnabled(false);
-		menuBar.add(mnMedicos);
-		
-		JMenuItem mntmRegistrarPersonas = new JMenuItem("Registrar Doctor");
-		mntmRegistrarPersonas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				RegDoctor registroDoctor = new RegDoctor();
-				registroDoctor.setModal(true);
-				registroDoctor.setVisible(true);
-			}
-		});
-		mnMedicos.add(mntmRegistrarPersonas);
-		
-		JMenuItem mntmListarDoctores = new JMenuItem("Listado Doctores");
-		mnMedicos.add(mntmListarDoctores);
-		
 		JMenu mnLaboratorio = new JMenu("Laboratorio");
 		mnLaboratorio.setEnabled(false);
 		menuBar.add(mnLaboratorio);
@@ -167,10 +153,35 @@ public class Principal extends JFrame {
 		
 		JMenuItem mntmListVacunas = new JMenuItem("Listado Vacunas");
 		mnLaboratorio.add(mntmListVacunas);
+		
+		JMenu mnMedicos = new JMenu("Administraci\u00F3n");
+		mnMedicos.setEnabled(false);
+		menuBar.add(mnMedicos);
+		
+		JMenuItem mntmRegistrarPersonas = new JMenuItem("Registrar Usuario");
+		mntmRegistrarPersonas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegUsuario registroUsuario = new RegUsuario();
+				registroUsuario.setModal(true);
+				registroUsuario.setVisible(true);
+			}
+		});
+		mnMedicos.add(mntmRegistrarPersonas);
+		
+		JMenuItem mntmListarDoctores = new JMenuItem("Listado Doctores");
+		mnMedicos.add(mntmListarDoctores);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listado Secretarias");
+		mnMedicos.add(mntmNewMenuItem_1);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+        JLabel lblNewLabel = new JLabel("");
+        ImageIcon imageIcon = new ImageIcon(Principal.class.getResource("/Imagess/cruzDominicana.jpg"));
+        lblNewLabel.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(725, 425, Image.SCALE_SMOOTH)));
+        contentPane.add(lblNewLabel, BorderLayout.CENTER);
 		
 		if(Control.getLoginUser().getTipo().equalsIgnoreCase("Administrador")){
 			mnCitas.setEnabled(true);
