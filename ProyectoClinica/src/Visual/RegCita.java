@@ -86,24 +86,24 @@ public class RegCita extends JDialog {
 		panel_2.add(comboBox);
 		
 		codigo2 = new JTextField();
-		codigo2.setBounds(88, 11, 96, 20);
+		codigo2.setBounds(88, 11, 187, 20);
 		panel_2.add(codigo2);
 		codigo2.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("C\u00F3digo:");
+		JLabel lblNewLabel_2 = new JLabel("C\u00E9dula:");
 		lblNewLabel_2.setBounds(10, 11, 56, 20);
 		panel_2.add(lblNewLabel_2);
 		
 		JButton btnNewButton = new JButton("Buscar");
-		btnNewButton.setBounds(198, 10, 89, 23);
+		btnNewButton.setBounds(287, 11, 89, 23);
 		panel_2.add(btnNewButton);
 		
 		JLabel lblNewLabel_3 = new JLabel("Fecha:");
-		lblNewLabel_3.setBounds(299, 14, 46, 14);
+		lblNewLabel_3.setBounds(388, 15, 46, 14);
 		panel_2.add(lblNewLabel_3);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(357, 11, 86, 20);
+		textField_1.setBounds(446, 12, 86, 20);
 		panel_2.add(textField_1);
 		textField_1.setColumns(10);
 		
@@ -112,7 +112,7 @@ public class RegCita extends JDialog {
 		panel_2.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Sexo:");
-		lblNewLabel_5.setBounds(264, 59, 33, 14);
+		lblNewLabel_5.setBounds(10, 140, 33, 14);
 		panel_2.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_6 = new JLabel("Telefono:");
@@ -120,7 +120,7 @@ public class RegCita extends JDialog {
 		panel_2.add(lblNewLabel_6);
 		
 		nombre2 = new JTextField();
-		nombre2.setBounds(88, 56, 164, 20);
+		nombre2.setBounds(88, 56, 418, 20);
 		panel_2.add(nombre2);
 		nombre2.setColumns(10);
 		
@@ -135,11 +135,11 @@ public class RegCita extends JDialog {
 		direccion2.setColumns(10);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Mujer");
-		rdbtnNewRadioButton.setBounds(299, 55, 66, 23);
+		rdbtnNewRadioButton.setBounds(45, 136, 66, 23);
 		panel_2.add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Hombre");
-		rdbtnNewRadioButton_1.setBounds(369, 55, 109, 23);
+		rdbtnNewRadioButton_1.setBounds(115, 136, 109, 23);
 		panel_2.add(rdbtnNewRadioButton_1);
 		
 		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Nueva direcci\u00F3n");

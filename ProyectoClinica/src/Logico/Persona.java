@@ -3,28 +3,23 @@ package Logico;
 public abstract class Persona {
 
 	protected String codigo;
+	protected String cedula;
 	protected String nombre;
 	protected String telefono;
 	protected String direccion;
 	protected char tipo; // p si es paciente ; d si es doctor.
 	protected char sexo;
 
-	public Persona(String nombre, String codigo, String telefono, String direccion, char tipo, char sexo) {
+	public Persona(String codigo, String cedula, String nombre, String telefono, String direccion, char tipo,
+			char sexo) {
 		super();
-		this.nombre = nombre;
 		this.codigo = codigo;
+		this.cedula = cedula;
+		this.nombre = nombre;
 		this.telefono = telefono;
 		this.direccion = direccion;
 		this.tipo = tipo;
 		this.sexo = sexo;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 
 	public String getCodigo() {
@@ -33,6 +28,22 @@ public abstract class Persona {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getTelefono() {

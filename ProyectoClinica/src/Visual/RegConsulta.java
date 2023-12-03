@@ -43,7 +43,7 @@ public class RegConsulta extends JDialog {
 	 */
 	public RegConsulta() {
 		setTitle("Consulta");
-		setBounds(100, 100, 524, 641);
+		setBounds(100, 100, 524, 679);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -54,37 +54,37 @@ public class RegConsulta extends JDialog {
 		contentPanel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Doctor:");
-		lblNewLabel_1.setBounds(287, 117, 46, 14);
+		lblNewLabel_1.setBounds(12, 171, 46, 14);
 		contentPanel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Enfermedad:");
-		lblNewLabel_2.setBounds(12, 160, 76, 14);
+		lblNewLabel_2.setBounds(12, 213, 76, 14);
 		contentPanel.add(lblNewLabel_2);
 		
 		textField = new JTextField();
-		textField.setBounds(123, 117, 110, 20);
+		textField.setBounds(123, 117, 346, 20);
 		contentPanel.add(textField);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(363, 117, 106, 20);
+		textField_1.setBounds(123, 168, 346, 20);
 		contentPanel.add(textField_1);
 		textField_1.setColumns(10);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(123, 160, 110, 20);
+		comboBox.setBounds(123, 213, 110, 20);
 		contentPanel.add(comboBox);
 		
 		JLabel lblNewLabel_4 = new JLabel("Vacuna:");
-		lblNewLabel_4.setBounds(287, 163, 64, 14);
+		lblNewLabel_4.setBounds(287, 216, 64, 14);
 		contentPanel.add(lblNewLabel_4);
 		
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(363, 160, 106, 20);
+		comboBox_1.setBounds(363, 213, 106, 20);
 		contentPanel.add(comboBox_1);
 		
 		JLabel lblNewLabel_5 = new JLabel("Historial cl\u00EDnico:");
-		lblNewLabel_5.setBounds(12, 376, 100, 14);
+		lblNewLabel_5.setBounds(12, 414, 100, 14);
 		contentPanel.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_6 = new JLabel("Cita:");
@@ -110,39 +110,39 @@ public class RegConsulta extends JDialog {
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(88, 23, 106, 20);
+		textField_3.setBounds(127, 23, 106, 20);
 		contentPanel.add(textField_3);
 		
 		JLabel lblAtendido = new JLabel("Diagnostico:");
-		lblAtendido.setBounds(224, 529, 76, 19);
+		lblAtendido.setBounds(224, 567, 76, 19);
 		contentPanel.add(lblAtendido);
 		
 		JRadioButton rdbtnCurado = new JRadioButton("Curado");
-		rdbtnCurado.setBounds(309, 527, 76, 23);
+		rdbtnCurado.setBounds(309, 565, 76, 23);
 		contentPanel.add(rdbtnCurado);
 		
 		JRadioButton rdbtnObservacin = new JRadioButton("Observaci\u00F3n");
-		rdbtnObservacin.setBounds(389, 527, 109, 23);
+		rdbtnObservacin.setBounds(389, 565, 109, 23);
 		contentPanel.add(rdbtnObservacin);
 		
 		JButton btnNewButton = new JButton("Agregar");
-		btnNewButton.setBounds(136, 193, 97, 25);
+		btnNewButton.setBounds(136, 246, 97, 25);
 		contentPanel.add(btnNewButton);
 		
 		JLabel lblLista = new JLabel("Lista:");
-		lblLista.setBounds(12, 198, 76, 14);
+		lblLista.setBounds(12, 251, 76, 14);
 		contentPanel.add(lblLista);
 		
 		JLabel label = new JLabel("Lista:");
-		label.setBounds(287, 198, 76, 14);
+		label.setBounds(287, 251, 76, 14);
 		contentPanel.add(label);
 		
 		JButton button = new JButton("Agregar");
-		button.setBounds(373, 193, 97, 25);
+		button.setBounds(373, 246, 97, 25);
 		contentPanel.add(button);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(12, 231, 221, 117);
+		panel.setBounds(12, 284, 221, 117);
 		contentPanel.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
@@ -153,7 +153,7 @@ public class RegConsulta extends JDialog {
 		scrollPane.setViewportView(list);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(287, 231, 207, 117);
+		panel_1.setBounds(287, 284, 207, 117);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
@@ -164,7 +164,7 @@ public class RegConsulta extends JDialog {
 		scrollPane_1.setViewportView(list_1);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(123, 376, 279, 140);
+		panel_2.setBounds(123, 414, 279, 140);
 		contentPanel.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
