@@ -9,12 +9,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
 
 public class RegVacuna extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
-	private JTextField textField_1;
 	private JTextField textField_2;
 
 	/**
@@ -35,7 +35,7 @@ public class RegVacuna extends JDialog {
 	 */
 	public RegVacuna() {
 		setTitle("Registrar Vacuna");
-		setBounds(100, 100, 355, 303);
+		setBounds(100, 100, 355, 215);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -52,15 +52,9 @@ public class RegVacuna extends JDialog {
 			textField.setColumns(10);
 		}
 		{
-			JLabel lblNewLabel_1 = new JLabel("Descripci\u00F3n");
+			JLabel lblNewLabel_1 = new JLabel("Enfermedad:");
 			lblNewLabel_1.setBounds(10, 55, 74, 14);
 			contentPanel.add(lblNewLabel_1);
-		}
-		{
-			textField_1 = new JTextField();
-			textField_1.setBounds(10, 80, 311, 137);
-			contentPanel.add(textField_1);
-			textField_1.setColumns(10);
 		}
 		
 		JLabel lblNewLabel_2 = new JLabel("C\u00F3digo:");
@@ -71,6 +65,10 @@ public class RegVacuna extends JDialog {
 		textField_2.setBounds(68, 8, 64, 20);
 		contentPanel.add(textField_2);
 		textField_2.setColumns(10);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(96, 51, 117, 22);
+		contentPanel.add(comboBox);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

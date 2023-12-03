@@ -75,10 +75,10 @@ public class Principal extends JFrame {
 		JMenuItem mntmListVacunas = new JMenuItem("Listado Vacunas");
 		mnLaboratorio.add(mntmListVacunas);
 		
-		JMenu mnPersonas = new JMenu("Personas");
+		JMenu mnPersonas = new JMenu("Personal");
 		menuBar.add(mnPersonas);
 		
-		JMenuItem mntmRegistrarPersonas = new JMenuItem("Registrar");
+		JMenuItem mntmRegistrarPersonas = new JMenuItem("Registrar Doctor");
 		mnPersonas.add(mntmRegistrarPersonas);
 		
 		JMenuItem mntmListarPacientes = new JMenuItem("Listado Pacientes");
@@ -89,9 +89,6 @@ public class Principal extends JFrame {
 		
 		JMenu mnVivienda = new JMenu("Vivienda");
 		menuBar.add(mnVivienda);
-		
-		JMenuItem mntmRegistrarVivienda = new JMenuItem("Registrar");
-		mnVivienda.add(mntmRegistrarVivienda);
 		
 		JMenuItem mntmListadoViviendas = new JMenuItem("Listado Viviendas");
 		mnVivienda.add(mntmListadoViviendas);

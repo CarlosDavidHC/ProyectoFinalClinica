@@ -22,6 +22,7 @@ public class RegDoctor extends JDialog {
 	private JTextField nombre2;
 	private JTextField direccion2;
 	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -41,14 +42,14 @@ public class RegDoctor extends JDialog {
 	 */
 	public RegDoctor() {
 		setTitle("Registrar Doctor");
-		setBounds(100, 100, 494, 296);
+		setBounds(100, 100, 515, 311);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(10, 11, 458, 206);
+		panel_2.setBounds(10, 11, 475, 207);
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -74,7 +75,7 @@ public class RegDoctor extends JDialog {
 		panel_2.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_6 = new JLabel("Tel\u00E9fono:");
-		lblNewLabel_6.setBounds(242, 61, 66, 14);
+		lblNewLabel_6.setBounds(242, 64, 66, 14);
 		panel_2.add(lblNewLabel_6);
 		
 		nombre2 = new JTextField();
@@ -92,7 +93,7 @@ public class RegDoctor extends JDialog {
 		panel_2.add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Hombre");
-		rdbtnNewRadioButton_1.setBounds(178, 101, 109, 23);
+		rdbtnNewRadioButton_1.setBounds(153, 101, 81, 23);
 		panel_2.add(rdbtnNewRadioButton_1);
 		
 		JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
@@ -101,8 +102,17 @@ public class RegDoctor extends JDialog {
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(314, 60, 132, 20);
+		textField.setBounds(331, 61, 132, 20);
 		panel_2.add(textField);
+		
+		JLabel lblEspecialidad = new JLabel("Especialidad:");
+		lblEspecialidad.setBounds(242, 105, 82, 14);
+		panel_2.add(lblEspecialidad);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(331, 102, 132, 20);
+		panel_2.add(textField_1);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
