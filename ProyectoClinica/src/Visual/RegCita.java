@@ -26,9 +26,6 @@ public class RegCita extends JDialog {
 	private JTextField telefono2;
 	private JTextField direccion2;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			RegCita dialog = new RegCita();
