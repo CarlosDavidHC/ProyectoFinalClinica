@@ -41,9 +41,6 @@ public class RegCita extends JDialog {
 	private JButton btnBuscar;
 	private Persona auxPaciente; 
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			RegCita dialog = new RegCita();
