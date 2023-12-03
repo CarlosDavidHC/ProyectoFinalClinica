@@ -2,6 +2,8 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -46,6 +48,13 @@ public class Principal extends JFrame {
 		menuBar.add(mnCitas);
 		
 		JMenuItem mntmRegistrarCitas = new JMenuItem("Registrar Cita");
+		mntmRegistrarCitas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegCita registroCita = new RegCita();
+				registroCita.setModal(true);
+				registroCita.setVisible(true);
+			}
+		});
 		mnCitas.add(mntmRegistrarCitas);
 		
 		JMenuItem mntmListadoCitas = new JMenuItem("Listado Citas");
@@ -55,6 +64,13 @@ public class Principal extends JFrame {
 		menuBar.add(mnConsulta);
 		
 		JMenuItem mntmRealizarConsulta = new JMenuItem("Realizar Consulta");
+		mntmRealizarConsulta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegConsulta registroConsulta = new RegConsulta();
+				registroConsulta.setModal(true);
+				registroConsulta.setVisible(true);
+			}
+		});
 		mnConsulta.add(mntmRealizarConsulta);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Listado Consultas");
@@ -64,9 +80,23 @@ public class Principal extends JFrame {
 		menuBar.add(mnLaboratorio);
 		
 		JMenuItem mntmEnfermedades = new JMenuItem("Registrar Enfermedad");
+		mntmEnfermedades.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegEnfermedad registroEnfermedad = new RegEnfermedad();
+				registroEnfermedad.setModal(true);
+				registroEnfermedad.setVisible(true);
+			}
+		});
 		mnLaboratorio.add(mntmEnfermedades);
 		
 		JMenuItem mntmVacunas = new JMenuItem("Registrar Vacuna");
+		mntmVacunas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegVacuna registroVacuna = new RegVacuna();
+				registroVacuna.setModal(true);
+				registroVacuna.setVisible(true);
+			}
+		});
 		mnLaboratorio.add(mntmVacunas);
 		
 		JMenuItem mntmListEnfermedades = new JMenuItem("Listado Enfermedades");
@@ -79,6 +109,13 @@ public class Principal extends JFrame {
 		menuBar.add(mnPersonas);
 		
 		JMenuItem mntmRegistrarPersonas = new JMenuItem("Registrar Doctor");
+		mntmRegistrarPersonas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegDoctor registroDoctor = new RegDoctor();
+				registroDoctor.setModal(true);
+				registroDoctor.setVisible(true);
+			}
+		});
 		mnPersonas.add(mntmRegistrarPersonas);
 		
 		JMenuItem mntmListarPacientes = new JMenuItem("Listado Pacientes");
