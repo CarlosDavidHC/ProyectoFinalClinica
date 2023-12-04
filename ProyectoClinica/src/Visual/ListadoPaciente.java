@@ -39,6 +39,7 @@ public class ListadoPaciente extends JDialog {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Create the dialog.
 	 */
@@ -84,16 +85,17 @@ public class ListadoPaciente extends JDialog {
 
 	private void cargarDatosPacientes(int index) {
 		model.setRowCount(0);
-		rowData = new Object[model.getColumnCount()];
 
 		for (Persona persona : Clinica.getInstance().getmisPersonas()) {
 			if (persona instanceof Paciente) {
+				rowData = new Object[model.getColumnCount()];
+
 				rowData[0] = persona.getCodigo();
-				rowData[0] = persona.getCedula();
-				rowData[0] = persona.getNombre();
-				rowData[0] = persona.getTelefono();
-				rowData[0] = persona.getDireccion();
-				rowData[0] = persona.getSexo();
+				rowData[1] = persona.getCedula();
+				rowData[2] = persona.getNombre();
+				rowData[3] = persona.getTelefono();
+				rowData[4] = persona.getDireccion();
+				rowData[5] = persona.getSexo();
 
 				model.addRow(rowData);
 			}

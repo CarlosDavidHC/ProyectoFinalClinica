@@ -2,10 +2,6 @@ package Logico;
 
 import java.util.ArrayList;
 
-
-
-
-
 public class Clinica {
 
 	private ArrayList<Viviendas> misViviendas;
@@ -13,12 +9,15 @@ public class Clinica {
 	private ArrayList<Cita> misCitas;
 	private ArrayList<Enfermedad> misEnfermedades;
 	private ArrayList<Vacuna> misVacunas;
+	private ArrayList<HistorialClinico> misHistoriales;
 	private static Clinica clini = null;
 	public static int GeneradorCodeCita = 1;
 	public static int GeneradorCodePersona = 1;
-	
+	public static int GeneradorCodeHistorial = 1;
+	public static int GeneradorCodeVivienda = 1;
+
 	public static Clinica getInstance() {
-		if(clini == null)
+		if (clini == null)
 			clini = new Clinica();
 		return clini;
 	}
@@ -30,6 +29,7 @@ public class Clinica {
 		this.misCitas = new ArrayList<>();
 		this.misEnfermedades = new ArrayList<>();
 		this.misVacunas = new ArrayList<>();
+		this.misHistoriales = new ArrayList<>();
 	}
 
 	public ArrayList<Viviendas> getMisViviendas() {
@@ -71,32 +71,49 @@ public class Clinica {
 	public void setMisVacunas(ArrayList<Vacuna> misVacunas) {
 		this.misVacunas = misVacunas;
 	}
-	
-	public void insertarPersona(Persona persona) {
-        misPersonas.add(persona);
-        GeneradorCodePersona++;
-    }
-	
-	public void insertarCita(Cita cita) {
-        misCitas.add(cita);
-        GeneradorCodeCita++;
-    }
-	
-	public Persona buscarPacienteByCedula(String cedPaciente) {
-	    Persona aux = null;
-	    int ind = 0;
-	    boolean encontrado = false;
 
-	    while (ind < misPersonas.size() && !encontrado) {
-	        if (misPersonas.get(ind).getCedula().equalsIgnoreCase(cedPaciente) && misPersonas.get(ind).getTipo() == 'p') {
-	            aux = misPersonas.get(ind);
-	            encontrado = true;
-	        }
-	        ind++;
-	    }
-	    return aux;
+	public ArrayList<HistorialClinico> getMisHistoriales() {
+		return misHistoriales;
 	}
 
+	public void setMisHistoriales(ArrayList<HistorialClinico> misHistoriales) {
+		this.misHistoriales = misHistoriales;
+	}
+
+	public void insertarPersona(Persona persona) {
+		misPersonas.add(persona);
+		GeneradorCodePersona++;
+	}
+
+	public void insertarCita(Cita cita) {
+		misCitas.add(cita);
+		GeneradorCodeCita++;
+	}
+
+	public void insertarHistorial(HistorialClinico histo) {
+		misHistoriales.add(histo);
+		GeneradorCodeHistorial++;
+	}
 	
-	
+	public void insertarVivienda(Viviendas vivi) {
+		misViviendas.add(vivi);
+		GeneradorCodeHistorial++;
+	}
+
+	public Persona buscarPacienteByCedula(String cedPaciente) {
+		Persona aux = null;
+		int ind = 0;
+		boolean encontrado = false;
+
+		while (ind < misPersonas.size() && !encontrado) {
+			if (misPersonas.get(ind).getCedula().equalsIgnoreCase(cedPaciente)
+					&& misPersonas.get(ind).getTipo() == 'p') {
+				aux = misPersonas.get(ind);
+				encontrado = true;
+			}
+			ind++;
+		}
+		return aux;
+	}
+
 }
