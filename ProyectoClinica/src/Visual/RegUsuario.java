@@ -253,6 +253,7 @@ public class RegUsuario extends JDialog {
 						if(rdbDoctor.isSelected() || rdbSecretaria.isSelected() || rdbAdministrador.isSelected()) {
 						JOptionPane.showMessageDialog(null, "Usuario registrado con éxito", "Información",
 								JOptionPane.INFORMATION_MESSAGE);
+						ClearSecion();
 						}
 					}
 				});
@@ -266,5 +267,18 @@ public class RegUsuario extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	private void ClearSecion() {
+		codigo2.setText("");
+		nombre2.setText("");
+		cedula2.setText("");
+		direccion2.setText("");
+		telefono2.setText("");
+		rdMujer.setSelected(false);
+		rdHombre.setSelected(false);
+		if(rdbDoctor.isSelected()) {
+			especialidad2.setText("");
+		}
+		
 	}
 }

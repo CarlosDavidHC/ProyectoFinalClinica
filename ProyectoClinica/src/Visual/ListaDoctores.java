@@ -87,13 +87,16 @@ public class ListaDoctores extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		loadDoctores();
 	}
 	
 	  public static void loadDoctores() {
 	        model.setRowCount(0);
-	        row = new Object[model.getColumnCount()];
-	        for (Persona doctor : Clinica.getInstance().getMisPersonas()) {
+	        
+	        for (Persona doctor : Clinica.getInstance().getmisPersonas()) {
 	        	if(doctor instanceof Doctor) {
+	            row = new Object[model.getColumnCount()];
+	            
 	            row[0] = doctor.getCodigo();
 	            row[1] = doctor.getNombre();
 	            row[2] = ((Doctor) doctor).getEspecialidad();

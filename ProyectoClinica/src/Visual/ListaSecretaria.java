@@ -91,9 +91,11 @@ public class ListaSecretaria extends JDialog {
 	}
 	public static void loadSecretaria() {
         model.setRowCount(0);
-        row = new Object[model.getColumnCount()];
+        
         for (Persona secretaria : Clinica.getInstance().getmisPersonas()) {
         	if(secretaria instanceof Secretaria) {
+        	row = new Object[model.getColumnCount()];
+        		
             row[0] = secretaria.getCodigo();
             row[1] = secretaria.getNombre();
             row[2] = secretaria.getTelefono();

@@ -84,9 +84,11 @@ public class ListaAdministrador extends JDialog {
 	}
 	public static void loadAdmin() {
         model.setRowCount(0);
-        row = new Object[model.getColumnCount()];
+        
         for (Persona admin: Clinica.getInstance().getmisPersonas()) {
         	if(admin instanceof Administrador) {
+        	row = new Object[model.getColumnCount()];
+        		
             row[0] = admin.getCodigo();
             row[1] = admin.getNombre();
             row[2] = admin.getTelefono();
