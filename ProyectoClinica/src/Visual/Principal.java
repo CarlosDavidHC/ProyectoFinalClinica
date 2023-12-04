@@ -187,9 +187,23 @@ public class Principal extends JFrame {
 		mnMedicos.add(mntmRegistrarPersonas);
 
 		JMenuItem mntmListarDoctores = new JMenuItem("Listado Doctores");
+		mntmListarDoctores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListaDoctores doctores = new ListaDoctores();
+				doctores.setModal(true);
+				doctores.setVisible(true);
+			}
+		});
 		mnMedicos.add(mntmListarDoctores);
 
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listado Secretarias");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListaSecretaria secretaria= new ListaSecretaria();
+				secretaria.setModal(true);
+				secretaria.setVisible(true);
+			}
+		});
 		mnMedicos.add(mntmNewMenuItem_1);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
