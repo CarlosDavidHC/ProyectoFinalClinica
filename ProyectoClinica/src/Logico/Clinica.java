@@ -3,7 +3,7 @@ package Logico;
 import java.util.ArrayList;
 
 public class Clinica {
-
+	
 	private ArrayList<Viviendas> misViviendas;
 	private ArrayList<Persona> misPersonas;
 	private ArrayList<Cita> misCitas;
