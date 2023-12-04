@@ -1,16 +1,17 @@
 package Logico;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Cita {
 
 	private String codigoCita;
-	private Date fechaCita;
+	private LocalDate fechaCita;
 	private Persona persona;
 	private Doctor doctor;
 	private char estado; // a = atendido ; p = pendiente.
 
-	public Cita(String codigoCita, Date fechaCita, Persona persona, Doctor doctor, char estado) {
+	public Cita(String codigoCita, LocalDate fechaCita, Persona persona, Doctor doctor, char estado) {
 		super();
 		this.codigoCita = codigoCita;
 		this.fechaCita = fechaCita;
@@ -27,11 +28,11 @@ public class Cita {
 		this.codigoCita = codigoCita;
 	}
 
-	public Date getFechaCita() {
+	public LocalDate getFechaCita() {
 		return fechaCita;
 	}
 
-	public void setFechaCita(Date fechaCita) {
+	public void setFechaCita(LocalDate fechaCita) {
 		this.fechaCita = fechaCita;
 	}
 

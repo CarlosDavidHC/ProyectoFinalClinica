@@ -102,6 +102,13 @@ public class Principal extends JFrame {
 		menuBar.add(mnPersonal);
 		
 		JMenuItem mntmListarPacientes = new JMenuItem("Listado Pacientes");
+		mntmListarPacientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoPaciente ListarPaciente = new ListadoPaciente();
+				ListarPaciente.setModal(true);
+				ListarPaciente.setVisible(true);
+			}
+		});
 		mnPersonal.add(mntmListarPacientes);
 		
 		JMenuItem mntmListarViviendas = new JMenuItem("Listado Viviendas");

@@ -14,6 +14,8 @@ public class Clinica {
 	private ArrayList<Enfermedad> misEnfermedades;
 	private ArrayList<Vacuna> misVacunas;
 	private static Clinica clini = null;
+	public static int GeneradorCodeCita = 1;
+	public static int GeneradorCodePersona = 1;
 	
 	public static Clinica getInstance() {
 		if(clini == null)
@@ -38,11 +40,11 @@ public class Clinica {
 		this.misViviendas = misViviendas;
 	}
 
-	public ArrayList<Persona> getMisPersonas() {
+	public ArrayList<Persona> getmisPersonas() {
 		return misPersonas;
 	}
 
-	public void setMisPersonas(ArrayList<Persona> misPersonas) {
+	public void setmisPersonas(ArrayList<Persona> misPersonas) {
 		this.misPersonas = misPersonas;
 	}
 
@@ -70,20 +72,31 @@ public class Clinica {
 		this.misVacunas = misVacunas;
 	}
 	
-	public Persona buscarPersonaByCedula(String cedPersona) {
-		Persona aux = null;
-		int ind = 0;
-		boolean encontrado = false;
+	public void insertarPersona(Persona persona) {
+        misPersonas.add(persona);
+        GeneradorCodePersona++;
+    }
+	
+	public void insertarCita(Cita cita) {
+        misCitas.add(cita);
+        GeneradorCodeCita++;
+    }
+	
+	public Persona buscarPacienteByCedula(String cedPaciente) {
+	    Persona aux = null;
+	    int ind = 0;
+	    boolean encontrado = false;
 
-		while(ind < misPersonas.size() && !encontrado) {
-			if( misPersonas.get(ind).getCedula().equalsIgnoreCase(cedPersona)) {
-				if(misPersonas.get(ind).getTipo()== 'p') {
-					aux =  misPersonas.get(ind);
-					encontrado = true;
-				}
-			}
-			ind++;
-		}
-		return aux;
+	    while (ind < misPersonas.size() && !encontrado) {
+	        if (misPersonas.get(ind).getCedula().equalsIgnoreCase(cedPaciente) && misPersonas.get(ind).getTipo() == 'p') {
+	            aux = misPersonas.get(ind);
+	            encontrado = true;
+	        }
+	        ind++;
+	    }
+	    return aux;
 	}
+
+	
+	
 }
