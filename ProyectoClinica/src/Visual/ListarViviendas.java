@@ -15,12 +15,13 @@ import javax.swing.table.DefaultTableModel;
 import Logico.Clinica;
 import Logico.Paciente;
 import Logico.Persona;
+import Logico.Viviendas;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-public class ListadoPaciente extends JDialog {
+public class ListarViviendas extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
@@ -43,9 +44,9 @@ public class ListadoPaciente extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListadoPaciente() {
+	public ListarViviendas() {
 		setModal(true);
-		setTitle("Listado de Pacientes");
+		setTitle("Listado de Viviendas");
 		setBounds(100, 100, 578, 481);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -58,7 +59,7 @@ public class ListadoPaciente extends JDialog {
 				table = new JTable();
 				table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				model = new DefaultTableModel();
-				String[] headers = { "Código", "Cédula", "Nombre", "Teléfono", "Dirección", "Sexo" };
+				String[] headers = { "Código", "Dirección", "Núm. Habitantes" };
 				model.setColumnIdentifiers(headers);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
@@ -86,19 +87,15 @@ public class ListadoPaciente extends JDialog {
 	private void cargarDatosPacientes(int index) {
 		model.setRowCount(0);
 
-		for (Persona persona : Clinica.getInstance().getmisPersonas()) {
-			if (persona instanceof Paciente) {
-				rowData = new Object[model.getColumnCount()];
+		for (Viviendas vivienda : Clinica.getInstance().getMisViviendas()) {
 
-				rowData[0] = persona.getCodigo();
-				rowData[1] = persona.getCedula();
-				rowData[2] = persona.getNombre();
-				rowData[3] = persona.getTelefono();
-				rowData[4] = persona.getDireccion();
-				rowData[5] = persona.getSexo();
+			rowData = new Object[model.getColumnCount()];
 
-				model.addRow(rowData);
-			}
+			rowData[0] = vivienda.getId();
+			rowData[1] = vivienda.getDireccion();
+
+			model.addRow(rowData);
+
 		}
 	}
 }

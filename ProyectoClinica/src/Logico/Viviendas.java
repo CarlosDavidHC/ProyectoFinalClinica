@@ -38,5 +38,9 @@ public class Viviendas {
 	public void setPersonaHospedada(ArrayList<Persona> personaHospedada) {
 		this.personaHospedada = personaHospedada;
 	}
+	
+    public String toString() {
+        return getDireccion();
+    }
 
 }

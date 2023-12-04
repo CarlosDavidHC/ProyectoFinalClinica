@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Logico.Clinica;
+import Logico.HistorialClinico;
 import Logico.Paciente;
 import Logico.Persona;
 
@@ -20,7 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-public class ListadoPaciente extends JDialog {
+public class ListarHistorial extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
@@ -43,9 +44,9 @@ public class ListadoPaciente extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListadoPaciente() {
+	public ListarHistorial() {
 		setModal(true);
-		setTitle("Listado de Pacientes");
+		setTitle("Listado de Historiales");
 		setBounds(100, 100, 578, 481);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -58,7 +59,8 @@ public class ListadoPaciente extends JDialog {
 				table = new JTable();
 				table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				model = new DefaultTableModel();
-				String[] headers = { "Código", "Cédula", "Nombre", "Teléfono", "Dirección", "Sexo" };
+				String[] headers = { "Código", "Paciente", "Núm. Citas", "Núm. Consultas", "Núm. Enfermedades",
+						"Núm. Vacunas" };
 				model.setColumnIdentifiers(headers);
 				table.setModel(model);
 				scrollPane.setViewportView(table);
@@ -86,19 +88,14 @@ public class ListadoPaciente extends JDialog {
 	private void cargarDatosPacientes(int index) {
 		model.setRowCount(0);
 
-		for (Persona persona : Clinica.getInstance().getmisPersonas()) {
-			if (persona instanceof Paciente) {
-				rowData = new Object[model.getColumnCount()];
+		for (HistorialClinico histo : Clinica.getInstance().getMisHistoriales()) {
+			rowData = new Object[model.getColumnCount()];
 
-				rowData[0] = persona.getCodigo();
-				rowData[1] = persona.getCedula();
-				rowData[2] = persona.getNombre();
-				rowData[3] = persona.getTelefono();
-				rowData[4] = persona.getDireccion();
-				rowData[5] = persona.getSexo();
+			rowData[0] = histo.getId();
+			rowData[1] = histo.getMiPaciente().getNombre();
 
-				model.addRow(rowData);
-			}
+			model.addRow(rowData);
+
 		}
 	}
 }
