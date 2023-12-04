@@ -89,6 +89,26 @@ public class Clinica {
 		misCitas.add(cita);
 		GeneradorCodeCita++;
 	}
+	
+	public void eliminarCita (Cita cita) {
+		misCitas.remove(cita);
+	}
+	
+	
+	public Cita buscarUnaCita (String cita) {
+		int i=0;
+		Cita ci= null;
+		boolean encontrado= false;
+		
+		while(i< misCitas.size() && !encontrado) {
+			if(misCitas.get(i).getCodigoCita().equalsIgnoreCase(cita)) {
+				ci = misCitas.get(i);
+				encontrado= true;
+			}
+			i++;
+		}
+		return ci;
+	}
 
 	public void insertarHistorial(HistorialClinico histo) {
 		misHistoriales.add(histo);
@@ -114,6 +134,22 @@ public class Clinica {
 			ind++;
 		}
 		return aux;
+	}
+	
+	public Doctor buscarDoctorByCodigo (String codigo) {
+		Doctor doc= null;
+		int i=0;
+		boolean encontrar= false;
+		
+		while (i< misPersonas.size() && !encontrar) {
+			if(misPersonas.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+				if (misPersonas instanceof Doctor) {
+					doc = misPersonas.get(i);
+					encontrar= true;
+				}
+			}
+			i++;
+		}
 	}
 
 }

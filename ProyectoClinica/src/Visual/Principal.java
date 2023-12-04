@@ -89,6 +89,13 @@ public class Principal extends JFrame {
 		mnCitas.add(mntmRegistrarCitas);
 
 		JMenuItem mntmListadoCitas = new JMenuItem("Listado Citas");
+		mntmListadoCitas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListaCitas citas= new ListaCitas();
+				citas.setModal(true);
+				citas.setVisible(true);
+			}
+		});
 		mnCitas.add(mntmListadoCitas);
 
 		JMenu mnPersonal = new JMenu("Pacientes");
