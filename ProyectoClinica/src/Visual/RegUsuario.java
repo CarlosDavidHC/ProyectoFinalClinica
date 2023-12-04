@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JPasswordField;
@@ -219,36 +220,31 @@ public class RegUsuario extends JDialog {
 						if (rdbDoctor.isSelected()) {
 							String especialidad= especialidad2.getText();
 							if(rdMujer.isSelected()) {
-							perso = new Doctor(codigo, cedula, nombre, telefono, direccion, "d", "m", especialidad);
+							perso = new Doctor(codigo, cedula, nombre, telefono, direccion, 'd', 'm', especialidad);
 							}
 							if(rdHombre.isSelected()) {
-								perso = new Doctor(codigo, cedula, nombre, telefono, direccion, "d", "h", especialidad);	
+								perso = new Doctor(codigo, cedula, nombre, telefono, direccion, 'd', 'h', especialidad);	
 							}
 						}
 						if(rdbSecretaria.isSelected()) {
 							if(rdMujer.isSelected()) {
-							perso = new Persona(codigo, cedula, nombre, telefono, direccion, "s","m");
+							perso = new Persona(codigo, cedula, nombre, telefono, direccion, 's','m');
 							}
 							if(rdHombre.isSelected()) {
-								perso = new Persona(codigo, cedula, nombre, telefono, direccion, "s","h");
+								perso = new Persona(codigo, cedula, nombre, telefono, direccion, 's','h');
 							}
 						}
 						if(rdbAdministrador.isSelected()) {
 							if(rdMujer.isSelected()) {
-								perso = new Persona(codigo, cedula, nombre, telefono, direccion, "a","m");
+								perso = new Persona(codigo, cedula, nombre, telefono, direccion, 'a','m');
 							}
 							if(rdHombre.isSelected()) {
-								perso = new Persona(codigo, cedula, nombre, telefono, direccion, "a","h");
+								perso = new Persona(codigo, cedula, nombre, telefono, direccion, 'a','h');
 							}
 						}
 						
-						if(rdbDoctor.isSelected(false) && rdbSecretaria.isSelected(false) && rdbAdministrador.isSelected(false) ) {
-							if(rdMujer.isSelected()) {
-								perso = new Persona(codigo, cedula, nombre, telefono, direccion, "pe","m");
-							}
-							if(rdHombre.isSelected()) {
-								perso = new Persona(codigo, cedula, nombre, telefono, direccion, "pe","h");
-							}
+						if(!rdbDoctor.isSelected() && !rdbSecretaria.isSelected() && !rdbAdministrador.isSelected() ) {
+							JOptionPane.showMessageDialog(null, "debes seleccionar un tipo", "error", JOptionPane.ERROR_MESSAGE);
 						}
 						Clinica.getInstance().getMisPersonas(perso);
 						

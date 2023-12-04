@@ -5,7 +5,7 @@ public class Enfermedad {
 	private String CodigoEnfermedad;
 	private String Nombre;
 	private String Descripcion;
-	
+
 	public Enfermedad(String codigoEnfermedad, String nombre, String descripcion) {
 		super();
 		CodigoEnfermedad = codigoEnfermedad;

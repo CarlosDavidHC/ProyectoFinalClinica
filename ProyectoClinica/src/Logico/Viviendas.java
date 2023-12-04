@@ -39,4 +39,8 @@ public class Viviendas {
 		this.personaHospedada = personaHospedada;
 	}
 
+	public String toString() {
+		return getDireccion();
+	}
+
 }

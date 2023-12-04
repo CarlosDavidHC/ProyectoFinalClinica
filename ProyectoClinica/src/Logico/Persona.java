@@ -7,7 +7,7 @@ public abstract class Persona {
 	protected String nombre;
 	protected String telefono;
 	protected String direccion;
-	protected char tipo; // p si es paciente ; d si es doctor.
+	protected char tipo; // p si es paciente ; d si es doctor ; s si es secretaria ; a si es admin.
 	protected char sexo;
 
 	public Persona(String codigo, String cedula, String nombre, String telefono, String direccion, char tipo,

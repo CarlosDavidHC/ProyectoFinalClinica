@@ -18,4 +18,8 @@ public class Paciente extends Persona {
 		this.historial = historial;
 	}
 
+	public void agregarCitaAlHistorial(Cita cita) {
+		this.historial.getMisCitas().add(cita);
+	}
+
 }
