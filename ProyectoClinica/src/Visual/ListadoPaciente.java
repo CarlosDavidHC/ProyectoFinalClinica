@@ -2,9 +2,6 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -22,14 +19,13 @@ import javax.swing.ListSelectionModel;
 
 public class ListadoPaciente extends JDialog {
 
+
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private static DefaultTableModel model;
 	private Object rowData[];
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			ListadoPaciente dialog = new ListadoPaciente();
@@ -40,9 +36,7 @@ public class ListadoPaciente extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public ListadoPaciente() {
 		setModal(true);
 		setTitle("Listado de Pacientes");

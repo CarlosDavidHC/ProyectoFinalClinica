@@ -17,9 +17,6 @@ import Logico.Paciente;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.JPasswordField;
-import javax.swing.JToggleButton;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
@@ -27,7 +24,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -118,7 +114,7 @@ public class RegCita extends JDialog {
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (txtCedula.getText().equalsIgnoreCase("___-_______-_")) {
+				if (txtCedula.getText().equalsIgnoreCase("_-__-")) {
 					JOptionPane.showMessageDialog(null, "Por favor, tiene que completar su cédula", "Advertencia",
 							JOptionPane.WARNING_MESSAGE);
 				} else {
@@ -267,7 +263,7 @@ public class RegCita extends JDialog {
 				okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (txtCedula.getText().equalsIgnoreCase("___-_______-_") || txtFecha.getText().isEmpty()) {
+						if (txtCedula.getText().equalsIgnoreCase("_-__-") || txtFecha.getText().isEmpty()) {
 							JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos necesarios",
 									"Advertencia", JOptionPane.WARNING_MESSAGE);
 							return;

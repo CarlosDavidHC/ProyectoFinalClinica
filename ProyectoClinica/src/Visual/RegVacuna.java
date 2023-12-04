@@ -56,16 +56,16 @@ public class RegVacuna extends JDialog {
 			lblNewLabel_1.setBounds(10, 55, 74, 14);
 			contentPanel.add(lblNewLabel_1);
 		}
-		
+
 		JLabel lblNewLabel_2 = new JLabel("C\u00F3digo:");
 		lblNewLabel_2.setBounds(10, 10, 46, 17);
 		contentPanel.add(lblNewLabel_2);
-		
+
 		textField_2 = new JTextField();
 		textField_2.setBounds(68, 8, 64, 20);
 		contentPanel.add(textField_2);
 		textField_2.setColumns(10);
-		
+
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(96, 51, 117, 22);
 		contentPanel.add(comboBox);

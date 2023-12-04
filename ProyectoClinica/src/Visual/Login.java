@@ -35,9 +35,6 @@ public class Login extends JFrame {
 	private JTextField txtUsuario;
 	private JPasswordField txtPassword;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -80,9 +77,7 @@ public class Login extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public Login() {
 		setResizable(false);
 		setTitle("Inicio de Sesi\u00F3n");
@@ -118,16 +113,16 @@ public class Login extends JFrame {
 		panel.add(txtUsuario);
 		txtUsuario.setColumns(10);
 
-        JButton btnLogin = new JButton("Acceder");
-        ImageIcon icon = new ImageIcon(Login.class.getResource("/Imagess/usuario.png"));
-        btnLogin.setIcon(new ImageIcon(icon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH)));
-        btnLogin.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                loginUser();
-            }
-        });
-        btnLogin.setBounds(281, 237, 116, 47);
-        panel.add(btnLogin);
+		JButton btnLogin = new JButton("Acceder");
+		ImageIcon icon = new ImageIcon(Login.class.getResource("/Imagess/usuario.png"));
+		btnLogin.setIcon(new ImageIcon(icon.getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH)));
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				loginUser();
+			}
+		});
+		btnLogin.setBounds(281, 237, 116, 47);
+		panel.add(btnLogin);
 
 		JLabel lblClinica = new JLabel("Inicie Sesi\u00F3n");
 		lblClinica.setHorizontalAlignment(SwingConstants.CENTER);
@@ -143,13 +138,13 @@ public class Login extends JFrame {
 		});
 		txtPassword.setBounds(281, 193, 191, 20);
 		panel.add(txtPassword);
-		
-        JLabel lblNewLabel = new JLabel("");
-        ImageIcon imageIcon = new ImageIcon(Login.class.getResource("/Imagess/cruzRoja.jpg"));
-        lblNewLabel.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(575, 371, Image.SCALE_SMOOTH)));
-        lblNewLabel.setBounds(0, 0, 559, 297);
-        panel.add(lblNewLabel);
-        lblNewLabel.setLayout(new BorderLayout());
+
+		JLabel lblNewLabel = new JLabel("");
+		ImageIcon imageIcon = new ImageIcon(Login.class.getResource("/Imagess/cruzRoja.jpg"));
+		lblNewLabel.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(575, 371, Image.SCALE_SMOOTH)));
+		lblNewLabel.setBounds(0, 0, 559, 297);
+		panel.add(lblNewLabel);
+		lblNewLabel.setLayout(new BorderLayout());
 	}
 
 	private void loginUser() {

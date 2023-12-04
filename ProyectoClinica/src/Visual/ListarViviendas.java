@@ -2,9 +2,6 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -13,8 +10,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Logico.Clinica;
-import Logico.Paciente;
-import Logico.Persona;
 import Logico.Viviendas;
 
 import javax.swing.JScrollPane;

@@ -94,7 +94,7 @@ public class Clinica {
 		misHistoriales.add(histo);
 		GeneradorCodeHistorial++;
 	}
-	
+
 	public void insertarVivienda(Viviendas vivi) {
 		misViviendas.add(vivi);
 		GeneradorCodeHistorial++;

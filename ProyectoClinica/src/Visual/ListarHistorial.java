@@ -2,9 +2,6 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,8 +11,6 @@ import javax.swing.table.DefaultTableModel;
 
 import Logico.Clinica;
 import Logico.HistorialClinico;
-import Logico.Paciente;
-import Logico.Persona;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,14 +18,13 @@ import javax.swing.ListSelectionModel;
 
 public class ListarHistorial extends JDialog {
 
+
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private static DefaultTableModel model;
 	private Object rowData[];
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			ListadoPaciente dialog = new ListadoPaciente();
@@ -41,9 +35,7 @@ public class ListarHistorial extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+
 	public ListarHistorial() {
 		setModal(true);
 		setTitle("Listado de Historiales");

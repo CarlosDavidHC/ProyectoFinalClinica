@@ -38,10 +38,9 @@ public class Viviendas {
 	public void setPersonaHospedada(ArrayList<Persona> personaHospedada) {
 		this.personaHospedada = personaHospedada;
 	}
-	
-    public String toString() {
-        // Devuelve la dirección de la vivienda como texto para ser mostrado en el JComboBox
-        return getDireccion();
-    }
+
+	public String toString() {
+		return getDireccion();
+	}
 
 }

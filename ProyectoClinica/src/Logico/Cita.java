@@ -2,7 +2,6 @@ package Logico;
 
 import java.time.LocalDate;
 
-
 public class Cita {
 
 	private String codigoCita;
