@@ -15,8 +15,14 @@ import javax.swing.JToggleButton;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
+
+import Logico.Clinica;
+import Logico.Doctor;
+
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RegUsuario extends JDialog {
 
@@ -24,9 +30,14 @@ public class RegUsuario extends JDialog {
 	private JTextField codigo2;
 	private JTextField nombre2;
 	private JTextField direccion2;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField;
+	private JTextField telefono2;
+	private JTextField cedula2;
+	private JTextField especialidad2;
+	private JRadioButton rdMujer;
+	private JRadioButton rdHombre;
+	private JRadioButton rdbDoctor;
+	private JRadioButton rdbSecretaria;
+	private JRadioButton rdbAdministrador;
 
 	/**
 	 * Launch the application.
@@ -61,10 +72,12 @@ public class RegUsuario extends JDialog {
 		label.setBounds(12, 22, 82, 14);
 		pnldoctor.add(label);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(100, 19, 132, 20);
-		pnldoctor.add(textField);
+		especialidad2 = new JTextField();
+		especialidad2.setEnabled(false);
+		especialidad2.setEditable(false);
+		especialidad2.setColumns(10);
+		especialidad2.setBounds(100, 19, 132, 20);
+		pnldoctor.add(especialidad2);
 		
 		JPanel pnlVacio = new JPanel();
 		pnlVacio.setLayout(null);
@@ -108,31 +121,41 @@ public class RegUsuario extends JDialog {
 		lblDireccin.setBounds(10, 146, 66, 14);
 		panel_2.add(lblDireccin);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(99, 102, 132, 20);
-		panel_2.add(textField_1);
+		telefono2 = new JTextField();
+		telefono2.setColumns(10);
+		telefono2.setBounds(99, 102, 132, 20);
+		panel_2.add(telefono2);
 		
 		JLabel lblCdula = new JLabel("C\u00E9dula:");
 		lblCdula.setBounds(181, 13, 56, 18);
 		panel_2.add(lblCdula);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(249, 12, 214, 20);
-		panel_2.add(textField_2);
+		cedula2 = new JTextField();
+		cedula2.setColumns(10);
+		cedula2.setBounds(249, 12, 214, 20);
+		panel_2.add(cedula2);
 		
 		JLabel label_1 = new JLabel("Sexo:");
 		label_1.setBounds(249, 103, 33, 14);
 		panel_2.add(label_1);
 		
-		JRadioButton radioButton_1 = new JRadioButton("Mujer");
-		radioButton_1.setBounds(317, 99, 71, 23);
-		panel_2.add(radioButton_1);
+		rdMujer = new JRadioButton("Mujer");
+		rdMujer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdHombre.setSelected(false);
+			}
+		});
+		rdMujer.setBounds(317, 99, 71, 23);
+		panel_2.add(rdMujer);
 		
-		JRadioButton radioButton_2 = new JRadioButton("Hombre");
-		radioButton_2.setBounds(392, 99, 81, 23);
-		panel_2.add(radioButton_2);
+		rdHombre = new JRadioButton("Hombre");
+		rdHombre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdMujer.setSelected(false);
+			}
+		});
+		rdHombre.setBounds(392, 99, 81, 23);
+		panel_2.add(rdHombre);
 		
 		JPanel pnlTipo = new JPanel();
 		pnlTipo.setLayout(null);
@@ -141,24 +164,96 @@ public class RegUsuario extends JDialog {
 		pnlTipo.setBounds(10, 226, 475, 68);
 		contentPanel.add(pnlTipo);
 		
-		JRadioButton rdbtnDoctor = new JRadioButton("Doctor");
-		rdbtnDoctor.setSelected(true);
-		rdbtnDoctor.setBounds(8, 25, 135, 23);
-		pnlTipo.add(rdbtnDoctor);
+		rdbDoctor = new JRadioButton("Doctor");
+		rdbDoctor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbSecretaria.setSelected(false);
+				rdbAdministrador.setSelected(false);
+				especialidad2.setEditable(true);
+				especialidad2.setEnabled(true);
+				
+			}
+		});
+		rdbDoctor.setBounds(8, 25, 135, 23);
+		pnlTipo.add(rdbDoctor);
 		
-		JRadioButton rdbtnAdministrador = new JRadioButton("Administrador");
-		rdbtnAdministrador.setBounds(292, 25, 149, 23);
-		pnlTipo.add(rdbtnAdministrador);
+		rdbAdministrador = new JRadioButton("Administrador");
+		rdbAdministrador.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbSecretaria.setSelected(false);
+				rdbDoctor.setSelected(false);
+				especialidad2.setEnabled(false);
+				especialidad2.setEditable(false);
+			}
+		});
+		rdbAdministrador.setBounds(292, 25, 149, 23);
+		pnlTipo.add(rdbAdministrador);
 		
-		JRadioButton radioButton = new JRadioButton("Secretaria");
-		radioButton.setBounds(163, 24, 118, 23);
-		pnlTipo.add(radioButton);
+		rdbSecretaria = new JRadioButton("Secretaria");
+		rdbSecretaria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbDoctor.setSelected(false);
+				rdbAdministrador.setSelected(false);
+				especialidad2.setEnabled(false);
+				especialidad2.setEditable(false);
+				
+			}
+		});
+		rdbSecretaria.setBounds(163, 24, 118, 23);
+		pnlTipo.add(rdbSecretaria);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Registrar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Persona perso= null;
+						String codigo=  codigo2.getText();
+						String cedula= cedula2.getText();
+						String nombre= nombre2.getText();
+						String telefono= telefono2.getText();
+						String direccion= direccion2.getText();
+						
+						if (rdbDoctor.isSelected()) {
+							String especialidad= especialidad2.getText();
+							if(rdMujer.isSelected()) {
+							perso = new Doctor(codigo, cedula, nombre, telefono, direccion, "d", "m", especialidad);
+							}
+							if(rdHombre.isSelected()) {
+								perso = new Doctor(codigo, cedula, nombre, telefono, direccion, "d", "h", especialidad);	
+							}
+						}
+						if(rdbSecretaria.isSelected()) {
+							if(rdMujer.isSelected()) {
+							perso = new Persona(codigo, cedula, nombre, telefono, direccion, "s","m");
+							}
+							if(rdHombre.isSelected()) {
+								perso = new Persona(codigo, cedula, nombre, telefono, direccion, "s","h");
+							}
+						}
+						if(rdbAdministrador.isSelected()) {
+							if(rdMujer.isSelected()) {
+								perso = new Persona(codigo, cedula, nombre, telefono, direccion, "a","m");
+							}
+							if(rdHombre.isSelected()) {
+								perso = new Persona(codigo, cedula, nombre, telefono, direccion, "a","h");
+							}
+						}
+						
+						if(rdbDoctor.isSelected(false) && rdbSecretaria.isSelected(false) && rdbAdministrador.isSelected(false) ) {
+							if(rdMujer.isSelected()) {
+								perso = new Persona(codigo, cedula, nombre, telefono, direccion, "pe","m");
+							}
+							if(rdHombre.isSelected()) {
+								perso = new Persona(codigo, cedula, nombre, telefono, direccion, "pe","h");
+							}
+						}
+						Clinica.getInstance().getMisPersonas(perso);
+						
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
