@@ -39,7 +39,6 @@ public class ListadoPaciente extends JDialog {
 			e.printStackTrace();
 		}
 	}
-
 	/**
 	 * Create the dialog.
 	 */
