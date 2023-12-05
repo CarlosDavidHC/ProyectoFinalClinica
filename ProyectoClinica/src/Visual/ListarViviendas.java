@@ -22,10 +22,7 @@ public class ListarViviendas extends JDialog {
 	private JTable table;
 	private static DefaultTableModel model;
 	private Object rowData[];
-
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		try {
 			ListadoPaciente dialog = new ListadoPaciente();
