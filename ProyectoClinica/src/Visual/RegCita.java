@@ -343,16 +343,23 @@ public class RegCita extends JDialog {
 
 	private void Clean() {
 		txtCedula.setEnabled(true);
+		txtCedula.setText("");
 		nombre2.setText("");
 		direccion2.setEnabled(true);
+		direccion2.setText("");
 		telefono2.setEnabled(true);
+		telefono2.setText("");
 		rdbtnDireccionExistente.setEnabled(true);
+		rdbtnDireccionExistente.setSelected(false);
 		rdbtnNuevaDireccion.setEnabled(true);
-		rdbtnMujer.setEnabled(true);
-		rdbtnHombre.setEnabled(true);
 		rdbtnNuevaDireccion.setSelected(true);
+		rdbtnMujer.setEnabled(true);
+		rdbtnMujer.setSelected(false);
+		rdbtnHombre.setEnabled(true);
+		rdbtnHombre.setSelected(false);
 		btnBuscar.setVisible(true);
 		txtFecha.setEnabled(true);
+		txtFecha.setText("");
 		viviendaSeleccionada = null;
 	}
 }
