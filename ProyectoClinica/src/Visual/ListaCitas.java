@@ -93,7 +93,7 @@ public class ListaCitas extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("eliminar");
-				cancelButton.addActionListener(new ActionListener() {
+				//cancelButton.addActionListener(new ActionListener() {
 					/*public void actionPerformed(ActionEvent e) {
 						int Option = JOptionPane.showConfirmDialog(null, "Seguro desea eliminar la cita con código: "+cita.getCodigoCita(), "Eliminar", JOptionPane.OK_CANCEL_OPTION);
 					    if(Option == JOptionPane.OK_OPTION){
@@ -103,7 +103,7 @@ public class ListaCitas extends JDialog {
 					    	okButton.setEnabled(false);
 					    }
 					}*/
-				});
+				//});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
