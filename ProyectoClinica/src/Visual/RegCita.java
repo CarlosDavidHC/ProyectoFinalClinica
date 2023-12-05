@@ -121,6 +121,12 @@ public class RegCita extends JDialog {
 					auxPaciente = Clinica.getInstance().buscarPacienteByCedula(txtCedula.getText());
 					if (auxPaciente != null) {
 						loadDatospaciente(auxPaciente);
+						if(auxPaciente.getSexo() == 'M') {
+							rdbtnMujer.setSelected(true);
+						}
+						else {
+							rdbtnHombre.setSelected(true);
+						}
 					} else {
 						JOptionPane.showMessageDialog(null, "¡Bienvenido! Tienes que completar tus datos",
 								"Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -344,10 +350,11 @@ public class RegCita extends JDialog {
 	private void Clean() {
 		txtCedula.setEnabled(true);
 		txtCedula.setText("");
+		nombre2.setEnabled(false);
 		nombre2.setText("");
 		direccion2.setEnabled(false);
 		direccion2.setText("");
-		telefono2.setEnabled(true);
+		telefono2.setEnabled(false);
 		telefono2.setText("");
 		rdbtnDireccionExistente.setEnabled(false);
 		rdbtnDireccionExistente.setSelected(false);
