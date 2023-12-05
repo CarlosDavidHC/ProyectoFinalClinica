@@ -345,20 +345,20 @@ public class RegCita extends JDialog {
 		txtCedula.setEnabled(true);
 		txtCedula.setText("");
 		nombre2.setText("");
-		direccion2.setEnabled(true);
+		direccion2.setEnabled(false);
 		direccion2.setText("");
 		telefono2.setEnabled(true);
 		telefono2.setText("");
-		rdbtnDireccionExistente.setEnabled(true);
+		rdbtnDireccionExistente.setEnabled(false);
 		rdbtnDireccionExistente.setSelected(false);
-		rdbtnNuevaDireccion.setEnabled(true);
+		rdbtnNuevaDireccion.setEnabled(false);
 		rdbtnNuevaDireccion.setSelected(true);
-		rdbtnMujer.setEnabled(true);
+		rdbtnMujer.setEnabled(false);
 		rdbtnMujer.setSelected(false);
-		rdbtnHombre.setEnabled(true);
+		rdbtnHombre.setEnabled(false);
 		rdbtnHombre.setSelected(false);
 		btnBuscar.setVisible(true);
-		txtFecha.setEnabled(true);
+		txtFecha.setEnabled(false);
 		txtFecha.setText("");
 		viviendaSeleccionada = null;
 	}
