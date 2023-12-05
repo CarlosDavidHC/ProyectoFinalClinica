@@ -3,7 +3,7 @@ package Logico;
 import java.util.ArrayList;
 
 public class Clinica {
-	
+
 	private ArrayList<Viviendas> misViviendas;
 	private ArrayList<Persona> misPersonas;
 	private ArrayList<Cita> misCitas;
@@ -89,21 +89,20 @@ public class Clinica {
 		misCitas.add(cita);
 		GeneradorCodeCita++;
 	}
-	
-	public void eliminarCita (Cita cita) {
+
+	public void eliminarCita(Cita cita) {
 		misCitas.remove(cita);
 	}
-	
-	
-	public Cita buscarUnaCita (String cita) {
-		int i=0;
-		Cita ci= null;
-		boolean encontrado= false;
-		
-		while(i< misCitas.size() && !encontrado) {
-			if(misCitas.get(i).getCodigoCita().equalsIgnoreCase(cita)) {
+
+	public Cita buscarUnaCita(String cita) {
+		int i = 0;
+		Cita ci = null;
+		boolean encontrado = false;
+
+		while (i < misCitas.size() && !encontrado) {
+			if (misCitas.get(i).getCodigoCita().equalsIgnoreCase(cita)) {
 				ci = misCitas.get(i);
-				encontrado= true;
+				encontrado = true;
 			}
 			i++;
 		}
@@ -135,21 +134,22 @@ public class Clinica {
 		}
 		return aux;
 	}
-	
-	public Doctor buscarDoctorByCodigo (String codigo) {
-		Doctor doc= null;
-		int i=0;
-		boolean encontrar= false;
-		
-		while (i< misPersonas.size() && !encontrar) {
-			if(misPersonas.get(i).getCodigo().equalsIgnoreCase(codigo)) {
-				if (misPersonas instanceof Doctor) {
-					doc = misPersonas.get(i);
-					encontrar= true;
+
+	public Doctor buscarDoctorByCodigo(String codigo) {
+		Doctor doc = null;
+		int i = 0;
+		boolean encontrar = false;
+
+		while (i < misPersonas.size() && !encontrar) {
+			if (misPersonas.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+				if (misPersonas.get(i) instanceof Doctor) {
+					doc = (Doctor) misPersonas.get(i);
+					encontrar = true;
 				}
 			}
 			i++;
 		}
+		return doc;
 	}
 
 }
