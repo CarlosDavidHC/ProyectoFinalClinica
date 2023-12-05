@@ -93,6 +93,12 @@ public class Clinica {
 	public void eliminarCita(Cita cita) {
 		misCitas.remove(cita);
 	}
+	
+	public void eliminarDoctor(Doctor doc) {
+	    if (doc instanceof Doctor) {
+	        misPersonas.remove(doc);
+	    }
+	}
 
 	public Cita buscarUnaCita(String cita) {
 		int i = 0;

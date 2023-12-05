@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -85,21 +86,26 @@ public class ListaDoctores extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				okButton = new JButton("OK");
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				cancelButton = new JButton("Eliminar");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
-		} 
+						 int Option = JOptionPane.showConfirmDialog(null, "Seguro desea eliminar el doctor : ", "Eliminar", JOptionPane.OK_CANCEL_OPTION);
+	                        if (Option == JOptionPane.OK_OPTION) {
+	                            Clinica.getInstance().eliminarDoctor(doc);
+	                            loadDoctores();
+	                        }
+	                    }
+	                });
+	                cancelButton.setActionCommand("Cancel");
+	                buttonPane.add(cancelButton);
+	            }
+	        }
 		loadDoctores();
 	}
 	
