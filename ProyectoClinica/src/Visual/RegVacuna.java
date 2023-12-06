@@ -96,6 +96,7 @@ public class RegVacuna extends JDialog {
 						
 						Vacuna vacun= new Vacuna(nombre1.getText(), codigo1.getText(), enfermedades);
 						Clinica.getInstance().insertarvacuna(vacun);
+						clear();
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -113,5 +114,10 @@ public class RegVacuna extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	public void clear() {
+		nombre1.setText("");
+        codigo1.setText("");
+        comboBox1.setSelectedIndex(0);
 	}
 }
