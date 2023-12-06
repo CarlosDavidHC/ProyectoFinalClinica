@@ -13,6 +13,8 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RegConsulta extends JDialog {
 
@@ -182,6 +184,11 @@ public class RegConsulta extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

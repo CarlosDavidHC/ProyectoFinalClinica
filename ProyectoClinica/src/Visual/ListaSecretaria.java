@@ -47,6 +47,8 @@ public class ListaSecretaria extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListaSecretaria() {
+		setModal(true);
+		setTitle("Listado de Secretarias");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -69,6 +71,11 @@ public class ListaSecretaria extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
