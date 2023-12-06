@@ -65,16 +65,6 @@ public class ListaCitas extends JDialog {
 		        model = new DefaultTableModel();
 		        model.setColumnIdentifiers(header);
 		        table = new JTable();
-		        table.addMouseListener(new MouseAdapter() {
-		        	public void mouseClicked(MouseEvent e) {
-						   int index = table.getSelectedRow();
-						   if(index>=0){
-							  cancelButton.setEnabled(true);
-							  okButton.setEnabled(true);
-							  cita= Clinica.getInstance().buscarUnaCita(table.getValueAt(index, 0).toString());
-						   }
-		        	}
-				});
 		        table.setModel(model);
 		        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		        table.setModel(model);
@@ -97,18 +87,12 @@ public class ListaCitas extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("eliminar");
-				//cancelButton.addActionListener(new ActionListener() {
-					/*public void actionPerformed(ActionEvent e) {
-						int Option = JOptionPane.showConfirmDialog(null, "Seguro desea eliminar la cita con código: "+cita.getCodigoCita(), "Eliminar", JOptionPane.OK_CANCEL_OPTION);
-					    if(Option == JOptionPane.OK_OPTION){
-					    	Clinica.getInstance().eliminarCita(cita);
-					    	loadCitas();
-					    	cancelButton.setEnabled(false);
-					    	okButton.setEnabled(false);
-					    }
-					}*/
-				//});
+				JButton cancelButton = new JButton("cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

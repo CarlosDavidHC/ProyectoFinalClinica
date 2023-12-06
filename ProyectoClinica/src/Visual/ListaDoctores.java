@@ -64,16 +64,6 @@ public class ListaDoctores extends JDialog {
 		        model = new DefaultTableModel();
 		        model.setColumnIdentifiers(header);
 		        table = new JTable();
-		        table.addMouseListener(new MouseAdapter() {
-		        	public void mouseClicked( MouseEvent e) {
-						   int index = table.getSelectedRow();
-						   if(index>=0){
-							  cancelButton.setEnabled(true);
-							  okButton.setEnabled(true);
-							 doc= Clinica.getInstance().buscarDoctorByCodigo(table.getValueAt(index, 0).toString());
-						   }
-		        	}
-				});
 		        table.setModel(model);
 		        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		        table.setModel(model);
@@ -92,14 +82,10 @@ public class ListaDoctores extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				cancelButton = new JButton("Eliminar");
+				cancelButton = new JButton("cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						 int Option = JOptionPane.showConfirmDialog(null, "Seguro desea eliminar el doctor : ", "Eliminar", JOptionPane.OK_CANCEL_OPTION);
-	                        if (Option == JOptionPane.OK_OPTION) {
-	                            Clinica.getInstance().eliminarDoctor(doc);
-	                            loadDoctores();
-	                        }
+						 dispose();
 	                    }
 	                });
 	                cancelButton.setActionCommand("Cancel");

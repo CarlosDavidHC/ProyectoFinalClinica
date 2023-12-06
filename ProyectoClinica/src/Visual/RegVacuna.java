@@ -13,6 +13,7 @@ import Logico.Enfermedad;
 import Logico.Vacuna;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
@@ -97,6 +98,9 @@ public class RegVacuna extends JDialog {
 						Vacuna vacun= new Vacuna(nombre1.getText(), codigo1.getText(), enfermedades);
 						Clinica.getInstance().insertarvacuna(vacun);
 						clear();
+						JOptionPane.showMessageDialog(null, "exito", "Advertencia",
+								JOptionPane.WARNING_MESSAGE);
+
 					}
 				});
 				okButton.setActionCommand("OK");
