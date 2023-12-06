@@ -1,8 +1,9 @@
 package Logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class HistorialClinico {
+public class HistorialClinico implements Serializable {
 
 	private String id;
 	private Paciente miPaciente;

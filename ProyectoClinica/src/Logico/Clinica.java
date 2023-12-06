@@ -1,5 +1,11 @@
 package Logico;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class Clinica {
@@ -24,13 +30,18 @@ public class Clinica {
 	}
 
 	public Clinica() {
-		super();
-		this.misViviendas = new ArrayList<>();
-		this.misPersonas = new ArrayList<>();
-		this.misCitas = new ArrayList<>();
-		this.misEnfermedades = new ArrayList<>();
-		this.misVacunas = new ArrayList<>();
-		this.misHistoriales = new ArrayList<>();
+	    super();
+	    this.misViviendas = new ArrayList<>();
+	    this.misPersonas = new ArrayList<>();
+	    this.misCitas = new ArrayList<>();
+	    this.misEnfermedades = new ArrayList<>();
+	    this.misVacunas = new ArrayList<>();
+	    this.misHistoriales = new ArrayList<>();
+	    
+	    cargarPacientes();
+	    cargarViviendas();
+	    cargarCitas();
+	    cargarHistoriales();
 	}
 
 	public ArrayList<Viviendas> getMisViviendas() {
@@ -82,8 +93,9 @@ public class Clinica {
 	}
 
 	public void insertarPersona(Persona persona) {
-		misPersonas.add(persona);
-		GeneradorCodePersona++;
+	    misPersonas.add(persona);
+	    GeneradorCodePersona++;
+	    guardarPacientes();
 	}
 	
 	public void insertarEnfermedad(Enfermedad Enfer) {
@@ -182,5 +194,78 @@ public class Clinica {
 		}
 		return doc;
 	}
+	
+    // Método para guardar pacientes en un archivo
+    public void guardarPacientes() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("pacientes.dat"))) {
+            out.writeObject(misPersonas);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    // Método para cargar pacientes desde un archivo
+    @SuppressWarnings("unchecked")
+    public void cargarPacientes() {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("pacientes.dat"))) {
+            misPersonas = (ArrayList<Persona>) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void guardarViviendas() {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("viviendas.dat"))) {
+            outputStream.writeObject(misViviendas);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cargarViviendas() {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("viviendas.dat"))) {
+            misViviendas = (ArrayList<Viviendas>) inputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void guardarCitas() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("citas.dat"))) {
+            out.writeObject(misCitas);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Método para cargar las citas desde un archivo
+    @SuppressWarnings("unchecked")
+    public void cargarCitas() {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("citas.dat"))) {
+        	misCitas = (ArrayList<Cita>) inputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void guardarHistoriales() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("historiales.dat"))) {
+            out.writeObject(misHistoriales);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Método para cargar las citas desde un archivo
+    @SuppressWarnings("unchecked")
+    public void cargarHistoriales() {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("historiales.dat"))) {
+        	misHistoriales = (ArrayList<HistorialClinico>) inputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
 }
+

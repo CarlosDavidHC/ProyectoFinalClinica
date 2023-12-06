@@ -322,7 +322,9 @@ public class RegCita extends JDialog {
 						if (viviendaSeleccionada != null) {
 							viviendaSeleccionada.getPersonaHospedada().add((Paciente) persona);
 						}
-
+						Clinica.getInstance().guardarViviendas();
+						Clinica.getInstance().guardarHistoriales();
+						
 						Clean();
 					}
 				});
