@@ -71,8 +71,15 @@ public class Principal extends JFrame {
 		JMenu mnUsuario = new JMenu("Usuario");
 		menuBar.add(mnUsuario);
 
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Cerrar Sesi\u00F3n");
-		mnUsuario.add(mntmNewMenuItem_2);
+		JMenuItem mntmCerrarSesion = new JMenuItem("Cerrar Sesi\u00F3n");
+		mntmCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				Login loginFrame = new Login();
+				loginFrame.setVisible(true);
+			}
+		});
+		mnUsuario.add(mntmCerrarSesion);
 
 		JMenu mnCitas = new JMenu("Citas");
 		mnCitas.setEnabled(false);
@@ -91,7 +98,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmListadoCitas = new JMenuItem("Listado Citas");
 		mntmListadoCitas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListaCitas citas= new ListaCitas();
+				ListaCitas citas = new ListaCitas();
 				citas.setModal(true);
 				citas.setVisible(true);
 			}
@@ -122,16 +129,6 @@ public class Principal extends JFrame {
 		});
 		mnPersonal.add(mntmListarViviendas);
 
-		JMenuItem mntmHistoriales = new JMenuItem("Listado Historiales");
-		mntmHistoriales.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ListarHistorial ListarHistorial = new ListarHistorial();
-				ListarHistorial.setModal(true);
-				ListarHistorial.setVisible(true);
-			}
-		});
-		mnPersonal.add(mntmHistoriales);
-
 		JMenu mnConsulta = new JMenu("Consulta");
 		mnConsulta.setEnabled(false);
 		menuBar.add(mnConsulta);
@@ -148,6 +145,16 @@ public class Principal extends JFrame {
 
 		JMenuItem mntmNewMenuItem = new JMenuItem("Listado Consultas");
 		mnConsulta.add(mntmNewMenuItem);
+
+		JMenuItem mntmHistoriales = new JMenuItem("Listado Historiales");
+		mnConsulta.add(mntmHistoriales);
+		mntmHistoriales.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarHistorial ListarHistorial = new ListarHistorial();
+				ListarHistorial.setModal(true);
+				ListarHistorial.setVisible(true);
+			}
+		});
 
 		JMenu mnLaboratorio = new JMenu("Laboratorio");
 		mnLaboratorio.setEnabled(false);
@@ -206,7 +213,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listado Secretarias");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListaSecretaria secretaria= new ListaSecretaria();
+				ListaSecretaria secretaria = new ListaSecretaria();
 				secretaria.setModal(true);
 				secretaria.setVisible(true);
 			}

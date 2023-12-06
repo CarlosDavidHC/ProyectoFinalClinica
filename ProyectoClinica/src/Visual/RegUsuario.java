@@ -19,6 +19,7 @@ import javax.swing.border.TitledBorder;
 
 import Logico.Administrador;
 import Logico.Clinica;
+import Logico.Control;
 import Logico.Doctor;
 import Logico.Persona;
 import Logico.Secretaria;
@@ -252,6 +253,10 @@ public class RegUsuario extends JDialog {
 							if (rdbHombre.isSelected()) {
 								perso = new Doctor(codigo, cedula, nombre, telefono, direccion, 'd', 'h', especialidad);
 							}
+							
+				            String contrasena = txtContra.getText();
+				            Control.getInstance().regUserAndPass("Doctor", nombre, contrasena);
+							
 						}
 						if (rdbSecretaria.isSelected()) {
 							if (rdbMujer.isSelected()) {
@@ -260,6 +265,9 @@ public class RegUsuario extends JDialog {
 							if (rdbHombre.isSelected()) {
 								perso = new Secretaria(codigo, cedula, nombre, telefono, direccion, 's', 'h');
 							}
+							
+				            String contrasena = txtContra.getText();
+				            Control.getInstance().regUserAndPass("Secretaria", nombre, contrasena);
 						}
 						if (rdbAdministrador.isSelected()) {
 							if (rdbMujer.isSelected()) {
@@ -268,6 +276,9 @@ public class RegUsuario extends JDialog {
 							if (rdbHombre.isSelected()) {
 								perso = new Administrador(codigo, cedula, nombre, telefono, direccion, 'a', 'h');
 							}
+							
+				            String contrasena = txtContra.getText();
+				            Control.getInstance().regUserAndPass("Administrador", nombre, contrasena);
 						}
 
 						if (!rdbDoctor.isSelected() && !rdbSecretaria.isSelected() && !rdbAdministrador.isSelected()) {
@@ -310,6 +321,5 @@ public class RegUsuario extends JDialog {
 		cmbEspecialidad.setEnabled(false);
 		txtContra.setEditable(false);
 		txtContra.setEnabled(false);
-
 	}
 }

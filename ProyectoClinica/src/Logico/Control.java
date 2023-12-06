@@ -60,5 +60,23 @@ public class Control implements Serializable {
 		}
 		return login;
 	}
+	
+	public void regUserAndPass(String tipo, String nombre, String contrasena) {
+	    String userName = getInitials(nombre);
+	    User newUser = new User(tipo, userName, contrasena);
+	    regUser(newUser);
+	}
+
+	private String getInitials(String name) {
+	    String[] words = name.split("\\s+");
+	    StringBuilder initials = new StringBuilder();
+	    for (String word : words) {
+	        if (!word.isEmpty()) {
+	            initials.append(word.charAt(0));
+	        }
+	    }
+	    return initials.toString().toUpperCase();
+	}
+
 
 }
