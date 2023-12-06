@@ -31,7 +31,7 @@ public class ListarViviendas extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	} 
 
 	/**
 	 * Create the dialog.

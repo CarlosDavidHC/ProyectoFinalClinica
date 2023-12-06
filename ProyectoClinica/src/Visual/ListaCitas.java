@@ -51,6 +51,8 @@ public class ListaCitas extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListaCitas() {
+		setModal(true);
+		setTitle("Listado de las citas");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

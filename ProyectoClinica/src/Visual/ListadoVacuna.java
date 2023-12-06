@@ -20,6 +20,8 @@ import Logico.Vacuna;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ListadoVacuna extends JDialog {
 
@@ -47,6 +49,8 @@ public class ListadoVacuna extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListadoVacuna() {
+		setModal(true);
+		setTitle("Listado de Vacunas");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -81,6 +85,11 @@ public class ListadoVacuna extends JDialog {
 			}
 			{
 				cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
