@@ -307,9 +307,14 @@ public class RegCita extends JDialog {
 						} else {
 							persona = auxPaciente;
 						}
-						String doctor = (String) cobxDoctorEspecialidad.getSelectedItem();
-						Cita nuevaCita = new Cita("C" + Clinica.GeneradorCodeCita, LocalDate.now(), persona, doctor, 'P');
 
+				        String especialidadSeleccionada = cobxEspecialidad.getSelectedItem().toString();
+				        Doctor doctorSeleccionado = (Doctor) cobxDoctorEspecialidad.getSelectedItem();
+						
+						Cita nuevaCita = new Cita("C" + Clinica.GeneradorCodeCita, LocalDate.now(), persona,
+								doctorSeleccionado, 'P');
+						nuevaCita.setNombreDoctor(doctorSeleccionado.getNombre());
+						
 						((Paciente) persona).getHistorial().getMisCitas().add(nuevaCita);
 						Clinica.getInstance().insertarCita(nuevaCita);
 						JOptionPane.showMessageDialog(null, "Cita registrada con éxito", "Información",
@@ -380,15 +385,15 @@ public class RegCita extends JDialog {
 	}
 
 	private void loadDoctoresPorEspecialidad(String especialidad) {
-	    cobxDoctorEspecialidad.removeAllItems();
+		cobxDoctorEspecialidad.removeAllItems();
 
-	    for (Persona persona : Clinica.getInstance().getmisPersonas()) {
-	        if (persona instanceof Doctor) {
-	            Doctor doctor = (Doctor) persona;
-	            if (doctor.getEspecialidad().equalsIgnoreCase(especialidad)) {
-	                cobxDoctorEspecialidad.addItem(doctor);
-	            }
-	        }
-	    }
+		for (Persona persona : Clinica.getInstance().getmisPersonas()) {
+			if (persona instanceof Doctor) {
+				Doctor doctor = (Doctor) persona;
+				if (doctor.getEspecialidad().equalsIgnoreCase(especialidad)) {
+					cobxDoctorEspecialidad.addItem(doctor);
+				}
+			}
+		}
 	}
 }

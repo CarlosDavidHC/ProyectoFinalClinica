@@ -7,16 +7,18 @@ public class Cita {
 	private String codigoCita;
 	private LocalDate fechaCita;
 	private Persona persona;
-	private String doctor;
+	private Doctor doctor;
 	private char estado; // a = atendido ; p = pendiente.
+	private String nombreDoctor;
 
-	public Cita(String codigoCita, LocalDate fechaCita, Persona persona, String doctor2, char estado) {
+	public Cita(String codigoCita, LocalDate fechaCita, Persona persona, Doctor doctor, char estado) {
 		super();
 		this.codigoCita = codigoCita;
 		this.fechaCita = fechaCita;
 		this.persona = persona;
-		this.doctor = doctor2;
+		this.doctor = doctor;
 		this.estado = estado;
+		this.nombreDoctor = (doctor != null) ? doctor.getNombre() : "";
 	}
 
 	public String getCodigoCita() {
@@ -43,11 +45,11 @@ public class Cita {
 		this.persona = persona;
 	}
 
-	public String getDoctor() {
+	public Doctor getDoctor() {
 		return doctor;
 	}
 
-	public void setDoctor(String doctor) {
+	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
 
@@ -58,5 +60,13 @@ public class Cita {
 	public void setEstado(char estado) {
 		this.estado = estado;
 	}
+	
+    public String getNombreDoctor() {
+        return nombreDoctor;
+    }
+
+    public void setNombreDoctor(String nombreDoctor) {
+        this.nombreDoctor = nombreDoctor;
+    }
 
 }
