@@ -27,6 +27,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class RegCita extends JDialog {
 
@@ -43,9 +44,12 @@ public class RegCita extends JDialog {
 	private JComboBox<Viviendas> direcciones;
 	private JButton btnBuscar;
 	private Persona auxPaciente;
+	private Persona auxDoctor;
 	private JButton cancelButton;
 	private JButton okButton;
 	private Viviendas viviendaSeleccionada;
+	private JComboBox cobxEspecialidad;
+	private JComboBox cobxDoctorEspecialidad;
 
 	public static void main(String[] args) {
 		try {
@@ -70,32 +74,13 @@ public class RegCita extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Doctor");
-		lblNewLabel.setBounds(12, 208, 56, 16);
+		JLabel lblNewLabel = new JLabel("Especialidades:");
+		lblNewLabel.setBounds(20, 208, 98, 16);
 		contentPanel.add(lblNewLabel);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(12, 237, 236, 171);
-		contentPanel.add(panel);
-		panel.setLayout(new BorderLayout(0, 0));
-
-		JScrollPane scrollPane = new JScrollPane();
-		panel.add(scrollPane, BorderLayout.CENTER);
-
-		JList list = new JList();
-		scrollPane.setViewportView(list);
-
-		JLabel lblNewLabel_1 = new JLabel("Seleccionado");
-		lblNewLabel_1.setBounds(374, 208, 89, 16);
+		JLabel lblNewLabel_1 = new JLabel("Doctor:");
+		lblNewLabel_1.setBounds(340, 208, 78, 16);
 		contentPanel.add(lblNewLabel_1);
-
-		JButton btnNewButton_1 = new JButton(">>");
-		btnNewButton_1.setBounds(277, 281, 70, 23);
-		contentPanel.add(btnNewButton_1);
-
-		JButton btnNewButton_2 = new JButton("<<");
-		btnNewButton_2.setBounds(277, 317, 70, 23);
-		contentPanel.add(btnNewButton_2);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(10, 11, 600, 184);
@@ -127,6 +112,8 @@ public class RegCita extends JDialog {
 						else {
 							rdbtnHombre.setSelected(true);
 						}
+						cobxEspecialidad.setEnabled(true);
+						cobxDoctorEspecialidad.setEnabled(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "¡Bienvenido! Tienes que completar tus datos",
 								"Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -141,6 +128,8 @@ public class RegCita extends JDialog {
 						btnBuscar.setVisible(false);
 						txtFecha.setEnabled(true);
 						txtCedula.setEnabled(false);
+						cobxEspecialidad.setEnabled(true);
+						cobxDoctorEspecialidad.setEnabled(true);
 
 						actualizarDirecciones();
 					}
@@ -165,7 +154,7 @@ public class RegCita extends JDialog {
 		panel_2.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("Sexo:");
-		lblNewLabel_5.setBounds(10, 140, 33, 14);
+		lblNewLabel_5.setBounds(10, 143, 33, 14);
 		panel_2.add(lblNewLabel_5);
 
 		JLabel lblNewLabel_6 = new JLabel("Telefono:");
@@ -199,7 +188,7 @@ public class RegCita extends JDialog {
 			}
 		});
 		rdbtnMujer.setEnabled(false);
-		rdbtnMujer.setBounds(45, 136, 66, 23);
+		rdbtnMujer.setBounds(47, 139, 66, 23);
 		panel_2.add(rdbtnMujer);
 
 		rdbtnHombre = new JRadioButton("Hombre");
@@ -211,7 +200,7 @@ public class RegCita extends JDialog {
 			}
 		});
 		rdbtnHombre.setEnabled(false);
-		rdbtnHombre.setBounds(115, 136, 109, 23);
+		rdbtnHombre.setBounds(117, 139, 109, 23);
 		panel_2.add(rdbtnHombre);
 
 		rdbtnNuevaDireccion = new JRadioButton("Nueva direcci\u00F3n");
@@ -250,17 +239,28 @@ public class RegCita extends JDialog {
 		direcciones.setBounds(264, 130, 242, 40);
 		panel_2.add(direcciones);
 		direcciones.setEnabled(false);
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(374, 237, 236, 171);
-		contentPanel.add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
-
-		JScrollPane scrollPane_1 = new JScrollPane();
-		panel_1.add(scrollPane_1, BorderLayout.CENTER);
-
-		JList list_1 = new JList();
-		scrollPane_1.setViewportView(list_1);
+		
+		cobxEspecialidad = new JComboBox();
+		cobxEspecialidad.setEnabled(false);
+		cobxEspecialidad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!cobxEspecialidad.getSelectedItem().equals("<Seleccione>")) {
+					cobxDoctorEspecialidad.setEnabled(true);
+				}
+				else {
+					cobxDoctorEspecialidad.setEnabled(false);
+				}
+			}
+		});
+		cobxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Cardiolog\u00EDa", "Dermatolog\u00EDa", "Endoscopia ", "Gastroenterolog\u00EDa", "Ginegolog\u00EDa ", "Hematolog\u00EDa", "Neumolog\u00EDa", "Ortopedia", "Oftalmolog\u00EDa", "Pediatr\u00EDa", "Psiquiatr\u00EDa General.", "Radiolog\u00EDa ", "Cardiolog\u00EDa ", "Hematolog\u00EDa"}));
+		cobxEspecialidad.setBounds(114, 206, 153, 20);
+		contentPanel.add(cobxEspecialidad);
+		
+		cobxDoctorEspecialidad = new JComboBox<Persona>();
+		cobxDoctorEspecialidad.setEnabled(false);
+		cobxDoctorEspecialidad.setBounds(398, 206, 153, 20);
+		
+		contentPanel.add(cobxDoctorEspecialidad);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -368,5 +368,8 @@ public class RegCita extends JDialog {
 		txtFecha.setEnabled(false);
 		txtFecha.setText("");
 		viviendaSeleccionada = null;
+		cobxEspecialidad.setEnabled(false);
+		cobxEspecialidad.setSelectedItem("<Seleccione>");
+		cobxDoctorEspecialidad.setEnabled(false);
 	}
 }
