@@ -185,11 +185,11 @@ public class RegUsuario extends JDialog {
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(txtCodigo.getText().equalsIgnoreCase(" ")) {
+				if(txtCedula.getText().equalsIgnoreCase(" ")) {
 					JOptionPane.showMessageDialog(null, "Por favor, igrese un codigo", "Advertencia",
 							JOptionPane.WARNING_MESSAGE);
 				}else {
-					String cod= txtCodigo.getText();
+					String cod= txtCedula.getText();
 					doct= Clinica.getInstance().buscarDoctorByCodigo(cod);
 					secre= Clinica.getInstance().buscarSecretariaByCodigo(cod);
 					admin= Clinica.getInstance().buscarAdministradorByCodigo(cod);
@@ -345,14 +345,16 @@ public class RegUsuario extends JDialog {
 		txtCedula.setEditable(true);
 		txtDireccion.setEditable(true);
 		txtTelefono.setEditable(true);
+		txtCedula.setEditable(false);
 	}
 	private void Block () {
 		txtNombre.setEditable(false);
-		txtCedula.setEditable(false);
+		txtCodigo.setEditable(false);
 		txtDireccion.setEditable(false);
 		txtTelefono.setEditable(false);
 		rdbMujer.setSelected(false);
 		rdbHombre.setSelected(false);
+		txtCedula.setEditable(true);
 	}
 
 	private void ClearSecion() {

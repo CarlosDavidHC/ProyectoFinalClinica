@@ -184,7 +184,7 @@ public class Clinica {
 		boolean encontrar = false;
 
 		while (i < misPersonas.size() && !encontrar) {
-			if (misPersonas.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+			if (misPersonas.get(i).getCedula().equalsIgnoreCase(codigo)) {
 				if (misPersonas.get(i) instanceof Doctor) {
 					doc = (Doctor) misPersonas.get(i);
 					encontrar = true;
@@ -205,7 +205,7 @@ public class Clinica {
 		boolean encontrar = false;
 
 		while (i < misPersonas.size() && !encontrar) {
-			if (misPersonas.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+			if (misPersonas.get(i).getCedula().equalsIgnoreCase(codigo)) {
 				if (misPersonas.get(i) instanceof Secretaria) {
 					secre = (Secretaria) misPersonas.get(i);
 					encontrar = true;
