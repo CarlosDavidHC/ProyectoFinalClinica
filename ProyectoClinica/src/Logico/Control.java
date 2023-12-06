@@ -13,7 +13,7 @@ public class Control implements Serializable {
 	private Control() {
 		misUsers = new ArrayList<>();
 	}
-
+	
 	public static Control getInstance() {
 		if (control == null) {
 			control = new Control();
