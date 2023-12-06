@@ -381,14 +381,14 @@ public class RegCita extends JDialog {
 
 	private void loadDoctoresPorEspecialidad(String especialidad) {
 	    cobxDoctorEspecialidad.removeAllItems();
+
 	    for (Persona persona : Clinica.getInstance().getmisPersonas()) {
 	        if (persona instanceof Doctor) {
 	            Doctor doctor = (Doctor) persona;
 	            if (doctor.getEspecialidad().equalsIgnoreCase(especialidad)) {
 	                cobxDoctorEspecialidad.addItem(doctor);
 	            }
-	        }
-	    }
-	    
+	        }
+	    }
 	}
 }
