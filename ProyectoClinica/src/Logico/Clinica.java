@@ -192,8 +192,54 @@ public class Clinica {
 			}
 			i++;
 		}
-		return doc;
+		if(doc!=null) {
+			return doc;
+		}else {
+			return null;
+		}
 	}
+	
+	public Secretaria buscarSecretariaByCodigo(String codigo) {
+		Secretaria secre = null;
+		int i = 0;
+		boolean encontrar = false;
+
+		while (i < misPersonas.size() && !encontrar) {
+			if (misPersonas.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+				if (misPersonas.get(i) instanceof Secretaria) {
+					secre = (Secretaria) misPersonas.get(i);
+					encontrar = true;
+				}
+			}
+			i++;
+		}
+		if(secre!= null) {
+		return secre;
+		} else {
+			return null;
+		}
+	}
+	public Administrador buscarAdministradorByCodigo(String codigo) {
+		Administrador admin = null;
+		int i = 0;
+		boolean encontrar = false;
+
+		while (i < misPersonas.size() && !encontrar) {
+			if (misPersonas.get(i).getCodigo().equalsIgnoreCase(codigo)) {
+				if (misPersonas.get(i) instanceof Administrador) {
+					admin = (Administrador) misPersonas.get(i);
+					encontrar = true;
+				}
+			}
+			i++;
+		}
+		if(admin!= null) {
+		return admin;
+		} else {
+			return null;
+		}
+	}
+	
 	
     // Método para guardar pacientes en un archivo
     public void guardarPacientes() {
