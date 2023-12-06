@@ -7,15 +7,15 @@ public class Cita {
 	private String codigoCita;
 	private LocalDate fechaCita;
 	private Persona persona;
-	private Doctor doctor;
+	private String doctor;
 	private char estado; // a = atendido ; p = pendiente.
 
-	public Cita(String codigoCita, LocalDate fechaCita, Persona persona, Doctor doctor, char estado) {
+	public Cita(String codigoCita, LocalDate fechaCita, Persona persona, String doctor2, char estado) {
 		super();
 		this.codigoCita = codigoCita;
 		this.fechaCita = fechaCita;
 		this.persona = persona;
-		this.doctor = doctor;
+		this.doctor = doctor2;
 		this.estado = estado;
 	}
 
@@ -43,11 +43,11 @@ public class Cita {
 		this.persona = persona;
 	}
 
-	public Doctor getDoctor() {
+	public String getDoctor() {
 		return doctor;
 	}
 
-	public void setDoctor(Doctor doctor) {
+	public void setDoctor(String doctor) {
 		this.doctor = doctor;
 	}
 

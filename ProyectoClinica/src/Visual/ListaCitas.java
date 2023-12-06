@@ -123,7 +123,7 @@ public class ListaCitas extends JDialog {
             
             row[0] = citas.getCodigoCita();
             row[1] = citas.getPersona().getNombre();
-            row[2] = citas.getDoctor().getNombre();
+            row[2] = citas.getDoctor();
             row[3]= citas.getFechaCita();
             model.addRow(row);
         	

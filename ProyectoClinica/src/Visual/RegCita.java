@@ -307,8 +307,8 @@ public class RegCita extends JDialog {
 						} else {
 							persona = auxPaciente;
 						}
-
-						Cita nuevaCita = new Cita("C" + Clinica.GeneradorCodeCita, LocalDate.now(), persona, null, 'P');
+						String doctor = (String) cobxDoctorEspecialidad.getSelectedItem();
+						Cita nuevaCita = new Cita("C" + Clinica.GeneradorCodeCita, LocalDate.now(), persona, doctor, 'P');
 
 						((Paciente) persona).getHistorial().getMisCitas().add(nuevaCita);
 						Clinica.getInstance().insertarCita(nuevaCita);
