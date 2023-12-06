@@ -89,6 +89,10 @@ public class Clinica {
 		misCitas.add(cita);
 		GeneradorCodeCita++;
 	}
+	
+	public void insertarvacuna(Vacuna vacun) {
+		misVacunas.add(vacun);
+	}
 
 	public void eliminarCita(Cita cita) {
 		misCitas.remove(cita);
@@ -98,6 +102,21 @@ public class Clinica {
 	    if (doc instanceof Doctor) {
 	        misPersonas.remove(doc);
 	    }
+	}
+	
+	public Enfermedad buscaEnfermedad(String nombre) {
+		Enfermedad enfer= null;
+		int count =0;
+		boolean encontrado = false;
+		
+		while(count < misEnfermedades.size() && !encontrado) {
+			if(misEnfermedades.get(count).getNombre().equalsIgnoreCase(nombre)) {
+				enfer= misEnfermedades.get(count);
+				encontrado= true;
+			}
+			count++;
+		}
+		return enfer;
 	}
 
 	public Cita buscarUnaCita(String cita) {

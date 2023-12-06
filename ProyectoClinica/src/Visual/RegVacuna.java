@@ -7,15 +7,24 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Logico.Clinica;
+import Logico.Enfermedad;
+import Logico.Vacuna;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
 public class RegVacuna extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_2;
+	private JTextField nombre1;
+	private JTextField codigo1;
+	private JComboBox comboBox1;
 
 	/**
 	 * Launch the application.
@@ -46,10 +55,10 @@ public class RegVacuna extends JDialog {
 			contentPanel.add(lblNewLabel);
 		}
 		{
-			textField = new JTextField();
-			textField.setBounds(211, 8, 110, 20);
-			contentPanel.add(textField);
-			textField.setColumns(10);
+			nombre1 = new JTextField();
+			nombre1.setBounds(211, 8, 110, 20);
+			contentPanel.add(nombre1);
+			nombre1.setColumns(10);
 		}
 		{
 			JLabel lblNewLabel_1 = new JLabel("Enfermedad:");
@@ -61,26 +70,45 @@ public class RegVacuna extends JDialog {
 		lblNewLabel_2.setBounds(10, 10, 46, 17);
 		contentPanel.add(lblNewLabel_2);
 
-		textField_2 = new JTextField();
-		textField_2.setBounds(68, 8, 64, 20);
-		contentPanel.add(textField_2);
-		textField_2.setColumns(10);
+		codigo1 = new JTextField();
+		codigo1.setBounds(68, 8, 64, 20);
+		contentPanel.add(codigo1);
+		codigo1.setColumns(10);
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(96, 51, 117, 22);
-		contentPanel.add(comboBox);
+		comboBox1 = new JComboBox();
+		comboBox1.setBounds(96, 51, 117, 22);
+		contentPanel.add(comboBox1);
 		{
+			ArrayList<Enfermedad> enfer = Clinica.getInstance().getMisEnfermedades();
+			for (Enfermedad enfermedad : enfer) {
+			    comboBox1.addItem(enfermedad.getNombre());
+			}
+			
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String selectedEnfermedad = (String) comboBox1.getSelectedItem();
+						Enfermedad enfermedades= Clinica.getInstance().buscaEnfermedad(selectedEnfermedad);
+						
+						Vacuna vacun= new Vacuna(nombre1.getText(), codigo1.getText(), enfermedades);
+						Clinica.getInstance().insertarvacuna(vacun);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
