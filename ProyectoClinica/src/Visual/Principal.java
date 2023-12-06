@@ -198,6 +198,13 @@ public class Principal extends JFrame {
 		mnLaboratorio.add(mntmListEnfermedades);
 
 		JMenuItem mntmListVacunas = new JMenuItem("Listado Vacunas");
+		mntmListVacunas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoVacuna vacun= new ListadoVacuna();
+				vacun.setModal(true);
+				vacun.setVisible(true);
+			}
+		});
 		mnLaboratorio.add(mntmListVacunas);
 
 		JMenu mnMedicos = new JMenu("Administraci\u00F3n");
