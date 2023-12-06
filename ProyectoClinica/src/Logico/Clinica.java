@@ -13,6 +13,7 @@ public class Clinica {
 	private static Clinica clini = null;
 	public static int GeneradorCodeCita = 1;
 	public static int GeneradorCodePersona = 1;
+	public static int GeneradorEnfermedad = 1;
 	public static int GeneradorCodeHistorial = 1;
 	public static int GeneradorCodeVivienda = 1;
 
@@ -83,6 +84,11 @@ public class Clinica {
 	public void insertarPersona(Persona persona) {
 		misPersonas.add(persona);
 		GeneradorCodePersona++;
+	}
+	
+	public void insertarEnfermedad(Enfermedad Enfer) {
+		misEnfermedades.add(Enfer);
+		GeneradorEnfermedad++;
 	}
 
 	public void insertarCita(Cita cita) {

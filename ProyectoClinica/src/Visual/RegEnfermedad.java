@@ -7,7 +7,12 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Logico.Clinica;
+import Logico.Enfermedad;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -18,6 +23,8 @@ public class RegEnfermedad extends JDialog {
 	private JTextField txtNombre;
 	private JTextField txtDescripcion;
 	private JButton cancelButton;
+	private JButton BtnGuardar;
+	private JTextField txtCodigo;
 
 	/**
 	 * Launch the application.
@@ -69,7 +76,7 @@ public class RegEnfermedad extends JDialog {
 		lblNewLabel_2.setBounds(10, 10, 46, 17);
 		contentPanel.add(lblNewLabel_2);
 
-		JTextField txtCodigo = new JTextField();
+		txtCodigo = new JTextField();
 		txtCodigo.setBounds(68, 8, 64, 20);
 		contentPanel.add(txtCodigo);
 		txtCodigo.setColumns(10);
@@ -78,10 +85,25 @@ public class RegEnfermedad extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				BtnGuardar = new JButton("Guardar");
+				BtnGuardar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Enfermedad enfer = null;
+						String codigo = txtCodigo.getText();
+						String nombre = txtNombre.getText();
+						String descripcion = txtDescripcion.getText();
+						
+						enfer =  new Enfermedad(codigo, nombre, descripcion);
+						Clinica.getInstance().insertarEnfermedad(enfer);
+						JOptionPane.showMessageDialog(null, "Enfermedad registrada con éxito", "Información",
+								JOptionPane.INFORMATION_MESSAGE);
+						
+						Clear();
+					}
+				});
+				BtnGuardar.setActionCommand("OK");
+				buttonPane.add(BtnGuardar);
+				getRootPane().setDefaultButton(BtnGuardar);
 			}
 			{
 				cancelButton = new JButton("Cancel");
@@ -94,5 +116,11 @@ public class RegEnfermedad extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	
+	private void Clear() {
+		txtCodigo.setText("");
+		txtNombre.setText("");
+		txtDescripcion.setText("");
 	}
 }

@@ -27,6 +27,7 @@ import javax.swing.ImageIcon;
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
+	private JMenuItem mntmListEnfermedades;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -180,7 +181,14 @@ public class Principal extends JFrame {
 		});
 		mnLaboratorio.add(mntmVacunas);
 
-		JMenuItem mntmListEnfermedades = new JMenuItem("Listado Enfermedades");
+		mntmListEnfermedades = new JMenuItem("Listado Enfermedades");
+		mntmListEnfermedades.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoEnfermedades ListaEnferme = new ListadoEnfermedades();
+				ListaEnferme.setModal(true);
+				ListaEnferme.setVisible(true);
+			}
+		});
 		mnLaboratorio.add(mntmListEnfermedades);
 
 		JMenuItem mntmListVacunas = new JMenuItem("Listado Vacunas");
