@@ -12,6 +12,7 @@ import Logico.Persona;
 import Logico.Viviendas;
 import Logico.Cita;
 import Logico.Clinica;
+import Logico.Doctor;
 import Logico.HistorialClinico;
 import Logico.Paciente;
 
@@ -106,10 +107,11 @@ public class RegCita extends JDialog {
 					auxPaciente = Clinica.getInstance().buscarPacienteByCedula(txtCedula.getText());
 					if (auxPaciente != null) {
 						loadDatospaciente(auxPaciente);
-						if(auxPaciente.getSexo() == 'M') {
+						String especialidad = (String) cobxEspecialidad.getSelectedItem();
+						loadDoctoresPorEspecialidad(especialidad);
+						if (auxPaciente.getSexo() == 'M') {
 							rdbtnMujer.setSelected(true);
-						}
-						else {
+						} else {
 							rdbtnHombre.setSelected(true);
 						}
 						cobxEspecialidad.setEnabled(true);
@@ -239,27 +241,31 @@ public class RegCita extends JDialog {
 		direcciones.setBounds(264, 130, 242, 40);
 		panel_2.add(direcciones);
 		direcciones.setEnabled(false);
-		
+
 		cobxEspecialidad = new JComboBox();
 		cobxEspecialidad.setEnabled(false);
 		cobxEspecialidad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!cobxEspecialidad.getSelectedItem().equals("<Seleccione>")) {
+				String especialidadSeleccionada = cobxEspecialidad.getSelectedItem().toString();
+				if (!especialidadSeleccionada.equals("<Seleccione>")) {
 					cobxDoctorEspecialidad.setEnabled(true);
-				}
-				else {
+					loadDoctoresPorEspecialidad(especialidadSeleccionada);
+				} else {
 					cobxDoctorEspecialidad.setEnabled(false);
 				}
 			}
 		});
-		cobxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Cardiolog\u00EDa", "Dermatolog\u00EDa", "Endoscopia ", "Gastroenterolog\u00EDa", "Ginegolog\u00EDa ", "Hematolog\u00EDa", "Neumolog\u00EDa", "Ortopedia", "Oftalmolog\u00EDa", "Pediatr\u00EDa", "Psiquiatr\u00EDa General.", "Radiolog\u00EDa ", "Cardiolog\u00EDa ", "Hematolog\u00EDa"}));
+		cobxEspecialidad.setModel(new DefaultComboBoxModel(new String[] { "<Seleccione>", "Cardiolog\u00EDa",
+				"Dermatolog\u00EDa", "Endoscopia ", "Gastroenterolog\u00EDa", "Ginegolog\u00EDa ", "Hematolog\u00EDa",
+				"Neumolog\u00EDa", "Ortopedia", "Oftalmolog\u00EDa", "Pediatr\u00EDa", "Psiquiatr\u00EDa General.",
+				"Radiolog\u00EDa ", "Cardiolog\u00EDa ", "Hematolog\u00EDa" }));
 		cobxEspecialidad.setBounds(114, 206, 153, 20);
 		contentPanel.add(cobxEspecialidad);
-		
+
 		cobxDoctorEspecialidad = new JComboBox<Persona>();
 		cobxDoctorEspecialidad.setEnabled(false);
 		cobxDoctorEspecialidad.setBounds(398, 206, 153, 20);
-		
+
 		contentPanel.add(cobxDoctorEspecialidad);
 		{
 			JPanel buttonPane = new JPanel();
@@ -371,5 +377,18 @@ public class RegCita extends JDialog {
 		cobxEspecialidad.setEnabled(false);
 		cobxEspecialidad.setSelectedItem("<Seleccione>");
 		cobxDoctorEspecialidad.setEnabled(false);
+	}
+
+	private void loadDoctoresPorEspecialidad(String especialidad) {
+	    cobxDoctorEspecialidad.removeAllItems();
+	    for (Persona persona : Clinica.getInstance().getmisPersonas()) {
+	        if (persona instanceof Doctor) {
+	            Doctor doctor = (Doctor) persona;
+	            if (doctor.getEspecialidad().equalsIgnoreCase(especialidad)) {
+	                cobxDoctorEspecialidad.addItem(doctor);
+	            }
+	        }
+	    }
+	    
 	}
 }

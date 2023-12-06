@@ -9,13 +9,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RegEnfermedad extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField txtNombre;
+	private JTextField txtDescripcion;
+	private JButton cancelButton;
 
 	/**
 	 * Launch the application.
@@ -46,10 +48,10 @@ public class RegEnfermedad extends JDialog {
 			contentPanel.add(lblNewLabel);
 		}
 		{
-			textField = new JTextField();
-			textField.setBounds(211, 8, 110, 20);
-			contentPanel.add(textField);
-			textField.setColumns(10);
+			txtNombre = new JTextField();
+			txtNombre.setBounds(211, 8, 110, 20);
+			contentPanel.add(txtNombre);
+			txtNombre.setColumns(10);
 		}
 		{
 			JLabel lblNewLabel_1 = new JLabel("Descripci\u00F3n");
@@ -57,20 +59,20 @@ public class RegEnfermedad extends JDialog {
 			contentPanel.add(lblNewLabel_1);
 		}
 		{
-			textField_1 = new JTextField();
-			textField_1.setBounds(10, 80, 311, 137);
-			contentPanel.add(textField_1);
-			textField_1.setColumns(10);
+			txtDescripcion = new JTextField();
+			txtDescripcion.setBounds(10, 80, 311, 137);
+			contentPanel.add(txtDescripcion);
+			txtDescripcion.setColumns(10);
 		}
 
 		JLabel lblNewLabel_2 = new JLabel("C\u00F3digo:");
 		lblNewLabel_2.setBounds(10, 10, 46, 17);
 		contentPanel.add(lblNewLabel_2);
 
-		textField_2 = new JTextField();
-		textField_2.setBounds(68, 8, 64, 20);
-		contentPanel.add(textField_2);
-		textField_2.setColumns(10);
+		JTextField txtCodigo = new JTextField();
+		txtCodigo.setBounds(68, 8, 64, 20);
+		contentPanel.add(txtCodigo);
+		txtCodigo.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -82,7 +84,12 @@ public class RegEnfermedad extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

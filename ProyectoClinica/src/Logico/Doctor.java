@@ -17,5 +17,9 @@ public class Doctor extends Persona {
 	public void setEspecialidad(String especialidad) {
 		this.especialidad = especialidad;
 	}
+	
+	public String toString() {
+	    return nombre;
+	}
 
 }
