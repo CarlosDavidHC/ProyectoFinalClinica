@@ -1,8 +1,9 @@
 package Logico;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Cita {
+public class Cita implements Serializable {
 
 	private String codigoCita;
 	private LocalDate fechaCita;

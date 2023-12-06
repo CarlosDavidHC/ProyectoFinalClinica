@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Logico.Clinica;
 import Logico.Control;
 
 import javax.swing.JMenuBar;
@@ -45,6 +46,11 @@ public class Principal extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
+				Clinica.getInstance().guardarPacientes();
+				Clinica.getInstance().guardarViviendas();
+				Clinica.getInstance().guardarCitas();
+				Clinica.getInstance().guardarHistoriales();
+				
 				FileOutputStream clinica2;
 				ObjectOutputStream clinicaWrite;
 				try {

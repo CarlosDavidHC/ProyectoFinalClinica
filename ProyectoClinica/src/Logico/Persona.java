@@ -1,6 +1,8 @@
 package Logico;
 
-public abstract class Persona {
+import java.io.Serializable;
+
+public abstract class Persona implements Serializable {
 
 	protected String codigo;
 	protected String cedula;

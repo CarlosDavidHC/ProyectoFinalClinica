@@ -1,6 +1,8 @@
 package Logico;
 
-public class Doctor extends Persona {
+import java.io.Serializable;
+
+public class Doctor extends Persona implements Serializable {
 
 	private String especialidad;
 

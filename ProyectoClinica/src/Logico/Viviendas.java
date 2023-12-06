@@ -1,8 +1,9 @@
 package Logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Viviendas {
+public class Viviendas implements Serializable {
 
 	private String id;
 	private String direccion;
