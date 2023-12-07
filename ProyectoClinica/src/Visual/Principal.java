@@ -7,9 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
@@ -48,20 +50,44 @@ public class Principal extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				Clinica.getInstance().guardarPacientes();
+				Clinica.getInstance().guardarDoctores();
+				Clinica.getInstance().guardarSecretarias();
+				Clinica.getInstance().guardarAdministradores();
 				Clinica.getInstance().guardarViviendas();
 				Clinica.getInstance().guardarCitas();
 				Clinica.getInstance().guardarHistoriales();
+				Clinica.getInstance().guardarEnfermedad();
+				Clinica.getInstance().guardarVacuna();
 				
+				// Guardar en el archivo
 				FileOutputStream clinica2;
 				ObjectOutputStream clinicaWrite;
 				try {
-					clinica2 = new FileOutputStream("clinica.dat");
-					clinicaWrite = new ObjectOutputStream(clinica2);
-					clinicaWrite.writeObject(Control.getInstance());
+				    clinica2 = new FileOutputStream("clinica.dat");
+				    clinicaWrite = new ObjectOutputStream(clinica2);
+				    clinicaWrite.writeObject(Control.getInstance());
+				    clinicaWrite.close();  // Cerrar el ObjectOutputStream
 				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
+				    e1.printStackTrace();
 				} catch (IOException e1) {
-					e1.printStackTrace();
+				    e1.printStackTrace();
+				}
+
+				// Leer desde el archivo
+				FileInputStream fis;
+				ObjectInputStream ois;
+				try {
+				    fis = new FileInputStream("clinica.dat");
+				    ois = new ObjectInputStream(fis);
+				    Object obj = ois.readObject();
+				    if (obj instanceof Control) {
+				        Control.setControl((Control) obj);
+				    }
+				    ois.close();  // Cerrar el ObjectInputStream
+				} catch (FileNotFoundException e1) {
+				    e1.printStackTrace();
+				} catch (IOException | ClassNotFoundException e1) {
+				    e1.printStackTrace();
 				}
 
 			}

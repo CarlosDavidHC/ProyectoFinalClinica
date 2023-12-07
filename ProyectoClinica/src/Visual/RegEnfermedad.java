@@ -24,7 +24,6 @@ public class RegEnfermedad extends JDialog {
 	private JTextField txtDescripcion;
 	private JButton cancelButton;
 	private JButton BtnGuardar;
-	private JTextField txtCodigo;
 
 	/**
 	 * Launch the application.
@@ -51,12 +50,12 @@ public class RegEnfermedad extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JLabel lblNewLabel = new JLabel("Nombre:");
-			lblNewLabel.setBounds(144, 11, 55, 14);
+			lblNewLabel.setBounds(10, 16, 55, 14);
 			contentPanel.add(lblNewLabel);
 		}
 		{
 			txtNombre = new JTextField();
-			txtNombre.setBounds(211, 8, 110, 20);
+			txtNombre.setBounds(77, 13, 244, 20);
 			contentPanel.add(txtNombre);
 			txtNombre.setColumns(10);
 		}
@@ -71,15 +70,6 @@ public class RegEnfermedad extends JDialog {
 			contentPanel.add(txtDescripcion);
 			txtDescripcion.setColumns(10);
 		}
-
-		JLabel lblNewLabel_2 = new JLabel("C\u00F3digo:");
-		lblNewLabel_2.setBounds(10, 10, 46, 17);
-		contentPanel.add(lblNewLabel_2);
-
-		txtCodigo = new JTextField();
-		txtCodigo.setBounds(68, 8, 64, 20);
-		contentPanel.add(txtCodigo);
-		txtCodigo.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -89,15 +79,14 @@ public class RegEnfermedad extends JDialog {
 				BtnGuardar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Enfermedad enfer = null;
-						String codigo = txtCodigo.getText();
 						String nombre = txtNombre.getText();
 						String descripcion = txtDescripcion.getText();
-						
-						enfer =  new Enfermedad(codigo, nombre, descripcion);
+
+						enfer = new Enfermedad("E-" + Clinica.GeneradorEnfermedad, nombre, descripcion);
 						Clinica.getInstance().insertarEnfermedad(enfer);
 						JOptionPane.showMessageDialog(null, "Enfermedad registrada con éxito", "Información",
 								JOptionPane.INFORMATION_MESSAGE);
-						
+
 						Clear();
 					}
 				});
@@ -117,9 +106,8 @@ public class RegEnfermedad extends JDialog {
 			}
 		}
 	}
-	
+
 	private void Clear() {
-		txtCodigo.setText("");
 		txtNombre.setText("");
 		txtDescripcion.setText("");
 	}

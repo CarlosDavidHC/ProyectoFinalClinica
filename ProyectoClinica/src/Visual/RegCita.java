@@ -69,22 +69,22 @@ public class RegCita extends JDialog {
 
 	public RegCita() {
 		setTitle("Registrar Cita");
-		setBounds(100, 100, 640, 524);
+		setBounds(100, 100, 587, 355);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Especialidades:");
-		lblNewLabel.setBounds(20, 208, 98, 16);
+		lblNewLabel.setBounds(23, 230, 98, 16);
 		contentPanel.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Doctor:");
-		lblNewLabel_1.setBounds(340, 208, 78, 16);
+		lblNewLabel_1.setBounds(343, 230, 78, 16);
 		contentPanel.add(lblNewLabel_1);
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(10, 11, 600, 184);
+		panel_2.setBounds(10, 11, 544, 184);
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
 
@@ -255,16 +255,13 @@ public class RegCita extends JDialog {
 				}
 			}
 		});
-		cobxEspecialidad.setModel(new DefaultComboBoxModel(new String[] { "<Seleccione>", "Cardiolog\u00EDa",
-				"Dermatolog\u00EDa", "Endoscopia ", "Gastroenterolog\u00EDa", "Ginegolog\u00EDa ", "Hematolog\u00EDa",
-				"Neumolog\u00EDa", "Ortopedia", "Oftalmolog\u00EDa", "Pediatr\u00EDa", "Psiquiatr\u00EDa General.",
-				"Radiolog\u00EDa ", "Cardiolog\u00EDa ", "Hematolog\u00EDa" }));
-		cobxEspecialidad.setBounds(114, 206, 153, 20);
+		cobxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Cardiolog\u00EDa", "Dermatolog\u00EDa", "Endoscopia ", "Gastroenterolog\u00EDa", "Ginegolog\u00EDa", "Hematolog\u00EDa", "Neumolog\u00EDa", "Ortopedia", "Oftalmolog\u00EDa", "Pediatr\u00EDa", "Psiquiatr\u00EDa General", "Radiolog\u00EDa", "Cardiolog\u00EDa", "Hematolog\u00EDa"}));
+		cobxEspecialidad.setBounds(117, 228, 153, 20);
 		contentPanel.add(cobxEspecialidad);
 
 		cobxDoctorEspecialidad = new JComboBox<Persona>();
 		cobxDoctorEspecialidad.setEnabled(false);
-		cobxDoctorEspecialidad.setBounds(398, 206, 153, 20);
+		cobxDoctorEspecialidad.setBounds(401, 228, 153, 20);
 
 		contentPanel.add(cobxDoctorEspecialidad);
 		{
@@ -283,7 +280,7 @@ public class RegCita extends JDialog {
 
 						if (rdbtnNuevaDireccion.isSelected()) {
 							String nuevaDireccion = direccion2.getText();
-							viviendaSeleccionada = new Viviendas("V" + Clinica.GeneradorCodeVivienda, nuevaDireccion,
+							viviendaSeleccionada = new Viviendas("V-" + Clinica.GeneradorCodeVivienda, nuevaDireccion,
 									new ArrayList<>());
 							Clinica.getInstance().insertarVivienda(viviendaSeleccionada);
 						} else if (rdbtnDireccionExistente.isSelected() && direcciones.getSelectedItem() != null) {
@@ -293,11 +290,11 @@ public class RegCita extends JDialog {
 
 						Persona persona = null;
 						if (auxPaciente == null) {
-							persona = new Paciente("P" + Clinica.GeneradorCodePersona, txtCedula.getText(),
+							persona = new Paciente("P-" + Clinica.GeneradorCodePaciente, txtCedula.getText(),
 									nombre2.getText(), telefono2.getText(), direccion2.getText(), 'p',
 									rdbtnMujer.isSelected() ? 'M' : 'H', null);
 
-							HistorialClinico historial = new HistorialClinico("H" + Clinica.GeneradorCodeHistorial,
+							HistorialClinico historial = new HistorialClinico("H-" + Clinica.GeneradorCodeHistorial,
 									(Paciente) persona, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
 									new ArrayList<>());
 
@@ -311,7 +308,7 @@ public class RegCita extends JDialog {
 				        String especialidadSeleccionada = cobxEspecialidad.getSelectedItem().toString();
 				        Doctor doctorSeleccionado = (Doctor) cobxDoctorEspecialidad.getSelectedItem();
 						
-						Cita nuevaCita = new Cita("C" + Clinica.GeneradorCodeCita, LocalDate.now(), persona,
+						Cita nuevaCita = new Cita("C-" + Clinica.GeneradorCodeCita, LocalDate.now(), persona,
 								doctorSeleccionado, 'P');
 						nuevaCita.setNombreDoctor(doctorSeleccionado.getNombre());
 						

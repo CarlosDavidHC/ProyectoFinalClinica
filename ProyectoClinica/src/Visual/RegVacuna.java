@@ -24,7 +24,6 @@ public class RegVacuna extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField nombre1;
-	private JTextField codigo1;
 	private JComboBox comboBox1;
 
 	/**
@@ -40,24 +39,21 @@ public class RegVacuna extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public RegVacuna() {
 		setTitle("Registrar Vacuna");
-		setBounds(100, 100, 355, 215);
+		setBounds(100, 100, 355, 182);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JLabel lblNewLabel = new JLabel("Nombre:");
-			lblNewLabel.setBounds(144, 11, 55, 14);
+			lblNewLabel.setBounds(10, 16, 55, 14);
 			contentPanel.add(lblNewLabel);
 		}
 		{
 			nombre1 = new JTextField();
-			nombre1.setBounds(211, 8, 110, 20);
+			nombre1.setBounds(96, 13, 229, 20);
 			contentPanel.add(nombre1);
 			nombre1.setColumns(10);
 		}
@@ -67,17 +63,8 @@ public class RegVacuna extends JDialog {
 			contentPanel.add(lblNewLabel_1);
 		}
 
-		JLabel lblNewLabel_2 = new JLabel("C\u00F3digo:");
-		lblNewLabel_2.setBounds(10, 10, 46, 17);
-		contentPanel.add(lblNewLabel_2);
-
-		codigo1 = new JTextField();
-		codigo1.setBounds(68, 8, 64, 20);
-		contentPanel.add(codigo1);
-		codigo1.setColumns(10);
-
 		comboBox1 = new JComboBox();
-		comboBox1.setBounds(96, 51, 117, 22);
+		comboBox1.setBounds(96, 51, 229, 22);
 		contentPanel.add(comboBox1);
 		{
 			ArrayList<Enfermedad> enfer = Clinica.getInstance().getMisEnfermedades();
@@ -95,7 +82,7 @@ public class RegVacuna extends JDialog {
 						String selectedEnfermedad = (String) comboBox1.getSelectedItem();
 						Enfermedad enfermedades= Clinica.getInstance().buscaEnfermedad(selectedEnfermedad);
 						
-						Vacuna vacun= new Vacuna(nombre1.getText(), codigo1.getText(), enfermedades);
+						Vacuna vacun= new Vacuna(nombre1.getText(), "V-" + Clinica.GeneradorVacuna, enfermedades);
 						Clinica.getInstance().insertarvacuna(vacun);
 						clear();
 						JOptionPane.showMessageDialog(null, "exito", "Advertencia",
@@ -121,7 +108,6 @@ public class RegVacuna extends JDialog {
 	}
 	public void clear() {
 		nombre1.setText("");
-        codigo1.setText("");
         comboBox1.setSelectedIndex(0);
 	}
 }

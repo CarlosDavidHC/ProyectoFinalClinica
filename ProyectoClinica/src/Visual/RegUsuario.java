@@ -30,7 +30,6 @@ import javax.swing.DefaultComboBoxModel;
 public class RegUsuario extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtCodigo;
 	private JTextField txtNombre;
 	private JTextField txtDireccion;
 	private JTextField txtTelefono;
@@ -113,15 +112,6 @@ public class RegUsuario extends JDialog {
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
 
-		txtCodigo = new JTextField();
-		txtCodigo.setBounds(78, 12, 91, 20);
-		panel_2.add(txtCodigo);
-		txtCodigo.setColumns(10);
-
-		JLabel lblCodigo = new JLabel("C\u00F3digo:");
-		lblCodigo.setBounds(10, 13, 56, 18);
-		panel_2.add(lblCodigo);
-
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(10, 64, 56, 14);
 		panel_2.add(lblNombre);
@@ -131,12 +121,12 @@ public class RegUsuario extends JDialog {
 		panel_2.add(lblTelefono);
 
 		txtNombre = new JTextField();
-		txtNombre.setBounds(78, 60, 154, 20);
+		txtNombre.setBounds(97, 60, 256, 20);
 		panel_2.add(txtNombre);
 		txtNombre.setColumns(10);
 
 		txtDireccion = new JTextField();
-		txtDireccion.setBounds(78, 147, 242, 40);
+		txtDireccion.setBounds(97, 147, 256, 40);
 		panel_2.add(txtDireccion);
 		txtDireccion.setColumns(10);
 
@@ -150,12 +140,12 @@ public class RegUsuario extends JDialog {
 		panel_2.add(txtTelefono);
 
 		JLabel lblCdula = new JLabel("C\u00E9dula:");
-		lblCdula.setBounds(264, 62, 56, 18);
+		lblCdula.setBounds(10, 28, 56, 18);
 		panel_2.add(lblCdula);
 
 		txtCedula = new JTextField();
 		txtCedula.setColumns(10);
-		txtCedula.setBounds(341, 61, 132, 20);
+		txtCedula.setBounds(97, 27, 256, 20);
 		panel_2.add(txtCedula);
 
 		JLabel lblSexo = new JLabel("Sexo:");
@@ -204,7 +194,7 @@ public class RegUsuario extends JDialog {
 				}
 			}
 		});
-		btnBuscar.setBounds(197, 11, 89, 23);
+		btnBuscar.setBounds(374, 26, 89, 23);
 		panel_2.add(btnBuscar);
 
 		JPanel pnlTipo = new JPanel();
@@ -268,7 +258,10 @@ public class RegUsuario extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Persona perso = null;
-						String codigo = txtCodigo.getText();
+						Clinica.getInstance();
+						String codigoDoc = "D-" + Clinica.GeneradorCodeDoctor;
+						String codigoSec = "S-" + Clinica.GeneradorCodeSecretaria;
+						String codigoAdmin = "A-" + Clinica.GeneradorCodeAdmin;
 						String cedula = txtCedula.getText();
 						String nombre = txtNombre.getText();
 						String telefono = txtTelefono.getText();
@@ -277,37 +270,40 @@ public class RegUsuario extends JDialog {
 						if (rdbDoctor.isSelected()) {
 							String especialidad = (String) cmbEspecialidad.getSelectedItem();
 							if (rdbMujer.isSelected()) {
-								perso = new Doctor(codigo, cedula, nombre, telefono, direccion, 'd', 'm', especialidad);
+								perso = new Doctor(codigoDoc, cedula, nombre, telefono, direccion, 'd', 'm', especialidad);
 							}
 							if (rdbHombre.isSelected()) {
-								perso = new Doctor(codigo, cedula, nombre, telefono, direccion, 'd', 'h', especialidad);
+								perso = new Doctor(codigoDoc, cedula, nombre, telefono, direccion, 'd', 'h', especialidad);
 							}
 
 							String contrasena = txtContra.getText();
 							Control.getInstance().regUserAndPass("Doctor", nombre, contrasena);
+							Clinica.getInstance().guardarDoctores();
 
 						}
 						if (rdbSecretaria.isSelected()) {
 							if (rdbMujer.isSelected()) {
-								perso = new Secretaria(codigo, cedula, nombre, telefono, direccion, 's', 'm');
+								perso = new Secretaria(codigoSec, cedula, nombre, telefono, direccion, 's', 'm');
 							}
 							if (rdbHombre.isSelected()) {
-								perso = new Secretaria(codigo, cedula, nombre, telefono, direccion, 's', 'h');
+								perso = new Secretaria(codigoSec, cedula, nombre, telefono, direccion, 's', 'h');
 							}
 
 							String contrasena = txtContra.getText();
 							Control.getInstance().regUserAndPass("Secretaria", nombre, contrasena);
+							Clinica.getInstance().guardarSecretarias();
 						}
 						if (rdbAdministrador.isSelected()) {
 							if (rdbMujer.isSelected()) {
-								perso = new Administrador(codigo, cedula, nombre, telefono, direccion, 'a', 'm');
+								perso = new Administrador(codigoAdmin, cedula, nombre, telefono, direccion, 'a', 'm');
 							}
 							if (rdbHombre.isSelected()) {
-								perso = new Administrador(codigo, cedula, nombre, telefono, direccion, 'a', 'h');
+								perso = new Administrador(codigoAdmin, cedula, nombre, telefono, direccion, 'a', 'h');
 							}
 
 							String contrasena = txtContra.getText();
 							Control.getInstance().regUserAndPass("Administrador", nombre, contrasena);
+							Clinica.getInstance().guardarAdministradores();
 						}
 
 						if (!rdbDoctor.isSelected() && !rdbSecretaria.isSelected() && !rdbAdministrador.isSelected()) {
@@ -316,7 +312,15 @@ public class RegUsuario extends JDialog {
 						}
 						
 						if (rdbDoctor.isSelected() || rdbSecretaria.isSelected() || rdbAdministrador.isSelected()) {
-							Clinica.getInstance().insertarPersona(perso);
+							if (rdbDoctor.isSelected()) {
+								Clinica.getInstance().insertarDoctor(perso);	
+							}
+							if (rdbSecretaria.isSelected()) {
+								Clinica.getInstance().insertarSecre(perso);	
+							}
+							if (rdbAdministrador.isSelected()) {
+								Clinica.getInstance().insertarAdmin(perso);	
+							}
 							JOptionPane.showMessageDialog(null, "Usuario registrado con éxito", "Información",
 									JOptionPane.INFORMATION_MESSAGE);
 							ClearSecion();
@@ -349,7 +353,6 @@ public class RegUsuario extends JDialog {
 	}
 	private void Block () {
 		txtNombre.setEditable(false);
-		txtCodigo.setEditable(false);
 		txtDireccion.setEditable(false);
 		txtTelefono.setEditable(false);
 		rdbMujer.setSelected(false);
@@ -358,7 +361,6 @@ public class RegUsuario extends JDialog {
 	}
 
 	private void ClearSecion() {
-		txtCodigo.setText("");
 		txtNombre.setText("");
 		txtCedula.setText("");
 		txtDireccion.setText("");
