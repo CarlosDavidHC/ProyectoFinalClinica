@@ -85,16 +85,17 @@ public class ListarHistorial extends JDialog {
 	}
 
 	private void cargarDatosPacientes(int index) {
-		model.setRowCount(0);
+	    model.setRowCount(0);
 
-		for (HistorialClinico histo : Clinica.getInstance().getMisHistoriales()) {
-			rowData = new Object[model.getColumnCount()];
+	    for (HistorialClinico histo : Clinica.getInstance().getMisHistoriales()) {
+	        rowData = new Object[model.getColumnCount()];
 
-			rowData[0] = histo.getId();
-			rowData[1] = histo.getMiPaciente().getNombre();
+	        rowData[0] = histo.getId();
+	        rowData[1] = histo.getMiPaciente().getNombre();
+	        rowData[2] = histo.getMisCitas().size(); // Número de citas
 
-			model.addRow(rowData);
-
-		}
+	        model.addRow(rowData);
+	    }
 	}
+
 }

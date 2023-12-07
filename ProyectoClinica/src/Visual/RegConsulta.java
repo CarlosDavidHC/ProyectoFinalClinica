@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 
 import Logico.Cita;
 import Logico.Clinica;
+import Logico.Enfermedad;
+import Logico.Vacuna;
 import Logico.Viviendas;
 
 import javax.swing.JLabel;
@@ -22,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 
 public class RegConsulta extends JDialog {
 
@@ -30,6 +33,12 @@ public class RegConsulta extends JDialog {
 	private JTextField txtDoctor;
 	private JTextField txtFecha;
 	private JComboBox cmbCitas;
+	private JComboBox cmbEnfermedad;
+	private DefaultListModel<String> listEnfermedadModel;
+	private JList listEnfermedad;
+	private JComboBox cmbVacuna;
+	private DefaultListModel<String> listVacunaModel;
+	private JList listVacuna;
 
 	/**
 	 * Launch the application.
@@ -45,7 +54,9 @@ public class RegConsulta extends JDialog {
 		}
 	}
 
-	private void actualizarCitas() {
+	private void actualizarTodo() {
+		loadEnfermedades();
+		loadVacuna();
 		loadCitas();
 		cmbCitas.updateUI();
 	}
@@ -82,7 +93,7 @@ public class RegConsulta extends JDialog {
 		contentPanel.add(txtDoctor);
 		txtDoctor.setColumns(10);
 
-		JComboBox cmbEnfermedad = new JComboBox();
+		cmbEnfermedad = new JComboBox();
 		cmbEnfermedad.setBounds(123, 170, 110, 20);
 		contentPanel.add(cmbEnfermedad);
 
@@ -90,7 +101,7 @@ public class RegConsulta extends JDialog {
 		lblVacuna.setBounds(287, 173, 64, 14);
 		contentPanel.add(lblVacuna);
 
-		JComboBox cmbVacuna = new JComboBox();
+		cmbVacuna = new JComboBox();
 		cmbVacuna.setBounds(363, 170, 106, 20);
 		contentPanel.add(cmbVacuna);
 
@@ -137,6 +148,12 @@ public class RegConsulta extends JDialog {
 		contentPanel.add(rdbtnObservacin);
 
 		JButton btnEnfermedad = new JButton("Agregar");
+		btnEnfermedad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Call a method to handle the addition of diseases to the list
+				agregarEnfermedadALista();
+			}
+		});
 		btnEnfermedad.setBounds(136, 203, 97, 25);
 		contentPanel.add(btnEnfermedad);
 
@@ -148,11 +165,16 @@ public class RegConsulta extends JDialog {
 		lblLista2.setBounds(287, 208, 76, 14);
 		contentPanel.add(lblLista2);
 
-		JButton btnVacuna = new JButton("Agregar");
-		btnVacuna.setBounds(373, 203, 97, 25);
-		contentPanel.add(btnVacuna);
+        JButton btnVacuna = new JButton("Agregar");
+        btnVacuna.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                agregarVacunaALista();
+            }
+        });
+        btnVacuna.setBounds(373, 203, 97, 25);
+        contentPanel.add(btnVacuna);
 
-		actualizarCitas();
+		actualizarTodo();
 
 		JPanel panel = new JPanel();
 		panel.setBounds(12, 241, 221, 117);
@@ -162,19 +184,23 @@ public class RegConsulta extends JDialog {
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane, BorderLayout.CENTER);
 
-		JList listEnfermedad = new JList();
+		listEnfermedadModel = new DefaultListModel<>();
+
+		listEnfermedad = new JList();
 		scrollPane.setViewportView(listEnfermedad);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(287, 241, 207, 117);
-		contentPanel.add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
+        JPanel panel_1 = new JPanel();
+        panel_1.setBounds(287, 241, 207, 117);
+        contentPanel.add(panel_1);
+        panel_1.setLayout(new BorderLayout(0, 0));
 
-		JScrollPane scrollPane_1 = new JScrollPane();
-		panel_1.add(scrollPane_1, BorderLayout.CENTER);
+        JScrollPane scrollPane_1 = new JScrollPane();
+        panel_1.add(scrollPane_1, BorderLayout.CENTER);
 
-		JList listVacuna = new JList();
-		scrollPane_1.setViewportView(listVacuna);
+        listVacunaModel = new DefaultListModel<>();
+
+        listVacuna = new JList();
+        scrollPane_1.setViewportView(listVacuna);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(123, 381, 279, 140);
@@ -219,6 +245,15 @@ public class RegConsulta extends JDialog {
 		}
 	}
 
+	private void loadEnfermedades() {
+		cmbEnfermedad.removeAllItems();
+		cmbEnfermedad.addItem("<Seleccione>");
+
+		for (Enfermedad enfermedad : Clinica.getInstance().getMisEnfermedades()) {
+			cmbEnfermedad.addItem(enfermedad.getNombre());
+		}
+	}
+
 	private void actualizarCamposCitaSeleccionada() {
 		String selectedCodigo = (String) cmbCitas.getSelectedItem();
 
@@ -248,5 +283,38 @@ public class RegConsulta extends JDialog {
 			}
 		}
 	}
+
+	private void agregarEnfermedadALista() {
+		String selectedEnfermedad = (String) cmbEnfermedad.getSelectedItem();
+
+		if (!"<Seleccione>".equals(selectedEnfermedad)) {
+			// Add the selected disease to the DefaultListModel
+			listEnfermedadModel.addElement(selectedEnfermedad);
+
+			// Set the DefaultListModel to the JList
+			listEnfermedad.setModel(listEnfermedadModel);
+		}
+	}
+	
+	private void loadVacuna() {
+		cmbVacuna.removeAllItems();
+		cmbVacuna.addItem("<Seleccione>");
+
+		for (Vacuna vacuna: Clinica.getInstance().getMisVacunas()) {
+			cmbVacuna.addItem(vacuna.getNombre());
+		}
+	}
+	
+    private void agregarVacunaALista() {
+        String selectedVacuna = (String) cmbVacuna.getSelectedItem();
+
+        if (!"<Seleccione>".equals(selectedVacuna)) {
+            // Add the selected vaccine to the DefaultListModel
+            listVacunaModel.addElement(selectedVacuna);
+
+            // Set the DefaultListModel to the JList
+            listVacuna.setModel(listVacunaModel);
+        }
+    }
 
 }

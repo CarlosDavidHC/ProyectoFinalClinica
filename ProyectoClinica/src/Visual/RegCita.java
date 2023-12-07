@@ -110,6 +110,7 @@ public class RegCita extends JDialog {
 				auxPaciente = Clinica.getInstance().buscarPacienteByCedula(cedulaInput);
 				if (auxPaciente != null) {
 					loadDatospaciente(auxPaciente);
+					txtFecha.setEnabled(true);
 					String especialidad = (String) cobxEspecialidad.getSelectedItem();
 					loadDoctoresPorEspecialidad(especialidad);
 					if (auxPaciente.getSexo() == 'M') {
@@ -351,11 +352,18 @@ public class RegCita extends JDialog {
 						String especialidadSeleccionada = cobxEspecialidad.getSelectedItem().toString();
 						Doctor doctorSeleccionado = (Doctor) cobxDoctorEspecialidad.getSelectedItem();
 
-						Cita nuevaCita = new Cita("C-" + Clinica.GeneradorCodeCita, LocalDate.now(), auxPaciente,
-								doctorSeleccionado, 'P');
+						Cita nuevaCita = new Cita("C-" + Clinica.GeneradorCodeCita, LocalDate.now(), auxPaciente, doctorSeleccionado, 'P');
 						nuevaCita.setNombreDoctor(doctorSeleccionado.getNombre());
 
 						if (auxPaciente != null) {
+						    // Obtener o crear el HistorialClinico del paciente
+						    HistorialClinico historial = ((Paciente) auxPaciente).getHistorial();
+						    if (historial == null) {
+						        historial = new HistorialClinico("H-" + Clinica.GeneradorCodeHistorial, (Paciente) auxPaciente,
+						                new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+						        ((Paciente) auxPaciente).setHistorial(historial);
+						        Clinica.getInstance().insertarHistorial(historial);
+						    }
 							// Obtener la vivienda seleccionada
 							Viviendas viviendaSeleccionada = obtenerViviendaSeleccionada();
 
