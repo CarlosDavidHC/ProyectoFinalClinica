@@ -26,9 +26,7 @@ public class RegVacuna extends JDialog {
 	private JTextField nombre1;
 	private JComboBox comboBox1;
 
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			RegVacuna dialog = new RegVacuna();

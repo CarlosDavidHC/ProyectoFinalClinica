@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -13,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 
 import Logico.Administrador;
 import Logico.Clinica;
@@ -45,11 +47,7 @@ public class RegUsuario extends JDialog {
 	private Doctor doct;
 	private Secretaria secre;
 	private Administrador admin;
-	
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			RegUsuario dialog = new RegUsuario();
@@ -60,9 +58,6 @@ public class RegUsuario extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public RegUsuario() {
 		setTitle("Registrar Usuario");
 		setBounds(100, 100, 515, 459);
@@ -134,7 +129,14 @@ public class RegUsuario extends JDialog {
 		lblDireccin.setBounds(10, 146, 66, 14);
 		panel_2.add(lblDireccin);
 
-		txtTelefono = new JTextField();
+		try {
+			MaskFormatter telefonoMask = new MaskFormatter("###-###-####");
+			telefonoMask.setValidCharacters("0123456789");
+			txtTelefono = new JFormattedTextField(telefonoMask);
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+			txtTelefono = new JFormattedTextField();
+		}
 		txtTelefono.setColumns(10);
 		txtTelefono.setBounds(99, 102, 132, 20);
 		panel_2.add(txtTelefono);
@@ -143,7 +145,7 @@ public class RegUsuario extends JDialog {
 		lblCdula.setBounds(10, 28, 56, 18);
 		panel_2.add(lblCdula);
 
-		txtCedula = new JTextField();
+		txtCedula = new JFormattedTextField(createCedulaFormatter());
 		txtCedula.setColumns(10);
 		txtCedula.setBounds(97, 27, 256, 20);
 		panel_2.add(txtCedula);
@@ -169,26 +171,28 @@ public class RegUsuario extends JDialog {
 		});
 		rdbHombre.setBounds(392, 99, 81, 23);
 		panel_2.add(rdbHombre);
-		
+
 		Block();
-		
+
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(txtCedula.getText().equalsIgnoreCase(" ")) {
-					JOptionPane.showMessageDialog(null, "Por favor, igrese un codigo", "Advertencia",
+				if (txtCedula.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Por favor, ingrese un código", "Advertencia",
 							JOptionPane.WARNING_MESSAGE);
-				}else {
-					String cod= txtCedula.getText();
-					doct= Clinica.getInstance().buscarDoctorByCodigo(cod);
-					secre= Clinica.getInstance().buscarSecretariaByCodigo(cod);
-					admin= Clinica.getInstance().buscarAdministradorByCodigo(cod);
-					
-					if (doct != null || secre != null || admin !=null) {
-						JOptionPane.showMessageDialog(null, "este usario ya esta registrado", "Advertencia",
+				} else {
+					String cod = txtCedula.getText();
+					doct = Clinica.getInstance().buscarDoctorByCodigo(cod);
+					secre = Clinica.getInstance().buscarSecretariaByCodigo(cod);
+					admin = Clinica.getInstance().buscarAdministradorByCodigo(cod);
+
+					if (doct != null || secre != null || admin != null) {
+						JOptionPane.showMessageDialog(null, "Este usuario ya está registrado", "Advertencia",
 								JOptionPane.WARNING_MESSAGE);
 						ClearSecion();
-					}else {
+					} else {
+						JOptionPane.showMessageDialog(null, "¡Bienvenido! Tienes que completar tus datos", "Mensaje",
+								JOptionPane.INFORMATION_MESSAGE);
 						Abrir();
 					}
 				}
@@ -263,23 +267,55 @@ public class RegUsuario extends JDialog {
 						String codigoSec = "S-" + Clinica.GeneradorCodeSecretaria;
 						String codigoAdmin = "A-" + Clinica.GeneradorCodeAdmin;
 						String cedula = txtCedula.getText();
-						String nombre = txtNombre.getText();
 						String telefono = txtTelefono.getText();
-						String direccion = txtDireccion.getText();
+
+						if (!rdbMujer.isSelected() && !rdbHombre.isSelected()) {
+							JOptionPane.showMessageDialog(null, "Por favor, seleccione un género", "Advertencia",
+									JOptionPane.WARNING_MESSAGE);
+							return;
+						}
+
+						String nombre = txtNombre.getText().trim();
+						if (nombre.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Por favor, ingrese un nombre", "Advertencia",
+									JOptionPane.WARNING_MESSAGE);
+							return;
+						}
+
+						if (telefono.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Por favor, ingrese un número de teléfono",
+									"Advertencia", JOptionPane.WARNING_MESSAGE);
+							return;
+						}
+
+						String direccion = txtDireccion.getText().trim();
+						if (direccion.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Por favor, ingrese una dirección", "Advertencia",
+									JOptionPane.WARNING_MESSAGE);
+							return;
+						}
 
 						if (rdbDoctor.isSelected()) {
 							String especialidad = (String) cmbEspecialidad.getSelectedItem();
 							if (rdbMujer.isSelected()) {
-								perso = new Doctor(codigoDoc, cedula, nombre, telefono, direccion, 'd', 'm', especialidad);
+								perso = new Doctor(codigoDoc, cedula, nombre, telefono, direccion, 'd', 'm',
+										especialidad);
 							}
 							if (rdbHombre.isSelected()) {
-								perso = new Doctor(codigoDoc, cedula, nombre, telefono, direccion, 'd', 'h', especialidad);
+								perso = new Doctor(codigoDoc, cedula, nombre, telefono, direccion, 'd', 'h',
+										especialidad);
 							}
 
-							String contrasena = txtContra.getText();
-							Control.getInstance().regUserAndPass("Doctor", nombre, contrasena);
-							Clinica.getInstance().guardarDoctores();
+							String contrasena = txtContra.getText().toLowerCase();
+							if (contrasena.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Por favor, ingrese una contraseña", "Advertencia",
+										JOptionPane.WARNING_MESSAGE);
+								return;
+							}
 
+							String contrasena1 = txtContra.getText().toLowerCase();
+							Control.getInstance().regUserAndPass("Doctor", nombre.toLowerCase(), contrasena1);
+							Clinica.getInstance().guardarDoctores();
 						}
 						if (rdbSecretaria.isSelected()) {
 							if (rdbMujer.isSelected()) {
@@ -289,8 +325,15 @@ public class RegUsuario extends JDialog {
 								perso = new Secretaria(codigoSec, cedula, nombre, telefono, direccion, 's', 'h');
 							}
 
-							String contrasena = txtContra.getText();
-							Control.getInstance().regUserAndPass("Secretaria", nombre, contrasena);
+							String contrasena = txtContra.getText().toLowerCase();
+							if (contrasena.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Por favor, ingrese una contraseña", "Advertencia",
+										JOptionPane.WARNING_MESSAGE);
+								return;
+							}
+
+							String contrasena1 = txtContra.getText();
+							Control.getInstance().regUserAndPass("Secretaria", nombre, contrasena1);
 							Clinica.getInstance().guardarSecretarias();
 						}
 						if (rdbAdministrador.isSelected()) {
@@ -301,8 +344,15 @@ public class RegUsuario extends JDialog {
 								perso = new Administrador(codigoAdmin, cedula, nombre, telefono, direccion, 'a', 'h');
 							}
 
-							String contrasena = txtContra.getText();
-							Control.getInstance().regUserAndPass("Administrador", nombre, contrasena);
+							String contrasena = txtContra.getText().toLowerCase();
+							if (contrasena.isEmpty()) {
+								JOptionPane.showMessageDialog(null, "Por favor, ingrese una contraseña", "Advertencia",
+										JOptionPane.WARNING_MESSAGE);
+								return;
+							}
+
+							String contrasena1 = txtContra.getText();
+							Control.getInstance().regUserAndPass("Administrador", nombre, contrasena1);
 							Clinica.getInstance().guardarAdministradores();
 						}
 
@@ -310,16 +360,16 @@ public class RegUsuario extends JDialog {
 							JOptionPane.showMessageDialog(null, "debes seleccionar un tipo", "error",
 									JOptionPane.ERROR_MESSAGE);
 						}
-						
+
 						if (rdbDoctor.isSelected() || rdbSecretaria.isSelected() || rdbAdministrador.isSelected()) {
 							if (rdbDoctor.isSelected()) {
-								Clinica.getInstance().insertarDoctor(perso);	
+								Clinica.getInstance().insertarDoctor(perso);
 							}
 							if (rdbSecretaria.isSelected()) {
-								Clinica.getInstance().insertarSecre(perso);	
+								Clinica.getInstance().insertarSecre(perso);
 							}
 							if (rdbAdministrador.isSelected()) {
-								Clinica.getInstance().insertarAdmin(perso);	
+								Clinica.getInstance().insertarAdmin(perso);
 							}
 							JOptionPane.showMessageDialog(null, "Usuario registrado con éxito", "Información",
 									JOptionPane.INFORMATION_MESSAGE);
@@ -344,6 +394,7 @@ public class RegUsuario extends JDialog {
 			}
 		}
 	}
+
 	private void Abrir() {
 		txtNombre.setEditable(true);
 		txtCedula.setEditable(true);
@@ -351,7 +402,8 @@ public class RegUsuario extends JDialog {
 		txtTelefono.setEditable(true);
 		txtCedula.setEditable(false);
 	}
-	private void Block () {
+
+	private void Block() {
 		txtNombre.setEditable(false);
 		txtDireccion.setEditable(false);
 		txtTelefono.setEditable(false);
@@ -375,5 +427,16 @@ public class RegUsuario extends JDialog {
 		cmbEspecialidad.setEnabled(false);
 		txtContra.setEditable(false);
 		txtContra.setEnabled(false);
+	}
+
+	private MaskFormatter createCedulaFormatter() {
+		MaskFormatter formatter = null;
+		try {
+			formatter = new MaskFormatter("###-#######-#");
+			formatter.setPlaceholderCharacter('_');
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+		}
+		return formatter;
 	}
 }

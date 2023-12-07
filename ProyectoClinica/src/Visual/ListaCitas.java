@@ -29,14 +29,11 @@ public class ListaCitas extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private static DefaultTableModel model;
-    private static Object[] row;
-    private JButton cancelButton;
-    private JButton okButton;
-    private Cita cita= null;
+	private static Object[] row;
+	private JButton cancelButton;
+	private JButton okButton;
+	private Cita cita = null;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			ListaCitas dialog = new ListaCitas();
@@ -47,9 +44,6 @@ public class ListaCitas extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public ListaCitas() {
 		setModal(true);
 		setTitle("Listado de las citas");
@@ -63,14 +57,14 @@ public class ListaCitas extends JDialog {
 			scrollPane.setBounds(10, 11, 414, 206);
 			contentPanel.add(scrollPane);
 			{
-				String[] header = {"Código", "Persona", "Doctor","Fecha"};
-		        model = new DefaultTableModel();
-		        model.setColumnIdentifiers(header);
-		        table = new JTable();
-		        table.setModel(model);
-		        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		        table.setModel(model);
-		        scrollPane.setViewportView(table);
+				String[] header = { "Código", "Persona", "Doctor", "Fecha" };
+				model = new DefaultTableModel();
+				model.setColumnIdentifiers(header);
+				table = new JTable();
+				table.setModel(model);
+				table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				table.setModel(model);
+				scrollPane.setViewportView(table);
 			}
 		}
 		{
@@ -100,21 +94,21 @@ public class ListaCitas extends JDialog {
 			}
 		}
 		loadCitas();
-	} 
-	public static void loadCitas() {
-        model.setRowCount(0);
-        
-        for (Cita citas : Clinica.getInstance().getMisCitas()) {
-            row = new Object[model.getColumnCount()];
-            
-            row[0] = citas.getCodigoCita();
-            row[1] = citas.getPersona().getNombre();
-            row[2] = citas.getDoctor();
-            row[3]= citas.getFechaCita();
-            model.addRow(row);
-        	
-        }
-    }
+	}
 
+	public static void loadCitas() {
+		model.setRowCount(0);
+
+		for (Cita citas : Clinica.getInstance().getMisCitas()) {
+			row = new Object[model.getColumnCount()];
+
+			row[0] = citas.getCodigoCita();
+			row[1] = citas.getPersona().getNombre();
+			row[2] = citas.getDoctor();
+			row[3] = citas.getFechaCita();
+			model.addRow(row);
+
+		}
+	}
 
 }

@@ -26,7 +26,7 @@ public class ListadoEnfermedades extends JDialog {
 	private JTable table;
 	private static DefaultTableModel model;
 	private Object row[];
-	
+
 	public static void main(String[] args) {
 		try {
 			ListadoPaciente dialog = new ListadoPaciente();
@@ -37,9 +37,6 @@ public class ListadoEnfermedades extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public ListadoEnfermedades() {
 		setModal(true);
 		setTitle("Listado de Enfermedades");
@@ -86,15 +83,15 @@ public class ListadoEnfermedades extends JDialog {
 	}
 
 	private void cargarEnfermedades(int index) {
-		 model.setRowCount(0);
-	        
-	        for (Enfermedad secretaria : Clinica.getInstance().getMisEnfermedades()) {
-	        	row = new Object[model.getColumnCount()];
-	        		
-	            row[0] = secretaria.getCodigoEnfermedad();
-	            row[1] = secretaria.getNombre();
-	            row[2] = secretaria.getDescripcion();
-	            model.addRow(row);
-	        }
+		model.setRowCount(0);
+
+		for (Enfermedad secretaria : Clinica.getInstance().getMisEnfermedades()) {
+			row = new Object[model.getColumnCount()];
+
+			row[0] = secretaria.getCodigoEnfermedad();
+			row[1] = secretaria.getNombre();
+			row[2] = secretaria.getDescripcion();
+			model.addRow(row);
+		}
 	}
 }

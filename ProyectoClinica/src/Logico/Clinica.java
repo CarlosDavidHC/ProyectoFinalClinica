@@ -295,7 +295,6 @@ public class Clinica {
 			misPersonas.addAll(pacientes);
 
 			for (Paciente paciente : pacientes) {
-				// Extraer la parte numérica del código
 				String codigo = paciente.getCodigo().substring(2);
 
 				try {
@@ -304,15 +303,13 @@ public class Clinica {
 						GeneradorCodePaciente = codigoNumerico + 1;
 					}
 				} catch (NumberFormatException e) {
-					// Manejar la excepción de formato de número
 					System.out.println("Error al convertir el código a entero: " + paciente.getCodigo());
 					e.printStackTrace();
 				}
 			}
 		} catch (FileNotFoundException e) {
-			// El archivo no existe, puedes crearlo aquí si es necesario
 			System.out.println("El archivo pacientes.dat no existe. Creándolo...");
-			guardarPacientes(); // Agrega este método para crear el archivo secretarias.dat
+			guardarPacientes();
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -338,7 +335,6 @@ public class Clinica {
 			misPersonas.addAll(doctores);
 
 			for (Doctor doctor : doctores) {
-				// Extraer la parte numérica del código
 				String codigo = doctor.getCodigo().substring(2);
 
 				try {
@@ -347,15 +343,13 @@ public class Clinica {
 						GeneradorCodeDoctor = codigoNumerico + 1;
 					}
 				} catch (NumberFormatException e) {
-					// Manejar la excepción de formato de número
 					System.out.println("Error al convertir el código a entero: " + doctor.getCodigo());
 					e.printStackTrace();
 				}
 			}
 		} catch (FileNotFoundException e) {
-			// El archivo no existe, puedes crearlo aquí si es necesario
 			System.out.println("El archivo doctores.dat no existe. Creándolo...");
-			guardarSecretarias(); // Agrega este método para crear el archivo secretarias.dat
+			guardarDoctores();
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -381,7 +375,6 @@ public class Clinica {
 			misPersonas.addAll(secretarias);
 
 			for (Secretaria secre : secretarias) {
-				// Extraer la parte numérica del código
 				String codigo = secre.getCodigo().substring(2);
 
 				try {
@@ -390,15 +383,13 @@ public class Clinica {
 						GeneradorCodeSecretaria = codigoNumerico + 1;
 					}
 				} catch (NumberFormatException e) {
-					// Manejar la excepción de formato de número
 					System.out.println("Error al convertir el código a entero: " + secre.getCodigo());
 					e.printStackTrace();
 				}
 			}
 		} catch (FileNotFoundException e) {
-			// El archivo no existe, puedes crearlo aquí si es necesario
 			System.out.println("El archivo secretarias.dat no existe. Creándolo...");
-			guardarAdministradores(); // Agrega este método para crear el archivo secretarias.dat
+			guardarSecretarias();
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -424,7 +415,6 @@ public class Clinica {
 			misPersonas.addAll(administradores);
 
 			for (Administrador admin : administradores) {
-				// Extraer la parte numérica del código
 				String codigo = admin.getCodigo().substring(2);
 
 				try {
@@ -433,15 +423,13 @@ public class Clinica {
 						GeneradorCodeAdmin = codigoNumerico + 1;
 					}
 				} catch (NumberFormatException e) {
-					// Manejar la excepción de formato de número
 					System.out.println("Error al convertir el código a entero: " + admin.getCodigo());
 					e.printStackTrace();
 				}
 			}
 		} catch (FileNotFoundException e) {
-			// El archivo no existe, puedes crearlo aquí si es necesario
 			System.out.println("El archivo administradores.dat no existe. Creándolo...");
-			guardarAdministradores(); // Agrega este método para crear el archivo secretarias.dat
+			guardarAdministradores();
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -461,7 +449,6 @@ public class Clinica {
 			misViviendas.addAll(viviendas);
 
 			for (Viviendas vivienda : viviendas) {
-				// Extraer la parte numérica del código
 				String codigo = vivienda.getId().substring(2);
 
 				try {
@@ -470,15 +457,13 @@ public class Clinica {
 						GeneradorCodeVivienda = codigoNumerico + 1;
 					}
 				} catch (NumberFormatException e) {
-					// Manejar la excepción de formato de número
 					System.out.println("Error al convertir el código a entero: " + vivienda.getId());
 					e.printStackTrace();
 				}
 			}
 		} catch (FileNotFoundException e) {
-			// El archivo no existe, puedes crearlo aquí si es necesario
 			System.out.println("El archivo viviendas.dat no existe. Creándolo...");
-			guardarViviendas(); // Agrega este método para crear el archivo secretarias.dat
+			guardarViviendas();
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -492,14 +477,12 @@ public class Clinica {
 		}
 	}
 
-	// Método para cargar las citas desde un archivo
 	public void cargarCitas() {
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("citas.dat"))) {
 			ArrayList<Cita> citas = (ArrayList<Cita>) in.readObject();
 			misCitas.addAll(citas);
 
 			for (Cita cita : citas) {
-				// Extraer la parte numérica del código
 				String codigo = cita.getCodigoCita().substring(2);
 
 				try {
@@ -508,15 +491,13 @@ public class Clinica {
 						GeneradorCodeCita = codigoNumerico + 1;
 					}
 				} catch (NumberFormatException e) {
-					// Manejar la excepción de formato de número
 					System.out.println("Error al convertir el código a entero: " + cita.getCodigoCita());
 					e.printStackTrace();
 				}
 			}
 		} catch (FileNotFoundException e) {
-			// El archivo no existe, puedes crearlo aquí si es necesario
 			System.out.println("El archivo citas.dat no existe. Creándolo...");
-			guardarCitas(); // Agrega este método para crear el archivo secretarias.dat
+			guardarCitas();
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -530,14 +511,12 @@ public class Clinica {
 		}
 	}
 
-	// Método para cargar las citas desde un archivo
 	public void cargarHistoriales() {
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("historiales.dat"))) {
 			ArrayList<HistorialClinico> historiales = (ArrayList<HistorialClinico>) in.readObject();
 			misHistoriales.addAll(historiales);
 
 			for (HistorialClinico historial : historiales) {
-				// Extraer la parte numérica del código
 				String codigo = historial.getId().substring(2);
 
 				try {
@@ -546,15 +525,13 @@ public class Clinica {
 						GeneradorCodeHistorial = codigoNumerico + 1;
 					}
 				} catch (NumberFormatException e) {
-					// Manejar la excepción de formato de número
 					System.out.println("Error al convertir el código a entero: " + historial.getId());
 					e.printStackTrace();
 				}
 			}
 		} catch (FileNotFoundException e) {
-			// El archivo no existe, puedes crearlo aquí si es necesario
 			System.out.println("El archivo historiales.dat no existe. Creándolo...");
-			guardarHistoriales(); // Agrega este método para crear el archivo secretarias.dat
+			guardarHistoriales();
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -568,36 +545,31 @@ public class Clinica {
 		}
 	}
 
-	// Método para cargar las citas desde un archivo
 	public void cargarEnfermedad() {
-	    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("enfermedades.dat"))) {
-	        ArrayList<Enfermedad> enfermedades = (ArrayList<Enfermedad>) in.readObject();
-	        misEnfermedades.addAll(enfermedades);
+		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("enfermedades.dat"))) {
+			ArrayList<Enfermedad> enfermedades = (ArrayList<Enfermedad>) in.readObject();
+			misEnfermedades.addAll(enfermedades);
 
-	        for (Enfermedad enfermedad : enfermedades) {
-	            // Extraer la parte numérica del código
-	            String codigo = enfermedad.getCodigoEnfermedad().substring(2);
+			for (Enfermedad enfermedad : enfermedades) {
+				String codigo = enfermedad.getCodigoEnfermedad().substring(2);
 
-	            try {
-	                int codigoNumerico = Integer.parseInt(codigo);
-	                if (codigoNumerico >= GeneradorEnfermedad) {
-	                    GeneradorEnfermedad = codigoNumerico + 1;
-	                }
-	            } catch (NumberFormatException e) {
-	                // Manejar la excepción de formato de número
-	                System.out.println("Error al convertir el código a entero: " + enfermedad.getCodigoEnfermedad());
-	                e.printStackTrace();
-	            }
-	        }
-	    } catch (FileNotFoundException e) {
-	        // El archivo no existe, puedes crearlo aquí si es necesario
-	        System.out.println("El archivo enfermedades.dat no existe. Creándolo...");
-	        guardarEnfermedad();
-	    } catch (IOException | ClassNotFoundException e) {
-	        e.printStackTrace();
-	    }
+				try {
+					int codigoNumerico = Integer.parseInt(codigo);
+					if (codigoNumerico >= GeneradorEnfermedad) {
+						GeneradorEnfermedad = codigoNumerico + 1;
+					}
+				} catch (NumberFormatException e) {
+					System.out.println("Error al convertir el código a entero: " + enfermedad.getCodigoEnfermedad());
+					e.printStackTrace();
+				}
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("El archivo enfermedades.dat no existe. Creándolo...");
+			guardarEnfermedad();
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
-
 
 	public void guardarVacuna() {
 		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("vacunas.dat"))) {
@@ -607,14 +579,13 @@ public class Clinica {
 		}
 	}
 
-	// Método para cargar las citas desde un archivo
+
 	public void cargarVacuna() {
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("vacunas.dat"))) {
 			ArrayList<Vacuna> vacunas = (ArrayList<Vacuna>) in.readObject();
 			misVacunas.addAll(vacunas);
 
 			for (Vacuna vacuna : vacunas) {
-				// Extraer la parte numérica del código
 				String codigo = vacuna.getCodigo().substring(2);
 
 				try {
@@ -623,18 +594,41 @@ public class Clinica {
 						GeneradorVacuna = codigoNumerico + 1;
 					}
 				} catch (NumberFormatException e) {
-					// Manejar la excepción de formato de número
 					System.out.println("Error al convertir el código a entero: " + vacuna.getCodigo());
 					e.printStackTrace();
 				}
 			}
 		} catch (FileNotFoundException e) {
-			// El archivo no existe, puedes crearlo aquí si es necesario
 			System.out.println("El archivo vacunas.dat no existe. Creándolo...");
-			guardarVacuna(); // Agrega este método para crear el archivo secretarias.dat
+			guardarVacuna();
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean existeDireccion(String direccion) {
+		for (Viviendas vivienda : misViviendas) {
+			if (vivienda.getDireccion().equalsIgnoreCase(direccion)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public HistorialClinico buscarHistorialPorPaciente(Paciente nuevoPaciente) {
+		HistorialClinico historial = null;
+		int index = 0;
+		boolean encontrado = false;
+
+		while (index < misHistoriales.size() && !encontrado) {
+			if (misHistoriales.get(index).getMiPaciente().equals(nuevoPaciente)) {
+				historial = misHistoriales.get(index);
+				encontrado = true;
+			}
+			index++;
+		}
+
+		return historial;
 	}
 
 }

@@ -40,9 +40,6 @@ public class RegConsulta extends JDialog {
 	private DefaultListModel<String> listVacunaModel;
 	private JList listVacuna;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			RegConsulta dialog = new RegConsulta();
@@ -118,7 +115,6 @@ public class RegConsulta extends JDialog {
 		cmbCitas.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// Call a method to update the fields based on the selected Cita
 				actualizarCamposCitaSeleccionada();
 			}
 		});
@@ -150,7 +146,6 @@ public class RegConsulta extends JDialog {
 		JButton btnEnfermedad = new JButton("Agregar");
 		btnEnfermedad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Call a method to handle the addition of diseases to the list
 				agregarEnfermedadALista();
 			}
 		});
@@ -165,14 +160,14 @@ public class RegConsulta extends JDialog {
 		lblLista2.setBounds(287, 208, 76, 14);
 		contentPanel.add(lblLista2);
 
-        JButton btnVacuna = new JButton("Agregar");
-        btnVacuna.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                agregarVacunaALista();
-            }
-        });
-        btnVacuna.setBounds(373, 203, 97, 25);
-        contentPanel.add(btnVacuna);
+		JButton btnVacuna = new JButton("Agregar");
+		btnVacuna.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				agregarVacunaALista();
+			}
+		});
+		btnVacuna.setBounds(373, 203, 97, 25);
+		contentPanel.add(btnVacuna);
 
 		actualizarTodo();
 
@@ -189,18 +184,18 @@ public class RegConsulta extends JDialog {
 		listEnfermedad = new JList();
 		scrollPane.setViewportView(listEnfermedad);
 
-        JPanel panel_1 = new JPanel();
-        panel_1.setBounds(287, 241, 207, 117);
-        contentPanel.add(panel_1);
-        panel_1.setLayout(new BorderLayout(0, 0));
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(287, 241, 207, 117);
+		contentPanel.add(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
 
-        JScrollPane scrollPane_1 = new JScrollPane();
-        panel_1.add(scrollPane_1, BorderLayout.CENTER);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		panel_1.add(scrollPane_1, BorderLayout.CENTER);
 
-        listVacunaModel = new DefaultListModel<>();
+		listVacunaModel = new DefaultListModel<>();
 
-        listVacuna = new JList();
-        scrollPane_1.setViewportView(listVacuna);
+		listVacuna = new JList();
+		scrollPane_1.setViewportView(listVacuna);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(123, 381, 279, 140);
@@ -257,15 +252,11 @@ public class RegConsulta extends JDialog {
 	private void actualizarCamposCitaSeleccionada() {
 		String selectedCodigo = (String) cmbCitas.getSelectedItem();
 
-		// Verificar si la opción seleccionada es "<Seleccione>"
 		if ("<Seleccione>".equals(selectedCodigo)) {
-			// Restablecer los campos a valores predeterminados o realizar cualquier acción
-			// necesaria
 			txtFecha.setText("");
 			txtPaciente.setText("");
 			txtDoctor.setText("");
 		} else {
-			// Buscar la cita correspondiente al código en la lista de citas
 			Cita selectedCita = null;
 			for (Cita cita : Clinica.getInstance().getMisCitas()) {
 				if (cita.getCodigoCita().equals(selectedCodigo)) {
@@ -288,33 +279,29 @@ public class RegConsulta extends JDialog {
 		String selectedEnfermedad = (String) cmbEnfermedad.getSelectedItem();
 
 		if (!"<Seleccione>".equals(selectedEnfermedad)) {
-			// Add the selected disease to the DefaultListModel
 			listEnfermedadModel.addElement(selectedEnfermedad);
 
-			// Set the DefaultListModel to the JList
 			listEnfermedad.setModel(listEnfermedadModel);
 		}
 	}
-	
+
 	private void loadVacuna() {
 		cmbVacuna.removeAllItems();
 		cmbVacuna.addItem("<Seleccione>");
 
-		for (Vacuna vacuna: Clinica.getInstance().getMisVacunas()) {
+		for (Vacuna vacuna : Clinica.getInstance().getMisVacunas()) {
 			cmbVacuna.addItem(vacuna.getNombre());
 		}
 	}
-	
-    private void agregarVacunaALista() {
-        String selectedVacuna = (String) cmbVacuna.getSelectedItem();
 
-        if (!"<Seleccione>".equals(selectedVacuna)) {
-            // Add the selected vaccine to the DefaultListModel
-            listVacunaModel.addElement(selectedVacuna);
+	private void agregarVacunaALista() {
+		String selectedVacuna = (String) cmbVacuna.getSelectedItem();
 
-            // Set the DefaultListModel to the JList
-            listVacuna.setModel(listVacunaModel);
-        }
-    }
+		if (!"<Seleccione>".equals(selectedVacuna)) {
+			listVacunaModel.addElement(selectedVacuna);
+
+			listVacuna.setModel(listVacunaModel);
+		}
+	}
 
 }

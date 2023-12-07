@@ -25,9 +25,6 @@ public class RegEnfermedad extends JDialog {
 	private JButton cancelButton;
 	private JButton BtnGuardar;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			RegEnfermedad dialog = new RegEnfermedad();
@@ -38,9 +35,6 @@ public class RegEnfermedad extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public RegEnfermedad() {
 		setTitle("Registrar Enfermedad");
 		setBounds(100, 100, 355, 303);

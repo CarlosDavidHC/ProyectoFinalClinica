@@ -21,12 +21,10 @@ import java.awt.event.ActionEvent;
 
 public class ListadoPaciente extends JDialog {
 
-
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private static DefaultTableModel model;
 	private Object rowData[];
-
 
 	public static void main(String[] args) {
 		try {
@@ -37,7 +35,6 @@ public class ListadoPaciente extends JDialog {
 			e.printStackTrace();
 		}
 	}
-
 
 	public ListadoPaciente() {
 		setModal(true);

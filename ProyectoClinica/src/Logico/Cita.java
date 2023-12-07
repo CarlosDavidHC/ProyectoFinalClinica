@@ -61,13 +61,13 @@ public class Cita implements Serializable {
 	public void setEstado(char estado) {
 		this.estado = estado;
 	}
-	
-    public String getNombreDoctor() {
-        return nombreDoctor;
-    }
 
-    public void setNombreDoctor(String nombreDoctor) {
-        this.nombreDoctor = nombreDoctor;
-    }
+	public String getNombreDoctor() {
+		return nombreDoctor;
+	}
+
+	public void setNombreDoctor(String nombreDoctor) {
+		this.nombreDoctor = nombreDoctor;
+	}
 
 }

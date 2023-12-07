@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Logico.Cita;
 import Logico.Clinica;
 import Logico.HistorialClinico;
 
@@ -20,12 +21,10 @@ import java.awt.event.ActionEvent;
 
 public class ListarHistorial extends JDialog {
 
-
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private static DefaultTableModel model;
 	private Object rowData[];
-
 
 	public static void main(String[] args) {
 		try {
@@ -36,7 +35,6 @@ public class ListarHistorial extends JDialog {
 			e.printStackTrace();
 		}
 	}
-
 
 	public ListarHistorial() {
 		setModal(true);
@@ -85,17 +83,25 @@ public class ListarHistorial extends JDialog {
 	}
 
 	private void cargarDatosPacientes(int index) {
-	    model.setRowCount(0);
+		model.setRowCount(0);
 
-	    for (HistorialClinico histo : Clinica.getInstance().getMisHistoriales()) {
-	        rowData = new Object[model.getColumnCount()];
+		for (HistorialClinico histo : Clinica.getInstance().getMisHistoriales()) {
+			rowData = new Object[model.getColumnCount()];
 
-	        rowData[0] = histo.getId();
-	        rowData[1] = histo.getMiPaciente().getNombre();
-	        rowData[2] = histo.getMisCitas().size(); // Número de citas
+			rowData[0] = histo.getId();
+			rowData[1] = histo.getMiPaciente().getNombre();
 
-	        model.addRow(rowData);
-	    }
+			int numCitas = 0;
+			for (Cita cita : histo.getMisCitas()) {
+				if (cita.getPersona().equals(histo.getMiPaciente())) {
+					numCitas++;
+				}
+			}
+			rowData[2] = numCitas-1;
+
+
+			model.addRow(rowData);
+		}
 	}
 
 }

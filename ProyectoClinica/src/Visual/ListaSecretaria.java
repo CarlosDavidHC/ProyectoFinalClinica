@@ -25,14 +25,10 @@ public class ListaSecretaria extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private static DefaultTableModel model;
-    private static Object[] row;
-    private JButton cancelButton;
-    private JButton okButton;
-	
+	private static Object[] row;
+	private JButton cancelButton;
+	private JButton okButton;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			ListaSecretaria dialog = new ListaSecretaria();
@@ -43,9 +39,6 @@ public class ListaSecretaria extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public ListaSecretaria() {
 		setModal(true);
 		setTitle("Listado de Secretarias");
@@ -62,7 +55,7 @@ public class ListaSecretaria extends JDialog {
 				JButton okButton = new JButton("eliminar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -89,32 +82,33 @@ public class ListaSecretaria extends JDialog {
 				scrollPane.setBounds(10, 11, 413, 206);
 				panel.add(scrollPane);
 				{
-					String[] header = {"Código", "Nombre", "Telefono"};
-			        model = new DefaultTableModel();
-			        model.setColumnIdentifiers(header);
-			        table = new JTable();
-			        table.setModel(model);
-			        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			        table.setModel(model);
-			        scrollPane.setViewportView(table);
+					String[] header = { "Código", "Nombre", "Telefono" };
+					model = new DefaultTableModel();
+					model.setColumnIdentifiers(header);
+					table = new JTable();
+					table.setModel(model);
+					table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					table.setModel(model);
+					scrollPane.setViewportView(table);
 
 				}
 			}
 		}
-	loadSecretaria();
+		loadSecretaria();
 	}
+
 	public static void loadSecretaria() {
-        model.setRowCount(0);
-        
-        for (Persona secretaria : Clinica.getInstance().getmisPersonas()) {
-        	if(secretaria instanceof Secretaria) {
-        	row = new Object[model.getColumnCount()];
-        		
-            row[0] = secretaria.getCodigo();
-            row[1] = secretaria.getNombre();
-            row[2] = secretaria.getTelefono();
-            model.addRow(row);
-        	}
-        }
-    }
+		model.setRowCount(0);
+
+		for (Persona secretaria : Clinica.getInstance().getmisPersonas()) {
+			if (secretaria instanceof Secretaria) {
+				row = new Object[model.getColumnCount()];
+
+				row[0] = secretaria.getCodigo();
+				row[1] = secretaria.getNombre();
+				row[2] = secretaria.getTelefono();
+				model.addRow(row);
+			}
+		}
+	}
 }

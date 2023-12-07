@@ -70,5 +70,9 @@ public class HistorialClinico implements Serializable {
 	public void setMisVacunas(ArrayList<Vacuna> misVacunas) {
 		this.misVacunas = misVacunas;
 	}
+	
+    public void insertarCita(Cita cita) {
+        misCitas.add(cita);
+    }
 
 }

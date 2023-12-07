@@ -29,14 +29,11 @@ public class ListaDoctores extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private static DefaultTableModel model;
-    private static Object[] row;
-    private JButton cancelButton;
-    private JButton okButton;
-	private Doctor doc=null;
+	private static Object[] row;
+	private JButton cancelButton;
+	private JButton okButton;
+	private Doctor doc = null;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			ListaDoctores dialog = new ListaDoctores();
@@ -47,9 +44,6 @@ public class ListaDoctores extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public ListaDoctores() {
 		setModal(true);
 		setTitle("Listado de los Doctores");
@@ -62,14 +56,15 @@ public class ListaDoctores extends JDialog {
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setBounds(10, 11, 414, 206);
 			contentPanel.add(scrollPane);
-			{String[] header = {"Código", "Nombre", "Especialidad"};
-		        model = new DefaultTableModel();
-		        model.setColumnIdentifiers(header);
-		        table = new JTable();
-		        table.setModel(model);
-		        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		        table.setModel(model);
-		        scrollPane.setViewportView(table);
+			{
+				String[] header = { "Código", "Nombre", "Especialidad" };
+				model = new DefaultTableModel();
+				model.setColumnIdentifiers(header);
+				table = new JTable();
+				table.setModel(model);
+				table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				table.setModel(model);
+				scrollPane.setViewportView(table);
 
 			}
 		}
@@ -92,29 +87,29 @@ public class ListaDoctores extends JDialog {
 				cancelButton = new JButton("cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						 dispose();
-	                    }
-	                });
-	                cancelButton.setActionCommand("Cancel");
-	                buttonPane.add(cancelButton);
-	            }
-	        }
+						dispose();
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
 		loadDoctores();
 	}
-	
-	  public static void loadDoctores() {
-	        model.setRowCount(0);
-	        
-	        for (Persona doctor : Clinica.getInstance().getmisPersonas()) {
-	        	if(doctor instanceof Doctor) {
-	            row = new Object[model.getColumnCount()];
-	            
-	            row[0] = doctor.getCodigo();
-	            row[1] = doctor.getNombre();
-	            row[2] = ((Doctor) doctor).getEspecialidad();
-	            model.addRow(row);
-	        	}
-	        }
-	    }
+
+	public static void loadDoctores() {
+		model.setRowCount(0);
+
+		for (Persona doctor : Clinica.getInstance().getmisPersonas()) {
+			if (doctor instanceof Doctor) {
+				row = new Object[model.getColumnCount()];
+
+				row[0] = doctor.getCodigo();
+				row[1] = doctor.getNombre();
+				row[2] = ((Doctor) doctor).getEspecialidad();
+				model.addRow(row);
+			}
+		}
+	}
 
 }

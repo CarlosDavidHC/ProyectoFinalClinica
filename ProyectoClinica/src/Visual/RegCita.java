@@ -26,6 +26,8 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
@@ -44,7 +46,7 @@ public class RegCita extends JDialog {
 	private JRadioButton rdbtnDireccionExistente;
 	private JComboBox<Viviendas> cmbDirecciones;
 	private JButton btnBuscar;
-	private Persona auxPaciente;
+	private Persona auxPaciente = null;
 	private JButton cancelButton;
 	private JButton okButton;
 	private Viviendas viviendaSeleccionada;
@@ -109,6 +111,8 @@ public class RegCita extends JDialog {
 
 				auxPaciente = Clinica.getInstance().buscarPacienteByCedula(cedulaInput);
 				if (auxPaciente != null) {
+					JOptionPane.showMessageDialog(null, "Paciente encontrado", "Información",
+							JOptionPane.INFORMATION_MESSAGE);
 					loadDatospaciente(auxPaciente);
 					txtFecha.setEnabled(true);
 					String especialidad = (String) cobxEspecialidad.getSelectedItem();
@@ -135,7 +139,7 @@ public class RegCita extends JDialog {
 					txtFecha.setEnabled(true);
 					txtCedula.setEnabled(false);
 					cobxEspecialidad.setEnabled(true);
-					cobxDoctorEspecialidad.setEnabled(true);
+					cobxDoctorEspecialidad.setEnabled(false);
 
 					actualizarDirecciones();
 				}
@@ -151,6 +155,7 @@ public class RegCita extends JDialog {
 		try {
 			MaskFormatter mask = new MaskFormatter("##/##/####");
 			mask.setPlaceholderCharacter('_');
+			mask.setValidCharacters("0123456789");
 			txtFecha = new JFormattedTextField(mask);
 		} catch (java.text.ParseException e) {
 			e.printStackTrace();
@@ -183,7 +188,14 @@ public class RegCita extends JDialog {
 		panel_2.add(txtNombre);
 		txtNombre.setColumns(10);
 
-		txtTelefono = new JTextField();
+		try {
+			MaskFormatter telefonoMask = new MaskFormatter("###-###-####");
+			telefonoMask.setValidCharacters("0123456789");
+			txtTelefono = new JFormattedTextField(telefonoMask);
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+			txtTelefono = new JFormattedTextField();
+		}
 		txtTelefono.setEnabled(false);
 		txtTelefono.setBounds(88, 95, 164, 20);
 		panel_2.add(txtTelefono);
@@ -266,9 +278,11 @@ public class RegCita extends JDialog {
 					loadDoctoresPorEspecialidad(especialidadSeleccionada);
 				} else {
 					cobxDoctorEspecialidad.setEnabled(false);
+					cobxDoctorEspecialidad.removeAllItems();
 				}
 			}
 		});
+
 		cobxEspecialidad.setModel(new DefaultComboBoxModel(new String[] { "<Seleccione>", "Cardiolog\u00EDa",
 				"Dermatolog\u00EDa", "Endoscopia ", "Gastroenterolog\u00EDa", "Ginegolog\u00EDa", "Hematolog\u00EDa",
 				"Neumolog\u00EDa", "Ortopedia", "Oftalmolog\u00EDa", "Pediatr\u00EDa", "Psiquiatr\u00EDa General",
@@ -299,6 +313,24 @@ public class RegCita extends JDialog {
 							return;
 						}
 
+						if (txtTelefono.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Por favor, ingrese el número de teléfono",
+									"Advertencia", JOptionPane.WARNING_MESSAGE);
+							return;
+						}
+
+						if (txtFecha.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Por favor, ingrese la fecha de la cita", "Advertencia",
+									JOptionPane.WARNING_MESSAGE);
+							return;
+						}
+
+						if (!isValidDate(txtFecha.getText())) {
+							JOptionPane.showMessageDialog(null, "Por favor, ingrese una fecha válida", "Advertencia",
+									JOptionPane.WARNING_MESSAGE);
+							return;
+						}
+
 						if (rdbtnNuevaDireccion.isSelected() && txtDireccion.getText().isEmpty()) {
 							JOptionPane.showMessageDialog(null, "Por favor, ingrese la nueva dirección", "Advertencia",
 									JOptionPane.WARNING_MESSAGE);
@@ -307,9 +339,19 @@ public class RegCita extends JDialog {
 
 						if (rdbtnNuevaDireccion.isSelected()) {
 							String nuevaDireccion = txtDireccion.getText();
-							viviendaSeleccionada = new Viviendas("V-" + Clinica.GeneradorCodeVivienda, nuevaDireccion,
-									new ArrayList<>());
-							Clinica.getInstance().insertarVivienda(viviendaSeleccionada);
+
+							boolean direccionExistente = Clinica.getInstance().existeDireccion(nuevaDireccion);
+
+							if (!direccionExistente) {
+								viviendaSeleccionada = new Viviendas("V-" + Clinica.GeneradorCodeVivienda,
+										nuevaDireccion, new ArrayList<>());
+								Clinica.getInstance().insertarVivienda(viviendaSeleccionada);
+							} else {
+								JOptionPane.showMessageDialog(null,
+										"La dirección ya existe. Selecciona 'Dirección existente' en su lugar.",
+										"Advertencia", JOptionPane.WARNING_MESSAGE);
+								return;
+							}
 						} else if (rdbtnDireccionExistente.isSelected() && cmbDirecciones.getSelectedItem() != null) {
 							viviendaSeleccionada = (Viviendas) cmbDirecciones.getSelectedItem();
 						}
@@ -329,75 +371,95 @@ public class RegCita extends JDialog {
 							if (pacienteExistente != null) {
 								viviendaSeleccionada.getPersonaHospedada().add(pacienteExistente);
 							} else {
-								// Si no existe, crea un nuevo paciente y agrégalo a la vivienda
-								Paciente nuevoPaciente = new Paciente("P-" + Clinica.GeneradorCodePaciente,
-										txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
-										txtDireccion.getText(), 'p', rdbtnMujer.isSelected() ? 'M' : 'H', null);
+								if (rdbtnNuevaDireccion.isSelected()) {
+									Paciente nuevoPaciente = new Paciente("P-" + Clinica.GeneradorCodePaciente,
+											txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
+											txtDireccion.getText(), 'p', rdbtnMujer.isSelected() ? 'M' : 'H', null);
 
-								HistorialClinico historial = new HistorialClinico("H-" + Clinica.GeneradorCodeHistorial,
-										nuevoPaciente, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
-										new ArrayList<>());
+									HistorialClinico historial = new HistorialClinico(
+											"H-" + Clinica.GeneradorCodeHistorial, nuevoPaciente, new ArrayList<>(),
+											new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
-								auxPaciente = nuevoPaciente;
+									auxPaciente = nuevoPaciente;
 
-								nuevoPaciente.setHistorial(historial);
-								Clinica.getInstance().insertarHistorial(historial);
-								Clinica.getInstance().insertarPersona(nuevoPaciente);
+									nuevoPaciente.setHistorial(historial);
+									Clinica.getInstance().insertarHistorial(historial);
+									Clinica.getInstance().insertarPersona(nuevoPaciente);
 
-								// Agregar el nuevo paciente a la vivienda
-								viviendaSeleccionada.getPersonaHospedada().add(nuevoPaciente);
-							}
-						}
+									viviendaSeleccionada.getPersonaHospedada().add(nuevoPaciente);
+								} else if (rdbtnDireccionExistente.isSelected()) {
+									Paciente nuevoPaciente = new Paciente("P-" + Clinica.GeneradorCodePaciente,
+											txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
+											cmbDirecciones.getSelectedItem().toString(), 'p',
+											rdbtnMujer.isSelected() ? 'M' : 'H', null);
 
-						String especialidadSeleccionada = cobxEspecialidad.getSelectedItem().toString();
-						Doctor doctorSeleccionado = (Doctor) cobxDoctorEspecialidad.getSelectedItem();
+									HistorialClinico historial = new HistorialClinico(
+											"H-" + Clinica.GeneradorCodeHistorial, nuevoPaciente, new ArrayList<>(),
+											new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
-						Cita nuevaCita = new Cita("C-" + Clinica.GeneradorCodeCita, LocalDate.now(), auxPaciente, doctorSeleccionado, 'P');
-						nuevaCita.setNombreDoctor(doctorSeleccionado.getNombre());
+									auxPaciente = nuevoPaciente;
 
-						if (auxPaciente != null) {
-						    // Obtener o crear el HistorialClinico del paciente
-						    HistorialClinico historial = ((Paciente) auxPaciente).getHistorial();
-						    if (historial == null) {
-						        historial = new HistorialClinico("H-" + Clinica.GeneradorCodeHistorial, (Paciente) auxPaciente,
-						                new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-						        ((Paciente) auxPaciente).setHistorial(historial);
-						        Clinica.getInstance().insertarHistorial(historial);
-						    }
-							// Obtener la vivienda seleccionada
-							Viviendas viviendaSeleccionada = obtenerViviendaSeleccionada();
+									nuevoPaciente.setHistorial(historial);
+									Clinica.getInstance().insertarHistorial(historial);
+									Clinica.getInstance().insertarPersona(nuevoPaciente);
 
-							// Verificar si el paciente ya está hospedado en la vivienda
-							boolean pacienteYaHospedado = false;
-							for (Persona persona : viviendaSeleccionada.getPersonaHospedada()) {
-								if (persona instanceof Paciente
-										&& ((Paciente) persona).getCedula().equals(auxPaciente.getCedula())) {
-									pacienteYaHospedado = true;
-									break;
+									viviendaSeleccionada.getPersonaHospedada().add(nuevoPaciente);
 								}
 							}
 
-							// Si el paciente no está hospedado, agregarlo a la vivienda
-							if (!pacienteYaHospedado) {
-								viviendaSeleccionada.getPersonaHospedada().add(auxPaciente);
+							String especialidadSeleccionada = cobxEspecialidad.getSelectedItem().toString();
+							Doctor doctorSeleccionado = (Doctor) cobxDoctorEspecialidad.getSelectedItem();
+
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+							LocalDate fechaCita = LocalDate.parse(txtFecha.getText(), formatter);
+
+							Cita nuevaCita = new Cita("C-" + Clinica.GeneradorCodeCita, fechaCita, auxPaciente,
+									doctorSeleccionado, 'P');
+							nuevaCita.setNombreDoctor(doctorSeleccionado.getNombre());
+
+							if (auxPaciente != null) {
+								HistorialClinico historial = ((Paciente) auxPaciente).getHistorial();
+								if (historial == null) {
+									historial = new HistorialClinico("H-" + Clinica.GeneradorCodeHistorial,
+											(Paciente) auxPaciente, new ArrayList<>(), new ArrayList<>(),
+											new ArrayList<>(), new ArrayList<>());
+									((Paciente) auxPaciente).setHistorial(historial);
+									Clinica.getInstance().insertarHistorial(historial);
+								}
+
+								Viviendas viviendaSeleccionada = obtenerViviendaSeleccionada();
+
+								boolean pacienteYaHospedado = false;
+								String direccionPaciente = normalizarDireccion(auxPaciente.getDireccion());
+								for (Persona persona : viviendaSeleccionada.getPersonaHospedada()) {
+									if (persona instanceof Paciente
+											&& normalizarDireccion(((Paciente) persona).getDireccion())
+													.equals(direccionPaciente)) {
+										pacienteYaHospedado = true;
+										break;
+									}
+								}
+
+								if (!pacienteYaHospedado) {
+									viviendaSeleccionada.getPersonaHospedada().add(auxPaciente);
+								}
+
+								((Paciente) auxPaciente).getHistorial().getMisCitas().add(nuevaCita);
+								Clinica.getInstance().insertarCita(nuevaCita);
+
+								historial.insertarCita(nuevaCita);
+
+								JOptionPane.showMessageDialog(null, "Cita registrada con éxito", "Información",
+										JOptionPane.INFORMATION_MESSAGE);
+								Clinica.getInstance().guardarViviendas();
+								Clinica.getInstance().guardarHistoriales();
+								Clean();
+							} else {
+								JOptionPane.showMessageDialog(null, "No se encontró al paciente", "Advertencia",
+										JOptionPane.WARNING_MESSAGE);
 							}
 
-							// Resto de tu lógica para registrar la cita
-							((Paciente) auxPaciente).getHistorial().getMisCitas().add(nuevaCita);
-							Clinica.getInstance().insertarCita(nuevaCita);
-
-							// Otros pasos necesarios
-
-							JOptionPane.showMessageDialog(null, "Cita registrada con éxito", "Información",
-									JOptionPane.INFORMATION_MESSAGE);
-							Clinica.getInstance().guardarViviendas();
-							Clinica.getInstance().guardarHistoriales();
-							Clean();
-						} else {
-							JOptionPane.showMessageDialog(null, "No se encontró al paciente", "Advertencia",
-									JOptionPane.WARNING_MESSAGE);
 						}
-
 					}
 				});
 
@@ -427,9 +489,27 @@ public class RegCita extends JDialog {
 
 	public void loadDatospaciente(Persona c1) {
 		txtNombre.setText(c1.getNombre());
-		txtDireccion.setText(c1.getDireccion());
+		txtDireccion.setVisible(false);
+
+		rdbtnNuevaDireccion.setSelected(false);
+		rdbtnDireccionExistente.setSelected(true);
+
+		String direccionPaciente = c1.getDireccion();
+		loadDirecciones();
+		selectDireccionInComboBox(direccionPaciente);
+
 		txtTelefono.setText(c1.getTelefono());
 		txtCedula.setText(c1.getCedula());
+	}
+
+	private void selectDireccionInComboBox(String direccion) {
+		for (int i = 0; i < cmbDirecciones.getItemCount(); i++) {
+			Viviendas vivienda = cmbDirecciones.getItemAt(i);
+			if (vivienda.getDireccion().equalsIgnoreCase(direccion)) {
+				cmbDirecciones.setSelectedIndex(i);
+				break;
+			}
+		}
 	}
 
 	private void Clean() {
@@ -457,19 +537,28 @@ public class RegCita extends JDialog {
 		cobxEspecialidad.setSelectedItem("<Seleccione>");
 		cobxDoctorEspecialidad.setEnabled(false);
 		cmbDirecciones.setEnabled(false);
-		
+
 	}
 
 	private void loadDoctoresPorEspecialidad(String especialidad) {
 		cobxDoctorEspecialidad.removeAllItems();
+
+		boolean doctoresDisponibles = false;
 
 		for (Persona persona : Clinica.getInstance().getmisPersonas()) {
 			if (persona instanceof Doctor) {
 				Doctor doctor = (Doctor) persona;
 				if (doctor.getEspecialidad().equalsIgnoreCase(especialidad)) {
 					cobxDoctorEspecialidad.addItem(doctor);
+					doctoresDisponibles = true;
 				}
 			}
+		}
+
+		if (!doctoresDisponibles) {
+			JOptionPane.showMessageDialog(null, "No hay doctores disponibles para la especialidad seleccionada.",
+					"Advertencia", JOptionPane.WARNING_MESSAGE);
+
 		}
 	}
 
@@ -486,15 +575,26 @@ public class RegCita extends JDialog {
 
 	private Viviendas obtenerViviendaSeleccionada() {
 		if (rdbtnNuevaDireccion.isSelected()) {
-			// Si se selecciona nueva dirección, devuelve la vivienda creada
 			return viviendaSeleccionada;
 		} else if (rdbtnDireccionExistente.isSelected() && cmbDirecciones.getSelectedItem() != null) {
-			// Si se selecciona dirección existente, devuelve la vivienda seleccionada en el
-			// combo
 			return (Viviendas) cmbDirecciones.getSelectedItem();
 		} else {
-			// En caso contrario, devuelve null
 			return null;
 		}
 	}
+
+	private String normalizarDireccion(String direccion) {
+		return direccion.toLowerCase();
+	}
+
+	private boolean isValidDate(String dateString) {
+		try {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate.parse(dateString, formatter);
+			return true;
+		} catch (DateTimeParseException e) {
+			return false;
+		}
+	}
+
 }

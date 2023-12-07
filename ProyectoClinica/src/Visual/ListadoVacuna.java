@@ -32,9 +32,6 @@ public class ListadoVacuna extends JDialog {
 	private static DefaultTableModel model;
 	private Object rowData[];
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			ListadoVacuna dialog = new ListadoVacuna();
@@ -45,9 +42,6 @@ public class ListadoVacuna extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public ListadoVacuna() {
 		setModal(true);
 		setTitle("Listado de Vacunas");
@@ -56,23 +50,22 @@ public class ListadoVacuna extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 11, 414, 217);
 		contentPanel.add(scrollPane);
 		{
-			String[] header = {"Código", "Nombre", "Trata"};
-        model = new DefaultTableModel();
-        model.setColumnIdentifiers(header);
-        table = new JTable();
-       
-        table.setModel(model);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setModel(model);
-        scrollPane.setViewportView(table);
+			String[] header = { "Código", "Nombre", "Trata" };
+			model = new DefaultTableModel();
+			model.setColumnIdentifiers(header);
+			table = new JTable();
+
+			table.setModel(model);
+			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			table.setModel(model);
+			scrollPane.setViewportView(table);
 		}
-		
-		
+
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -96,18 +89,19 @@ public class ListadoVacuna extends JDialog {
 		}
 		loadVacuna();
 	}
+
 	private void loadVacuna() {
 		model.setRowCount(0);
 
 		for (Vacuna vacun : Clinica.getInstance().getMisVacunas()) {
-			
-				rowData = new Object[model.getColumnCount()];
 
-				rowData[0] = vacun.getCodigo();
-				rowData[1] = vacun.getNombre();
-				rowData[2] = vacun.getEnfermedad().getNombre();
+			rowData = new Object[model.getColumnCount()];
 
-				model.addRow(rowData);
+			rowData[0] = vacun.getCodigo();
+			rowData[1] = vacun.getNombre();
+			rowData[2] = vacun.getEnfermedad().getNombre();
+
+			model.addRow(rowData);
 		}
 	}
 }

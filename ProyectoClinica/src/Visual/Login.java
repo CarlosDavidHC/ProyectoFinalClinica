@@ -77,7 +77,6 @@ public class Login extends JFrame {
 		});
 	}
 
-
 	public Login() {
 		setResizable(false);
 		setTitle("Inicio de Sesi\u00F3n");

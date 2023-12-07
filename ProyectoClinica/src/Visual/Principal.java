@@ -58,36 +58,34 @@ public class Principal extends JFrame {
 				Clinica.getInstance().guardarHistoriales();
 				Clinica.getInstance().guardarEnfermedad();
 				Clinica.getInstance().guardarVacuna();
-				
-				// Guardar en el archivo
+
 				FileOutputStream clinica2;
 				ObjectOutputStream clinicaWrite;
 				try {
-				    clinica2 = new FileOutputStream("clinica.dat");
-				    clinicaWrite = new ObjectOutputStream(clinica2);
-				    clinicaWrite.writeObject(Control.getInstance());
-				    clinicaWrite.close();  // Cerrar el ObjectOutputStream
+					clinica2 = new FileOutputStream("clinica.dat");
+					clinicaWrite = new ObjectOutputStream(clinica2);
+					clinicaWrite.writeObject(Control.getInstance());
+					clinicaWrite.close();
 				} catch (FileNotFoundException e1) {
-				    e1.printStackTrace();
+					e1.printStackTrace();
 				} catch (IOException e1) {
-				    e1.printStackTrace();
+					e1.printStackTrace();
 				}
 
-				// Leer desde el archivo
 				FileInputStream fis;
 				ObjectInputStream ois;
 				try {
-				    fis = new FileInputStream("clinica.dat");
-				    ois = new ObjectInputStream(fis);
-				    Object obj = ois.readObject();
-				    if (obj instanceof Control) {
-				        Control.setControl((Control) obj);
-				    }
-				    ois.close();  // Cerrar el ObjectInputStream
+					fis = new FileInputStream("clinica.dat");
+					ois = new ObjectInputStream(fis);
+					Object obj = ois.readObject();
+					if (obj instanceof Control) {
+						Control.setControl((Control) obj);
+					}
+					ois.close();
 				} catch (FileNotFoundException e1) {
-				    e1.printStackTrace();
+					e1.printStackTrace();
 				} catch (IOException | ClassNotFoundException e1) {
-				    e1.printStackTrace();
+					e1.printStackTrace();
 				}
 
 			}
@@ -226,7 +224,7 @@ public class Principal extends JFrame {
 		JMenuItem mntmListVacunas = new JMenuItem("Listado Vacunas");
 		mntmListVacunas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListadoVacuna vacun= new ListadoVacuna();
+				ListadoVacuna vacun = new ListadoVacuna();
 				vacun.setModal(true);
 				vacun.setVisible(true);
 			}
