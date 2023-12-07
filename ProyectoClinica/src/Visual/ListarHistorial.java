@@ -28,7 +28,7 @@ public class ListarHistorial extends JDialog {
 
 	public static void main(String[] args) {
 		try {
-			ListadoPaciente dialog = new ListadoPaciente();
+			ListarHistorial dialog = new ListarHistorial();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -63,13 +63,7 @@ public class ListarHistorial extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Salir");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -92,13 +86,19 @@ public class ListarHistorial extends JDialog {
 			rowData[1] = histo.getMiPaciente().getNombre();
 
 			int numCitas = 0;
+			int numConsultas = 0;
 			for (Cita cita : histo.getMisCitas()) {
 				if (cita.getPersona().equals(histo.getMiPaciente())) {
 					numCitas++;
+					if (cita.getEstado() == 'a') {
+						numConsultas++;
+					}
 				}
 			}
-			rowData[2] = numCitas-1;
-
+			rowData[2] = numCitas;
+			rowData[3] = numConsultas;
+			rowData[4] = histo.getMisEnfermedades().size();
+			rowData[5] = histo.getMisVacunas().size();
 
 			model.addRow(rowData);
 		}

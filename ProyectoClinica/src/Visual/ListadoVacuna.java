@@ -27,7 +27,6 @@ public class ListadoVacuna extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
-	private JButton okButton;
 	private JButton cancelButton;
 	private static DefaultTableModel model;
 	private Object rowData[];
@@ -71,13 +70,7 @@ public class ListadoVacuna extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				cancelButton = new JButton("Cancel");
+				cancelButton = new JButton("Salir");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

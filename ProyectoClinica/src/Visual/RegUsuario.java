@@ -333,9 +333,9 @@ public class RegUsuario extends JDialog {
 							}
 
 							String contrasena1 = txtContra.getText();
-							Control.getInstance().regUserAndPass("Secretaria", nombre, contrasena1);
+							Control.getInstance().regUserAndPass("Secretaria", nombre.toLowerCase(), contrasena1);
 							Clinica.getInstance().guardarSecretarias();
-						}
+						} 
 						if (rdbAdministrador.isSelected()) {
 							if (rdbMujer.isSelected()) {
 								perso = new Administrador(codigoAdmin, cedula, nombre, telefono, direccion, 'a', 'm');
@@ -352,7 +352,7 @@ public class RegUsuario extends JDialog {
 							}
 
 							String contrasena1 = txtContra.getText();
-							Control.getInstance().regUserAndPass("Administrador", nombre, contrasena1);
+							Control.getInstance().regUserAndPass("Administrador", nombre.toLowerCase(), contrasena1);
 							Clinica.getInstance().guardarAdministradores();
 						}
 

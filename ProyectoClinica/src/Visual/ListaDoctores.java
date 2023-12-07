@@ -31,7 +31,6 @@ public class ListaDoctores extends JDialog {
 	private static DefaultTableModel model;
 	private static Object[] row;
 	private JButton cancelButton;
-	private JButton okButton;
 	private Doctor doc = null;
 
 	public static void main(String[] args) {
@@ -73,18 +72,7 @@ public class ListaDoctores extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				cancelButton = new JButton("cancel");
+				cancelButton = new JButton("Salir");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

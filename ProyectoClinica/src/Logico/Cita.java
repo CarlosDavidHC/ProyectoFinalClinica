@@ -70,4 +70,8 @@ public class Cita implements Serializable {
 		this.nombreDoctor = nombreDoctor;
 	}
 
+	public boolean estaPendiente() {
+		return estado == 'p';
+	}
+
 }

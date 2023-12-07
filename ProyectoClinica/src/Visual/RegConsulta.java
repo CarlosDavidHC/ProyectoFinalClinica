@@ -10,7 +10,12 @@ import javax.swing.border.EmptyBorder;
 
 import Logico.Cita;
 import Logico.Clinica;
+import Logico.Consulta;
+import Logico.Doctor;
 import Logico.Enfermedad;
+import Logico.HistorialClinico;
+import Logico.Paciente;
+import Logico.Persona;
 import Logico.Vacuna;
 import Logico.Viviendas;
 
@@ -20,8 +25,11 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -39,6 +47,9 @@ public class RegConsulta extends JDialog {
 	private JComboBox cmbVacuna;
 	private DefaultListModel<String> listVacunaModel;
 	private JList listVacuna;
+	private JRadioButton rdbtnObservacin;
+	private JRadioButton rdbtnCurado;
+	private JList listHistorial;
 
 	public static void main(String[] args) {
 		try {
@@ -115,7 +126,7 @@ public class RegConsulta extends JDialog {
 		cmbCitas.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				actualizarCamposCitaSeleccionada();
+				actualizarCamposCitaSeleccionada(); 
 			}
 		});
 		cmbCitas.setBounds(123, 27, 110, 20);
@@ -135,11 +146,21 @@ public class RegConsulta extends JDialog {
 		lblAtendido.setBounds(220, 532, 76, 19);
 		contentPanel.add(lblAtendido);
 
-		JRadioButton rdbtnCurado = new JRadioButton("Curado");
+		rdbtnCurado = new JRadioButton("Curado");
+		rdbtnCurado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnObservacin.setSelected(false);
+			}
+		});
 		rdbtnCurado.setBounds(305, 530, 76, 23);
 		contentPanel.add(rdbtnCurado);
 
-		JRadioButton rdbtnObservacin = new JRadioButton("Observaci\u00F3n");
+		rdbtnObservacin = new JRadioButton("Observaci\u00F3n");
+		rdbtnObservacin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnCurado.setSelected(false);
+			}
+		});
 		rdbtnObservacin.setBounds(385, 530, 109, 23);
 		contentPanel.add(rdbtnObservacin);
 
@@ -205,7 +226,7 @@ public class RegConsulta extends JDialog {
 		JScrollPane scrollPane_2 = new JScrollPane();
 		panel_2.add(scrollPane_2, BorderLayout.CENTER);
 
-		JList listHistorial = new JList();
+		listHistorial = new JList();
 		scrollPane_2.setViewportView(listHistorial);
 		{
 			JPanel buttonPane = new JPanel();
@@ -213,14 +234,20 @@ public class RegConsulta extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("registrar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						registrarConsulta();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cancelar");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						clean();
 						dispose();
 					}
 				});
@@ -235,8 +262,10 @@ public class RegConsulta extends JDialog {
 		cmbCitas.addItem("<Seleccione>");
 
 		for (Cita cita : Clinica.getInstance().getMisCitas()) {
-			String codigo = cita.getCodigoCita();
-			cmbCitas.addItem(codigo);
+			if (cita.estaPendiente()) {
+				String codigo = cita.getCodigoCita();
+				cmbCitas.addItem(codigo);
+			}
 		}
 	}
 
@@ -279,9 +308,13 @@ public class RegConsulta extends JDialog {
 		String selectedEnfermedad = (String) cmbEnfermedad.getSelectedItem();
 
 		if (!"<Seleccione>".equals(selectedEnfermedad)) {
-			listEnfermedadModel.addElement(selectedEnfermedad);
-
-			listEnfermedad.setModel(listEnfermedadModel);
+			if (!listEnfermedadModel.contains(selectedEnfermedad)) {
+				listEnfermedadModel.addElement(selectedEnfermedad);
+				listEnfermedad.setModel(listEnfermedadModel);
+			} else {
+				JOptionPane.showMessageDialog(null, "La enfermedad ya ha sido añadida", "Información",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 	}
 
@@ -298,10 +331,145 @@ public class RegConsulta extends JDialog {
 		String selectedVacuna = (String) cmbVacuna.getSelectedItem();
 
 		if (!"<Seleccione>".equals(selectedVacuna)) {
-			listVacunaModel.addElement(selectedVacuna);
-
-			listVacuna.setModel(listVacunaModel);
+			if (!listVacunaModel.contains(selectedVacuna)) {
+				listVacunaModel.addElement(selectedVacuna);
+				listVacuna.setModel(listVacunaModel);
+			} else {
+				JOptionPane.showMessageDialog(null, "La vacuna ya ha sido añadida", "Información",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
+	}
+
+	private void registrarConsulta() {
+		String selectedCodigo = (String) cmbCitas.getSelectedItem();
+
+		if ("<Seleccione>".equals(selectedCodigo)) {
+			JOptionPane.showMessageDialog(null, "Seleccione una cita", "Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		if (!rdbtnObservacin.isSelected() && !rdbtnCurado.isSelected()) {
+			JOptionPane.showMessageDialog(null, "Seleccione un diagnóstico (Observación o Curado)", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		Cita selectedCita = null;
+		for (Cita cita : Clinica.getInstance().getMisCitas()) {
+			if (cita.getCodigoCita().equals(selectedCodigo)) {
+				selectedCita = cita;
+				break;
+			}
+		}
+
+		if (selectedCita != null) {
+			Paciente paciente = (Paciente) selectedCita.getPersona();
+			Doctor doctor = selectedCita.getDoctor();
+			char atendido = rdbtnCurado.isSelected() ? 'c' : 'o'; // 'c' si está curado, 'o' si es observación
+			ArrayList<Enfermedad> enfermedades = obtenerEnfermedadesDeLista();
+			ArrayList<Vacuna> vacunas = obtenerVacunasDeLista();
+			HistorialClinico historialClinico = paciente.getHistorial();
+			Date fecha = new Date();
+			selectedCita.setEstado('a');
+			Clinica.getInstance().actualizarEstadoCita(selectedCita.getCodigoCita(), 'a');
+
+			Consulta nuevaConsulta = new Consulta(paciente, "C-" + Clinica.GeneradorCodeConsulta, doctor, atendido,
+					enfermedades, vacunas, historialClinico, fecha);
+
+			historialClinico.insertarConsulta(nuevaConsulta);
+			Clinica.getInstance().insertarConsulta(nuevaConsulta);
+
+			historialClinico.getMisEnfermedades().addAll(enfermedades);
+			historialClinico.getMisVacunas().addAll(vacunas);
+
+			actualizarHistorial(paciente);
+
+			clean();
+			actualizarTodo();
+			cmbCitas.setSelectedIndex(0);
+
+			JOptionPane.showMessageDialog(null, "Consulta registrada correctamente", "Información",
+					JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+
+	private ArrayList<Enfermedad> obtenerEnfermedadesDeLista() {
+		ArrayList<Enfermedad> enfermedades = new ArrayList<>();
+		for (int i = 0; i < listEnfermedadModel.getSize(); i++) {
+			String enfermedadNombre = listEnfermedadModel.getElementAt(i);
+			Enfermedad enfermedad = buscarEnfermedadPorNombre(enfermedadNombre);
+			if (enfermedad != null) {
+				enfermedades.add(enfermedad);
+			}
+		}
+		return enfermedades;
+	}
+
+	private ArrayList<Vacuna> obtenerVacunasDeLista() {
+		ArrayList<Vacuna> vacunas = new ArrayList<>();
+		for (int i = 0; i < listVacunaModel.getSize(); i++) {
+			String vacunaNombre = listVacunaModel.getElementAt(i);
+			Vacuna vacuna = buscarVacunaPorNombre(vacunaNombre);
+			if (vacuna != null) {
+				vacunas.add(vacuna);
+			}
+		}
+		return vacunas;
+	}
+
+	private Enfermedad buscarEnfermedadPorNombre(String nombre) {
+		for (Enfermedad enfermedad : Clinica.getInstance().getMisEnfermedades()) {
+			if (enfermedad.getNombre().equals(nombre)) {
+				return enfermedad;
+			}
+		}
+		return null;
+	}
+
+	private Vacuna buscarVacunaPorNombre(String nombre) {
+		for (Vacuna vacuna : Clinica.getInstance().getMisVacunas()) {
+			if (vacuna.getNombre().equals(nombre)) {
+				return vacuna;
+			}
+		}
+		return null;
+	}
+
+	private void actualizarHistorial(Paciente paciente) {
+		DefaultListModel<String> historialModel = new DefaultListModel<>();
+
+		for (Enfermedad enfermedad : paciente.getHistorial().getMisEnfermedades()) {
+			historialModel.addElement("Enfermedad: " + enfermedad.getNombre());
+		}
+
+		for (Vacuna vacuna : paciente.getHistorial().getMisVacunas()) {
+			historialModel.addElement("Vacuna: " + vacuna.getNombre());
+		}
+
+		listHistorial.setModel(historialModel);
+	}
+
+	private void clean() {
+		txtPaciente.setText("");
+		txtDoctor.setText("");
+		txtFecha.setText("");
+
+		listEnfermedadModel.clear();
+		listEnfermedad.setModel(listEnfermedadModel);
+
+		listVacunaModel.clear();
+		listVacuna.setModel(listVacunaModel);
+
+		DefaultListModel<String> historialModel = new DefaultListModel<>();
+		listHistorial.setModel(historialModel);
+
+		rdbtnObservacin.setSelected(false);
+		rdbtnCurado.setSelected(false);
+
+		cmbCitas.setSelectedIndex(0);
+		cmbEnfermedad.setSelectedIndex(0);
+		cmbVacuna.setSelectedIndex(0);
 	}
 
 }

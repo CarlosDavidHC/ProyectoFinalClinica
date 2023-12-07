@@ -376,14 +376,8 @@ public class RegCita extends JDialog {
 											txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
 											txtDireccion.getText(), 'p', rdbtnMujer.isSelected() ? 'M' : 'H', null);
 
-									HistorialClinico historial = new HistorialClinico(
-											"H-" + Clinica.GeneradorCodeHistorial, nuevoPaciente, new ArrayList<>(),
-											new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-
 									auxPaciente = nuevoPaciente;
 
-									nuevoPaciente.setHistorial(historial);
-									Clinica.getInstance().insertarHistorial(historial);
 									Clinica.getInstance().insertarPersona(nuevoPaciente);
 
 									viviendaSeleccionada.getPersonaHospedada().add(nuevoPaciente);
@@ -393,14 +387,8 @@ public class RegCita extends JDialog {
 											cmbDirecciones.getSelectedItem().toString(), 'p',
 											rdbtnMujer.isSelected() ? 'M' : 'H', null);
 
-									HistorialClinico historial = new HistorialClinico(
-											"H-" + Clinica.GeneradorCodeHistorial, nuevoPaciente, new ArrayList<>(),
-											new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-
 									auxPaciente = nuevoPaciente;
 
-									nuevoPaciente.setHistorial(historial);
-									Clinica.getInstance().insertarHistorial(historial);
 									Clinica.getInstance().insertarPersona(nuevoPaciente);
 
 									viviendaSeleccionada.getPersonaHospedada().add(nuevoPaciente);
@@ -414,7 +402,7 @@ public class RegCita extends JDialog {
 							LocalDate fechaCita = LocalDate.parse(txtFecha.getText(), formatter);
 
 							Cita nuevaCita = new Cita("C-" + Clinica.GeneradorCodeCita, fechaCita, auxPaciente,
-									doctorSeleccionado, 'P');
+									doctorSeleccionado, 'p');
 							nuevaCita.setNombreDoctor(doctorSeleccionado.getNombre());
 
 							if (auxPaciente != null) {
@@ -428,6 +416,7 @@ public class RegCita extends JDialog {
 								}
 
 								Viviendas viviendaSeleccionada = obtenerViviendaSeleccionada();
+								((Paciente) auxPaciente).getHistorial().insertarCita(nuevaCita);
 
 								boolean pacienteYaHospedado = false;
 								String direccionPaciente = normalizarDireccion(auxPaciente.getDireccion());
@@ -443,11 +432,7 @@ public class RegCita extends JDialog {
 								if (!pacienteYaHospedado) {
 									viviendaSeleccionada.getPersonaHospedada().add(auxPaciente);
 								}
-
-								((Paciente) auxPaciente).getHistorial().getMisCitas().add(nuevaCita);
 								Clinica.getInstance().insertarCita(nuevaCita);
-
-								historial.insertarCita(nuevaCita);
 
 								JOptionPane.showMessageDialog(null, "Cita registrada con éxito", "Información",
 										JOptionPane.INFORMATION_MESSAGE);

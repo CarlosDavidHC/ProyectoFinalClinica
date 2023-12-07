@@ -16,6 +16,7 @@ public class Clinica {
 	private ArrayList<Enfermedad> misEnfermedades;
 	private ArrayList<Vacuna> misVacunas;
 	private ArrayList<HistorialClinico> misHistoriales;
+	private ArrayList<Consulta> misConsultas;
 	private static Clinica clini = null;
 	public static int GeneradorCodeCita = 1;
 	public static int GeneradorCodePaciente = 1;
@@ -42,7 +43,9 @@ public class Clinica {
 		this.misEnfermedades = new ArrayList<>();
 		this.misVacunas = new ArrayList<>();
 		this.misHistoriales = new ArrayList<>();
+		this.misConsultas = new ArrayList<>();
 
+		cargarConsultas();
 		cargarPacientes();
 		cargarDoctores();
 		cargarSecretarias();
@@ -102,6 +105,20 @@ public class Clinica {
 		this.misHistoriales = misHistoriales;
 	}
 
+	public ArrayList<Consulta> getMisConsultas() {
+		return misConsultas;
+	}
+
+	public void setMisConsultas(ArrayList<Consulta> misConsultas) {
+		this.misConsultas = misConsultas;
+	}
+
+	public void insertarConsulta(Consulta consulta) {
+		misConsultas.add(consulta);
+		GeneradorCodeConsulta++;
+		guardarConsultas();
+	}
+
 	public void insertarPersona(Persona persona) {
 		misPersonas.add(persona);
 		GeneradorCodePaciente++;
@@ -142,16 +159,6 @@ public class Clinica {
 		misCitas.add(cita);
 		GeneradorCodeCita++;
 		guardarCitas();
-	}
-
-	public void eliminarCita(Cita cita) {
-		misCitas.remove(cita);
-	}
-
-	public void eliminarDoctor(Doctor doc) {
-		if (doc instanceof Doctor) {
-			misPersonas.remove(doc);
-		}
 	}
 
 	public Enfermedad buscaEnfermedad(String nombre) {
@@ -272,6 +279,44 @@ public class Clinica {
 			return admin;
 		} else {
 			return null;
+		}
+	}
+
+	public void cargarConsultas() {
+		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("consultas.dat"))) {
+			ArrayList<Consulta> consultas = (ArrayList<Consulta>) in.readObject();
+			misConsultas.addAll(consultas);
+
+			for (Consulta consulta : consultas) {
+				String codigo = consulta.getCodigoConsult().substring(2);
+
+				try {
+					int codigoNumerico = Integer.parseInt(codigo);
+					if (codigoNumerico >= GeneradorCodeConsulta) {
+						GeneradorCodeConsulta = codigoNumerico + 1;
+					}
+				} catch (NumberFormatException e) {
+					System.out.println("Error al convertir el código a entero: " + consulta.getCodigoConsult());
+					e.printStackTrace();
+				}
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("El archivo consulta.dat no existe. Creándolo...");
+			guardarConsultas();
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void guardarConsultas() {
+		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("consultas.dat"))) {
+			ArrayList<Consulta> consultas = new ArrayList<>();
+			for (Consulta consulta : misConsultas) {
+				consultas.add(consulta);
+			}
+			out.writeObject(consultas);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -579,7 +624,6 @@ public class Clinica {
 		}
 	}
 
-
 	public void cargarVacuna() {
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("vacunas.dat"))) {
 			ArrayList<Vacuna> vacunas = (ArrayList<Vacuna>) in.readObject();
@@ -629,6 +673,16 @@ public class Clinica {
 		}
 
 		return historial;
+	}
+
+	public void actualizarEstadoCita(String codigoCita, char nuevoEstado) {
+		for (Cita cita : misCitas) {
+			if (cita.getCodigoCita().equals(codigoCita)) {
+				cita.setEstado(nuevoEstado);
+				guardarCitas();
+				return;
+			}
+		}
 	}
 
 }

@@ -58,6 +58,7 @@ public class Principal extends JFrame {
 				Clinica.getInstance().guardarHistoriales();
 				Clinica.getInstance().guardarEnfermedad();
 				Clinica.getInstance().guardarVacuna();
+				Clinica.getInstance().guardarConsultas();
 
 				FileOutputStream clinica2;
 				ObjectOutputStream clinicaWrite;
@@ -91,8 +92,12 @@ public class Principal extends JFrame {
 			}
 		});
 
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setUndecorated(true);
+
 		setTitle("Clinica Cruz Roja");
-		setResizable(false);
+		setResizable(true);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 725, 525);
 
@@ -174,8 +179,15 @@ public class Principal extends JFrame {
 		});
 		mnConsulta.add(mntmRealizarConsulta);
 
-		JMenuItem mntmNewMenuItem = new JMenuItem("Listado Consultas");
-		mnConsulta.add(mntmNewMenuItem);
+		JMenuItem mntmListadoConsultas = new JMenuItem("Listado Consultas");
+		mntmListadoConsultas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListaConsultas listaConsulta = new ListaConsultas();
+				listaConsulta.setModal(true);
+				listaConsulta.setVisible(true);
+			}
+		});
+		mnConsulta.add(mntmListadoConsultas);
 
 		JMenuItem mntmHistoriales = new JMenuItem("Listado Historiales");
 		mnConsulta.add(mntmHistoriales);
@@ -268,11 +280,7 @@ public class Principal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
-		JLabel lblNewLabel = new JLabel("");
 		ImageIcon imageIcon = new ImageIcon(Principal.class.getResource("/Imagess/cruzDominicana.jpg"));
-		lblNewLabel.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(725, 425, Image.SCALE_SMOOTH)));
-		contentPane.add(lblNewLabel, BorderLayout.CENTER);
 
 		if (Control.getLoginUser().getTipo().equalsIgnoreCase("Administrador")) {
 			mnCitas.setEnabled(true);

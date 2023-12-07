@@ -74,5 +74,9 @@ public class HistorialClinico implements Serializable {
     public void insertarCita(Cita cita) {
         misCitas.add(cita);
     }
+    
+    public void insertarConsulta(Consulta consulta) {
+        misConsultas.add(consulta);
+    }
 
 }

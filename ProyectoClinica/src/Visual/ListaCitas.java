@@ -57,7 +57,7 @@ public class ListaCitas extends JDialog {
 			scrollPane.setBounds(10, 11, 414, 206);
 			contentPanel.add(scrollPane);
 			{
-				String[] header = { "Código", "Persona", "Doctor", "Fecha" };
+				String[] header = { "Código", "Persona", "Doctor", "Fecha", "Estado" };
 				model = new DefaultTableModel();
 				model.setColumnIdentifiers(header);
 				table = new JTable();
@@ -72,18 +72,7 @@ public class ListaCitas extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("cancel");
+				JButton cancelButton = new JButton("Salir");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
@@ -106,6 +95,7 @@ public class ListaCitas extends JDialog {
 			row[1] = citas.getPersona().getNombre();
 			row[2] = citas.getDoctor();
 			row[3] = citas.getFechaCita();
+			row[4] = citas.getEstado();
 			model.addRow(row);
 
 		}
