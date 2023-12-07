@@ -26,6 +26,7 @@ public class Clinica {
 	public static int GeneradorVacuna = 1;
 	public static int GeneradorCodeHistorial = 1;
 	public static int GeneradorCodeVivienda = 1;
+	public static int GeneradorCodeConsulta = 1;
 
 	public static Clinica getInstance() {
 		if (clini == null)

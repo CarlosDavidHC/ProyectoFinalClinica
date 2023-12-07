@@ -7,6 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Logico.Cita;
+import Logico.Clinica;
+import Logico.Viviendas;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -14,15 +19,17 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class RegConsulta extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField txtPaciente;
+	private JTextField txtDoctor;
+	private JTextField txtFecha;
+	private JComboBox cmbCitas;
 
 	/**
 	 * Launch the application.
@@ -31,147 +38,154 @@ public class RegConsulta extends JDialog {
 		try {
 			RegConsulta dialog = new RegConsulta();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
+	private void actualizarCitas() {
+		loadCitas();
+		cmbCitas.updateUI();
+	}
+
 	public RegConsulta() {
 		setTitle("Consulta");
-		setBounds(100, 100, 524, 679);
+		setBounds(100, 100, 524, 653);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Paciente:");
-		lblNewLabel.setBounds(12, 117, 64, 14);
-		contentPanel.add(lblNewLabel);
+		JLabel lblPaciente = new JLabel("Paciente:");
+		lblPaciente.setBounds(12, 74, 64, 14);
+		contentPanel.add(lblPaciente);
 
-		JLabel lblNewLabel_1 = new JLabel("Doctor:");
-		lblNewLabel_1.setBounds(12, 171, 46, 14);
-		contentPanel.add(lblNewLabel_1);
+		JLabel lblDoctor = new JLabel("Doctor:");
+		lblDoctor.setBounds(12, 128, 46, 14);
+		contentPanel.add(lblDoctor);
 
-		JLabel lblNewLabel_2 = new JLabel("Enfermedad:");
-		lblNewLabel_2.setBounds(12, 213, 76, 14);
-		contentPanel.add(lblNewLabel_2);
+		JLabel lblEnfermedad = new JLabel("Enfermedad:");
+		lblEnfermedad.setBounds(12, 170, 76, 14);
+		contentPanel.add(lblEnfermedad);
 
-		textField = new JTextField();
-		textField.setBounds(123, 117, 346, 20);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		txtPaciente = new JTextField();
+		txtPaciente.setEditable(false);
+		txtPaciente.setBounds(123, 74, 346, 20);
+		contentPanel.add(txtPaciente);
+		txtPaciente.setColumns(10);
 
-		textField_1 = new JTextField();
-		textField_1.setBounds(123, 168, 346, 20);
-		contentPanel.add(textField_1);
-		textField_1.setColumns(10);
+		txtDoctor = new JTextField();
+		txtDoctor.setEditable(false);
+		txtDoctor.setBounds(123, 125, 346, 20);
+		contentPanel.add(txtDoctor);
+		txtDoctor.setColumns(10);
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(123, 213, 110, 20);
-		contentPanel.add(comboBox);
+		JComboBox cmbEnfermedad = new JComboBox();
+		cmbEnfermedad.setBounds(123, 170, 110, 20);
+		contentPanel.add(cmbEnfermedad);
 
-		JLabel lblNewLabel_4 = new JLabel("Vacuna:");
-		lblNewLabel_4.setBounds(287, 216, 64, 14);
-		contentPanel.add(lblNewLabel_4);
+		JLabel lblVacuna = new JLabel("Vacuna:");
+		lblVacuna.setBounds(287, 173, 64, 14);
+		contentPanel.add(lblVacuna);
 
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(363, 213, 106, 20);
-		contentPanel.add(comboBox_1);
+		JComboBox cmbVacuna = new JComboBox();
+		cmbVacuna.setBounds(363, 170, 106, 20);
+		contentPanel.add(cmbVacuna);
 
 		JLabel lblNewLabel_5 = new JLabel("Historial cl\u00EDnico:");
-		lblNewLabel_5.setBounds(12, 414, 100, 14);
+		lblNewLabel_5.setBounds(12, 381, 100, 14);
 		contentPanel.add(lblNewLabel_5);
 
-		JLabel lblNewLabel_6 = new JLabel("Cita:");
-		lblNewLabel_6.setBounds(12, 70, 46, 14);
-		contentPanel.add(lblNewLabel_6);
+		JLabel lblCita = new JLabel("Cita:");
+		lblCita.setBounds(12, 27, 46, 14);
+		contentPanel.add(lblCita);
 
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(123, 70, 110, 20);
-		contentPanel.add(comboBox_2);
+		cmbCitas = new JComboBox();
+		cmbCitas.setModel(new DefaultComboBoxModel(new String[] { "<Seleccione>" }));
+		cmbCitas.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Call a method to update the fields based on the selected Cita
+				actualizarCamposCitaSeleccionada();
+			}
+		});
+		cmbCitas.setBounds(123, 27, 110, 20);
+		contentPanel.add(cmbCitas);
 
 		JLabel lblFecha = new JLabel("Fecha:");
-		lblFecha.setBounds(287, 70, 64, 14);
+		lblFecha.setBounds(287, 27, 64, 14);
 		contentPanel.add(lblFecha);
 
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(363, 67, 106, 20);
-		contentPanel.add(textField_2);
-
-		JLabel lblCdigo = new JLabel("C\u00F3digo:");
-		lblCdigo.setBounds(12, 26, 64, 14);
-		contentPanel.add(lblCdigo);
-
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(127, 23, 106, 20);
-		contentPanel.add(textField_3);
+		txtFecha = new JTextField();
+		txtFecha.setEditable(false);
+		txtFecha.setColumns(10);
+		txtFecha.setBounds(363, 24, 106, 20);
+		contentPanel.add(txtFecha);
 
 		JLabel lblAtendido = new JLabel("Diagnostico:");
-		lblAtendido.setBounds(224, 567, 76, 19);
+		lblAtendido.setBounds(220, 532, 76, 19);
 		contentPanel.add(lblAtendido);
 
 		JRadioButton rdbtnCurado = new JRadioButton("Curado");
-		rdbtnCurado.setBounds(309, 565, 76, 23);
+		rdbtnCurado.setBounds(305, 530, 76, 23);
 		contentPanel.add(rdbtnCurado);
 
 		JRadioButton rdbtnObservacin = new JRadioButton("Observaci\u00F3n");
-		rdbtnObservacin.setBounds(389, 565, 109, 23);
+		rdbtnObservacin.setBounds(385, 530, 109, 23);
 		contentPanel.add(rdbtnObservacin);
 
-		JButton btnNewButton = new JButton("Agregar");
-		btnNewButton.setBounds(136, 246, 97, 25);
-		contentPanel.add(btnNewButton);
+		JButton btnEnfermedad = new JButton("Agregar");
+		btnEnfermedad.setBounds(136, 203, 97, 25);
+		contentPanel.add(btnEnfermedad);
 
 		JLabel lblLista = new JLabel("Lista:");
-		lblLista.setBounds(12, 251, 76, 14);
+		lblLista.setBounds(12, 208, 76, 14);
 		contentPanel.add(lblLista);
 
-		JLabel label = new JLabel("Lista:");
-		label.setBounds(287, 251, 76, 14);
-		contentPanel.add(label);
+		JLabel lblLista2 = new JLabel("Lista:");
+		lblLista2.setBounds(287, 208, 76, 14);
+		contentPanel.add(lblLista2);
 
-		JButton button = new JButton("Agregar");
-		button.setBounds(373, 246, 97, 25);
-		contentPanel.add(button);
+		JButton btnVacuna = new JButton("Agregar");
+		btnVacuna.setBounds(373, 203, 97, 25);
+		contentPanel.add(btnVacuna);
+
+		actualizarCitas();
 
 		JPanel panel = new JPanel();
-		panel.setBounds(12, 284, 221, 117);
+		panel.setBounds(12, 241, 221, 117);
 		contentPanel.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane, BorderLayout.CENTER);
 
-		JList list = new JList();
-		scrollPane.setViewportView(list);
+		JList listEnfermedad = new JList();
+		scrollPane.setViewportView(listEnfermedad);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(287, 284, 207, 117);
+		panel_1.setBounds(287, 241, 207, 117);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panel_1.add(scrollPane_1, BorderLayout.CENTER);
 
-		JList list_1 = new JList();
-		scrollPane_1.setViewportView(list_1);
+		JList listVacuna = new JList();
+		scrollPane_1.setViewportView(listVacuna);
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(123, 414, 279, 140);
+		panel_2.setBounds(123, 381, 279, 140);
 		contentPanel.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane_2 = new JScrollPane();
 		panel_2.add(scrollPane_2, BorderLayout.CENTER);
 
-		JList list_2 = new JList();
-		scrollPane_2.setViewportView(list_2);
+		JList listHistorial = new JList();
+		scrollPane_2.setViewportView(listHistorial);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -194,4 +208,45 @@ public class RegConsulta extends JDialog {
 			}
 		}
 	}
+
+	private void loadCitas() {
+		cmbCitas.removeAllItems();
+		cmbCitas.addItem("<Seleccione>");
+
+		for (Cita cita : Clinica.getInstance().getMisCitas()) {
+			String codigo = cita.getCodigoCita();
+			cmbCitas.addItem(codigo);
+		}
+	}
+
+	private void actualizarCamposCitaSeleccionada() {
+		String selectedCodigo = (String) cmbCitas.getSelectedItem();
+
+		// Verificar si la opción seleccionada es "<Seleccione>"
+		if ("<Seleccione>".equals(selectedCodigo)) {
+			// Restablecer los campos a valores predeterminados o realizar cualquier acción
+			// necesaria
+			txtFecha.setText("");
+			txtPaciente.setText("");
+			txtDoctor.setText("");
+		} else {
+			// Buscar la cita correspondiente al código en la lista de citas
+			Cita selectedCita = null;
+			for (Cita cita : Clinica.getInstance().getMisCitas()) {
+				if (cita.getCodigoCita().equals(selectedCodigo)) {
+					selectedCita = cita;
+					break;
+				}
+			}
+
+			if (selectedCita != null) {
+				String fechaCitaStr = selectedCita.getFechaCita().toString();
+
+				txtFecha.setText(fechaCitaStr);
+				txtPaciente.setText(selectedCita.getPersona().getNombre());
+				txtDoctor.setText(selectedCita.getDoctor().getNombre());
+			}
+		}
+	}
+
 }

@@ -5,8 +5,10 @@ import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
 import Logico.Persona;
 import Logico.Viviendas;
@@ -20,8 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
-import javax.swing.JScrollPane;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
@@ -34,18 +34,17 @@ public class RegCita extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtCedula;
-	private JTextField txtFecha;
-	private JTextField nombre2;
-	private JTextField telefono2;
-	private JTextField direccion2;
+	private JFormattedTextField txtFecha;
+	private JTextField txtNombre;
+	private JTextField txtTelefono;
+	private JTextField txtDireccion;
 	private JRadioButton rdbtnMujer;
 	private JRadioButton rdbtnHombre;
 	private JRadioButton rdbtnNuevaDireccion;
 	private JRadioButton rdbtnDireccionExistente;
-	private JComboBox<Viviendas> direcciones;
+	private JComboBox<Viviendas> cmbDirecciones;
 	private JButton btnBuscar;
 	private Persona auxPaciente;
-	private Persona auxDoctor;
 	private JButton cancelButton;
 	private JButton okButton;
 	private Viviendas viviendaSeleccionada;
@@ -64,7 +63,7 @@ public class RegCita extends JDialog {
 
 	private void actualizarDirecciones() {
 		loadDirecciones();
-		direcciones.updateUI(); // Actualiza la interfaz del JComboBox
+		cmbDirecciones.updateUI();
 	}
 
 	public RegCita() {
@@ -75,111 +74,125 @@ public class RegCita extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Especialidades:");
-		lblNewLabel.setBounds(23, 230, 98, 16);
-		contentPanel.add(lblNewLabel);
+		JLabel lblEspecialidades = new JLabel("Especialidades:");
+		lblEspecialidades.setBounds(23, 230, 98, 16);
+		contentPanel.add(lblEspecialidades);
 
-		JLabel lblNewLabel_1 = new JLabel("Doctor:");
-		lblNewLabel_1.setBounds(343, 230, 78, 16);
-		contentPanel.add(lblNewLabel_1);
+		JLabel lblDoctor = new JLabel("Doctor:");
+		lblDoctor.setBounds(343, 230, 78, 16);
+		contentPanel.add(lblDoctor);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(10, 11, 544, 184);
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
 
-		txtCedula = new JTextField();
+		txtCedula = new JFormattedTextField(createCedulaFormatter());
 		txtCedula.setBounds(88, 11, 187, 20);
 		panel_2.add(txtCedula);
 		txtCedula.setColumns(10);
 
-		JLabel lblNewLabel_2 = new JLabel("C\u00E9dula:");
-		lblNewLabel_2.setBounds(10, 11, 56, 20);
-		panel_2.add(lblNewLabel_2);
+		JLabel lblCedula = new JLabel("C\u00E9dula:");
+		lblCedula.setBounds(10, 11, 56, 20);
+		panel_2.add(lblCedula);
 
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (txtCedula.getText().equalsIgnoreCase("_-__-")) {
-					JOptionPane.showMessageDialog(null, "Por favor, tiene que completar su cédula", "Advertencia",
-							JOptionPane.WARNING_MESSAGE);
-				} else {
-					auxPaciente = Clinica.getInstance().buscarPacienteByCedula(txtCedula.getText());
-					if (auxPaciente != null) {
-						loadDatospaciente(auxPaciente);
-						String especialidad = (String) cobxEspecialidad.getSelectedItem();
-						loadDoctoresPorEspecialidad(especialidad);
-						if (auxPaciente.getSexo() == 'M') {
-							rdbtnMujer.setSelected(true);
-						} else {
-							rdbtnHombre.setSelected(true);
-						}
-						cobxEspecialidad.setEnabled(true);
-						cobxDoctorEspecialidad.setEnabled(true);
-					} else {
-						JOptionPane.showMessageDialog(null, "¡Bienvenido! Tienes que completar tus datos",
-								"Informacion", JOptionPane.INFORMATION_MESSAGE);
-						nombre2.setEnabled(true);
-						direccion2.setEnabled(true);
-						telefono2.setEnabled(true);
-						rdbtnDireccionExistente.setEnabled(true);
-						rdbtnNuevaDireccion.setEnabled(true);
-						rdbtnMujer.setEnabled(true);
-						rdbtnHombre.setEnabled(true);
-						rdbtnNuevaDireccion.setSelected(true);
-						btnBuscar.setVisible(false);
-						txtFecha.setEnabled(true);
-						txtCedula.setEnabled(false);
-						cobxEspecialidad.setEnabled(true);
-						cobxDoctorEspecialidad.setEnabled(true);
+				String cedulaInput = txtCedula.getText().replaceAll("_", "");
 
-						actualizarDirecciones();
+				if (cedulaInput.length() != 13) {
+					JOptionPane.showMessageDialog(null, "Por favor, complete la cédula antes de buscar", "Advertencia",
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+
+				auxPaciente = Clinica.getInstance().buscarPacienteByCedula(cedulaInput);
+				if (auxPaciente != null) {
+					loadDatospaciente(auxPaciente);
+					String especialidad = (String) cobxEspecialidad.getSelectedItem();
+					loadDoctoresPorEspecialidad(especialidad);
+					if (auxPaciente.getSexo() == 'M') {
+						rdbtnMujer.setSelected(true);
+					} else {
+						rdbtnHombre.setSelected(true);
 					}
+					cobxEspecialidad.setEnabled(true);
+					cobxDoctorEspecialidad.setEnabled(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "¡Bienvenido! Tienes que completar tus datos", "Informacion",
+							JOptionPane.INFORMATION_MESSAGE);
+					txtNombre.setEnabled(true);
+					txtDireccion.setEnabled(true);
+					txtTelefono.setEnabled(true);
+					rdbtnDireccionExistente.setEnabled(true);
+					rdbtnNuevaDireccion.setEnabled(true);
+					rdbtnMujer.setEnabled(true);
+					rdbtnHombre.setEnabled(true);
+					rdbtnNuevaDireccion.setSelected(true);
+					btnBuscar.setVisible(false);
+					txtFecha.setEnabled(true);
+					txtCedula.setEnabled(false);
+					cobxEspecialidad.setEnabled(true);
+					cobxDoctorEspecialidad.setEnabled(true);
+
+					actualizarDirecciones();
 				}
 			}
 		});
 		btnBuscar.setBounds(287, 11, 89, 23);
 		panel_2.add(btnBuscar);
 
-		JLabel lblNewLabel_3 = new JLabel("Fecha:");
-		lblNewLabel_3.setBounds(388, 15, 46, 14);
-		panel_2.add(lblNewLabel_3);
+		JLabel lblFecha = new JLabel("Fecha:");
+		lblFecha.setBounds(388, 15, 46, 14);
+		panel_2.add(lblFecha);
 
-		txtFecha = new JTextField();
+		try {
+			MaskFormatter mask = new MaskFormatter("##/##/####");
+			mask.setPlaceholderCharacter('_');
+			txtFecha = new JFormattedTextField(mask);
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+			txtFecha = new JFormattedTextField();
+		}
+		txtFecha.setEnabled(false);
+		txtFecha.setBounds(446, 12, 86, 20);
+		panel_2.add(txtFecha);
+
 		txtFecha.setEnabled(false);
 		txtFecha.setBounds(446, 12, 86, 20);
 		panel_2.add(txtFecha);
 		txtFecha.setColumns(10);
 
-		JLabel lblNewLabel_4 = new JLabel("Nombre:");
-		lblNewLabel_4.setBounds(10, 59, 56, 14);
-		panel_2.add(lblNewLabel_4);
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(10, 59, 56, 14);
+		panel_2.add(lblNombre);
 
-		JLabel lblNewLabel_5 = new JLabel("Sexo:");
-		lblNewLabel_5.setBounds(10, 143, 33, 14);
-		panel_2.add(lblNewLabel_5);
+		JLabel lblSexo = new JLabel("Sexo:");
+		lblSexo.setBounds(10, 143, 33, 14);
+		panel_2.add(lblSexo);
 
-		JLabel lblNewLabel_6 = new JLabel("Telefono:");
-		lblNewLabel_6.setBounds(10, 98, 66, 14);
-		panel_2.add(lblNewLabel_6);
+		JLabel lblTelefono = new JLabel("Telefono:");
+		lblTelefono.setBounds(10, 98, 66, 14);
+		panel_2.add(lblTelefono);
 
-		nombre2 = new JTextField();
-		nombre2.setEnabled(false);
-		nombre2.setBounds(88, 56, 418, 20);
-		panel_2.add(nombre2);
-		nombre2.setColumns(10);
+		txtNombre = new JTextField();
+		txtNombre.setEnabled(false);
+		txtNombre.setBounds(88, 56, 418, 20);
+		panel_2.add(txtNombre);
+		txtNombre.setColumns(10);
 
-		telefono2 = new JTextField();
-		telefono2.setEnabled(false);
-		telefono2.setBounds(88, 95, 164, 20);
-		panel_2.add(telefono2);
-		telefono2.setColumns(10);
+		txtTelefono = new JTextField();
+		txtTelefono.setEnabled(false);
+		txtTelefono.setBounds(88, 95, 164, 20);
+		panel_2.add(txtTelefono);
+		txtTelefono.setColumns(10);
 
-		direccion2 = new JTextField();
-		direccion2.setEnabled(false);
-		direccion2.setBounds(264, 130, 242, 40);
-		panel_2.add(direccion2);
-		direccion2.setColumns(10);
+		txtDireccion = new JTextField();
+		txtDireccion.setEnabled(false);
+		txtDireccion.setBounds(264, 130, 242, 40);
+		panel_2.add(txtDireccion);
+		txtDireccion.setColumns(10);
 
 		rdbtnMujer = new JRadioButton("Mujer");
 		rdbtnMujer.addActionListener(new ActionListener() {
@@ -210,10 +223,10 @@ public class RegCita extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				if (rdbtnNuevaDireccion.isSelected()) {
 					rdbtnDireccionExistente.setSelected(false);
-					direccion2.setVisible(true);
-					direccion2.setEnabled(true);
-					direcciones.setEnabled(false);
-					direcciones.setVisible(false);
+					txtDireccion.setVisible(true);
+					txtDireccion.setEnabled(true);
+					cmbDirecciones.setEnabled(false);
+					cmbDirecciones.setVisible(false);
 				}
 			}
 		});
@@ -226,10 +239,10 @@ public class RegCita extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				if (rdbtnDireccionExistente.isSelected()) {
 					rdbtnNuevaDireccion.setSelected(false);
-					direcciones.setVisible(true);
-					direcciones.setEnabled(true);
-					direccion2.setEnabled(false);
-					direccion2.setVisible(false);
+					cmbDirecciones.setVisible(true);
+					cmbDirecciones.setEnabled(true);
+					txtDireccion.setEnabled(false);
+					txtDireccion.setVisible(false);
 				}
 			}
 		});
@@ -237,10 +250,10 @@ public class RegCita extends JDialog {
 		rdbtnDireccionExistente.setBounds(387, 98, 145, 23);
 		panel_2.add(rdbtnDireccionExistente);
 
-		direcciones = new JComboBox<Viviendas>();
-		direcciones.setBounds(264, 130, 242, 40);
-		panel_2.add(direcciones);
-		direcciones.setEnabled(false);
+		cmbDirecciones = new JComboBox<Viviendas>();
+		cmbDirecciones.setBounds(264, 130, 242, 40);
+		panel_2.add(cmbDirecciones);
+		cmbDirecciones.setEnabled(false);
 
 		cobxEspecialidad = new JComboBox();
 		cobxEspecialidad.setEnabled(false);
@@ -255,7 +268,10 @@ public class RegCita extends JDialog {
 				}
 			}
 		});
-		cobxEspecialidad.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Cardiolog\u00EDa", "Dermatolog\u00EDa", "Endoscopia ", "Gastroenterolog\u00EDa", "Ginegolog\u00EDa", "Hematolog\u00EDa", "Neumolog\u00EDa", "Ortopedia", "Oftalmolog\u00EDa", "Pediatr\u00EDa", "Psiquiatr\u00EDa General", "Radiolog\u00EDa", "Cardiolog\u00EDa", "Hematolog\u00EDa"}));
+		cobxEspecialidad.setModel(new DefaultComboBoxModel(new String[] { "<Seleccione>", "Cardiolog\u00EDa",
+				"Dermatolog\u00EDa", "Endoscopia ", "Gastroenterolog\u00EDa", "Ginegolog\u00EDa", "Hematolog\u00EDa",
+				"Neumolog\u00EDa", "Ortopedia", "Oftalmolog\u00EDa", "Pediatr\u00EDa", "Psiquiatr\u00EDa General",
+				"Radiolog\u00EDa", "Cardiolog\u00EDa", "Hematolog\u00EDa" }));
 		cobxEspecialidad.setBounds(117, 228, 153, 20);
 		contentPanel.add(cobxEspecialidad);
 
@@ -272,57 +288,108 @@ public class RegCita extends JDialog {
 				okButton = new JButton("Registrar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if (txtCedula.getText().equalsIgnoreCase("_-__-") || txtFecha.getText().isEmpty()) {
+						if (txtCedula.getText().equalsIgnoreCase("_-__-") || txtFecha.getText().isEmpty()
+								|| txtNombre.getText().isEmpty() || txtTelefono.getText().isEmpty()
+								|| cobxEspecialidad.getSelectedItem().toString().equals("<Seleccione>")
+								|| cobxDoctorEspecialidad.getSelectedItem() == null
+								|| (!rdbtnNuevaDireccion.isSelected() && !rdbtnDireccionExistente.isSelected())) {
 							JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos necesarios",
 									"Advertencia", JOptionPane.WARNING_MESSAGE);
 							return;
 						}
 
+						if (rdbtnNuevaDireccion.isSelected() && txtDireccion.getText().isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Por favor, ingrese la nueva dirección", "Advertencia",
+									JOptionPane.WARNING_MESSAGE);
+							return;
+						}
+
 						if (rdbtnNuevaDireccion.isSelected()) {
-							String nuevaDireccion = direccion2.getText();
+							String nuevaDireccion = txtDireccion.getText();
 							viviendaSeleccionada = new Viviendas("V-" + Clinica.GeneradorCodeVivienda, nuevaDireccion,
 									new ArrayList<>());
 							Clinica.getInstance().insertarVivienda(viviendaSeleccionada);
-						} else if (rdbtnDireccionExistente.isSelected() && direcciones.getSelectedItem() != null) {
-							// Obtener la vivienda seleccionada del JComboBox
-							viviendaSeleccionada = (Viviendas) direcciones.getSelectedItem();
+						} else if (rdbtnDireccionExistente.isSelected() && cmbDirecciones.getSelectedItem() != null) {
+							viviendaSeleccionada = (Viviendas) cmbDirecciones.getSelectedItem();
 						}
 
-						Persona persona = null;
-						if (auxPaciente == null) {
-							persona = new Paciente("P-" + Clinica.GeneradorCodePaciente, txtCedula.getText(),
-									nombre2.getText(), telefono2.getText(), direccion2.getText(), 'p',
-									rdbtnMujer.isSelected() ? 'M' : 'H', null);
+						if (viviendaSeleccionada != null) {
+							Paciente pacienteExistente = null;
+							for (Persona persona : viviendaSeleccionada.getPersonaHospedada()) {
+								if (persona instanceof Paciente) {
+									Paciente paciente = (Paciente) persona;
+									if (paciente.getDireccion().equalsIgnoreCase(txtDireccion.getText())) {
+										pacienteExistente = paciente;
+										break;
+									}
+								}
+							}
 
-							HistorialClinico historial = new HistorialClinico("H-" + Clinica.GeneradorCodeHistorial,
-									(Paciente) persona, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
-									new ArrayList<>());
+							if (pacienteExistente != null) {
+								viviendaSeleccionada.getPersonaHospedada().add(pacienteExistente);
+							} else {
+								// Si no existe, crea un nuevo paciente y agrégalo a la vivienda
+								Paciente nuevoPaciente = new Paciente("P-" + Clinica.GeneradorCodePaciente,
+										txtCedula.getText(), txtNombre.getText(), txtTelefono.getText(),
+										txtDireccion.getText(), 'p', rdbtnMujer.isSelected() ? 'M' : 'H', null);
 
-							((Paciente) persona).setHistorial(historial);
-							Clinica.getInstance().insertarHistorial(historial);
-							Clinica.getInstance().insertarPersona(persona);
-						} else {
-							persona = auxPaciente;
+								HistorialClinico historial = new HistorialClinico("H-" + Clinica.GeneradorCodeHistorial,
+										nuevoPaciente, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
+										new ArrayList<>());
+
+								auxPaciente = nuevoPaciente;
+
+								nuevoPaciente.setHistorial(historial);
+								Clinica.getInstance().insertarHistorial(historial);
+								Clinica.getInstance().insertarPersona(nuevoPaciente);
+
+								// Agregar el nuevo paciente a la vivienda
+								viviendaSeleccionada.getPersonaHospedada().add(nuevoPaciente);
+							}
 						}
 
-				        String especialidadSeleccionada = cobxEspecialidad.getSelectedItem().toString();
-				        Doctor doctorSeleccionado = (Doctor) cobxDoctorEspecialidad.getSelectedItem();
-						
-						Cita nuevaCita = new Cita("C-" + Clinica.GeneradorCodeCita, LocalDate.now(), persona,
+						String especialidadSeleccionada = cobxEspecialidad.getSelectedItem().toString();
+						Doctor doctorSeleccionado = (Doctor) cobxDoctorEspecialidad.getSelectedItem();
+
+						Cita nuevaCita = new Cita("C-" + Clinica.GeneradorCodeCita, LocalDate.now(), auxPaciente,
 								doctorSeleccionado, 'P');
 						nuevaCita.setNombreDoctor(doctorSeleccionado.getNombre());
-						
-						((Paciente) persona).getHistorial().getMisCitas().add(nuevaCita);
-						Clinica.getInstance().insertarCita(nuevaCita);
-						JOptionPane.showMessageDialog(null, "Cita registrada con éxito", "Información",
-								JOptionPane.INFORMATION_MESSAGE);
-						if (viviendaSeleccionada != null) {
-							viviendaSeleccionada.getPersonaHospedada().add((Paciente) persona);
+
+						if (auxPaciente != null) {
+							// Obtener la vivienda seleccionada
+							Viviendas viviendaSeleccionada = obtenerViviendaSeleccionada();
+
+							// Verificar si el paciente ya está hospedado en la vivienda
+							boolean pacienteYaHospedado = false;
+							for (Persona persona : viviendaSeleccionada.getPersonaHospedada()) {
+								if (persona instanceof Paciente
+										&& ((Paciente) persona).getCedula().equals(auxPaciente.getCedula())) {
+									pacienteYaHospedado = true;
+									break;
+								}
+							}
+
+							// Si el paciente no está hospedado, agregarlo a la vivienda
+							if (!pacienteYaHospedado) {
+								viviendaSeleccionada.getPersonaHospedada().add(auxPaciente);
+							}
+
+							// Resto de tu lógica para registrar la cita
+							((Paciente) auxPaciente).getHistorial().getMisCitas().add(nuevaCita);
+							Clinica.getInstance().insertarCita(nuevaCita);
+
+							// Otros pasos necesarios
+
+							JOptionPane.showMessageDialog(null, "Cita registrada con éxito", "Información",
+									JOptionPane.INFORMATION_MESSAGE);
+							Clinica.getInstance().guardarViviendas();
+							Clinica.getInstance().guardarHistoriales();
+							Clean();
+						} else {
+							JOptionPane.showMessageDialog(null, "No se encontró al paciente", "Advertencia",
+									JOptionPane.WARNING_MESSAGE);
 						}
-						Clinica.getInstance().guardarViviendas();
-						Clinica.getInstance().guardarHistoriales();
-						
-						Clean();
+
 					}
 				});
 
@@ -344,28 +411,28 @@ public class RegCita extends JDialog {
 	}
 
 	private void loadDirecciones() {
-		direcciones.removeAllItems();
+		cmbDirecciones.removeAllItems();
 		for (Viviendas vivienda : Clinica.getInstance().getMisViviendas()) {
-			direcciones.addItem(vivienda);
+			cmbDirecciones.addItem(vivienda);
 		}
 	}
 
 	public void loadDatospaciente(Persona c1) {
-		nombre2.setText(c1.getNombre());
-		direccion2.setText(c1.getDireccion());
-		telefono2.setText(c1.getTelefono());
+		txtNombre.setText(c1.getNombre());
+		txtDireccion.setText(c1.getDireccion());
+		txtTelefono.setText(c1.getTelefono());
 		txtCedula.setText(c1.getCedula());
 	}
 
 	private void Clean() {
 		txtCedula.setEnabled(true);
 		txtCedula.setText("");
-		nombre2.setEnabled(false);
-		nombre2.setText("");
-		direccion2.setEnabled(false);
-		direccion2.setText("");
-		telefono2.setEnabled(false);
-		telefono2.setText("");
+		txtNombre.setEnabled(false);
+		txtNombre.setText("");
+		txtDireccion.setEnabled(false);
+		txtDireccion.setText("");
+		txtTelefono.setEnabled(false);
+		txtTelefono.setText("");
 		rdbtnDireccionExistente.setEnabled(false);
 		rdbtnDireccionExistente.setSelected(false);
 		rdbtnNuevaDireccion.setEnabled(false);
@@ -381,6 +448,8 @@ public class RegCita extends JDialog {
 		cobxEspecialidad.setEnabled(false);
 		cobxEspecialidad.setSelectedItem("<Seleccione>");
 		cobxDoctorEspecialidad.setEnabled(false);
+		cmbDirecciones.setEnabled(false);
+		
 	}
 
 	private void loadDoctoresPorEspecialidad(String especialidad) {
@@ -393,6 +462,31 @@ public class RegCita extends JDialog {
 					cobxDoctorEspecialidad.addItem(doctor);
 				}
 			}
+		}
+	}
+
+	private MaskFormatter createCedulaFormatter() {
+		MaskFormatter formatter = null;
+		try {
+			formatter = new MaskFormatter("###-#######-#");
+			formatter.setPlaceholderCharacter('_');
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+		}
+		return formatter;
+	}
+
+	private Viviendas obtenerViviendaSeleccionada() {
+		if (rdbtnNuevaDireccion.isSelected()) {
+			// Si se selecciona nueva dirección, devuelve la vivienda creada
+			return viviendaSeleccionada;
+		} else if (rdbtnDireccionExistente.isSelected() && cmbDirecciones.getSelectedItem() != null) {
+			// Si se selecciona dirección existente, devuelve la vivienda seleccionada en el
+			// combo
+			return (Viviendas) cmbDirecciones.getSelectedItem();
+		} else {
+			// En caso contrario, devuelve null
+			return null;
 		}
 	}
 }
